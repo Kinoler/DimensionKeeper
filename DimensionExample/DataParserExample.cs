@@ -112,7 +112,7 @@ namespace TestMod.DimensionExample
                 }
             }
 
-            return new DimensionExample(stampTiles);
+            return new DimensionExample(){Tiles = stampTiles};
         }
     }
 }
