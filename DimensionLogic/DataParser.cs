@@ -1,43 +1,93 @@
-﻿namespace TestMod.DimensionLogic
+﻿using System.Xml;
+using Terraria;
+using Terraria.Map;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+
+namespace TestMod.DimensionLogic
 {
     public abstract class DataParser
     {
-        private Dimension CachedDimension { get; set; }
+        private Dimension _cachedDimension;
 
-        public virtual bool AlwaysNew => false;
+        internal TagCompound TagToSave { get; set; }
 
-        internal Dimension GetDimension()
+        internal Dimension GetDimension(string name)
         {
-            if (CachedDimension == null || AlwaysNew)
+            if (AlwaysNewInternal || _cachedDimension == null)
             {
-                CachedDimension = LoadInternal();
+                _cachedDimension = LoadInternal(name);
             }
 
-            return CachedDimension;
+            return _cachedDimension;
         }
 
-        internal abstract Dimension LoadInternal();
-        internal abstract void Save(Dimension dimension);
+        internal abstract bool AlwaysNewInternal { get; set; }
+
+        internal abstract Dimension LoadInternal(string tag);
+
+        internal abstract void SaveInternal(Dimension dimension);
     }
 
+    /// <summary>
+    /// The class that allows you to handle storage of dimensions.
+    /// </summary>
+    /// <typeparam name="TDimension">The dimension type that should be storing.</typeparam>
     public abstract class DataParser<TDimension>: DataParser where TDimension: Dimension
     {
-        protected DataParser()
+        /// <summary>
+        /// Should the loading method be called instead of using the cached dimension.
+        /// </summary>
+        public virtual bool AlwaysNew => false;
+
+        /// <summary>
+        /// The name with which the <see cref="DimensionLoader.LoadDimension"/> method was called.
+        /// </summary>
+        public string Name { get; private set; }
+
+        internal override bool AlwaysNewInternal => AlwaysNew;
+
+        internal override Dimension LoadInternal(string name)
         {
+            Name = name;
+            var tag = DimensionLoader.DimensionsTag.GetCompound(name);
+            return tag != null ? Load(tag) : InitializeInternal();
         }
 
-        internal override Dimension LoadInternal()
+        internal override void SaveInternal(Dimension dimension)
         {
-            return Load();
+            TagToSave = new TagCompound();
+            Save((TDimension)dimension, TagToSave);
         }
 
-        internal override void Save(Dimension dimension)
+        internal TDimension InitializeInternal()
         {
-            Save((TDimension)dimension);
+            var dimension = Initialize();
+            SaveInternal(dimension);
+            return dimension;
         }
 
-        public abstract TDimension Load();
+        /// <summary>
+        /// Called whenever dimension is loading provided that the world Tag Compound does not contain the dimension associated with the name.
+        /// This used to initialize dimension in the first time.
+        /// </summary>
+        /// <returns>A new dimension</returns>
+        public abstract TDimension Initialize();
 
-        public abstract void Save(TDimension dimension);
+        /// <summary>
+        /// Allow you to load a new dimension from the <see cref="TagCompound"/> class.
+        /// Which was saved in the past.
+        /// </summary>
+        /// <param name="tag">The <see cref="TagCompound"/> which was saved in the past</param>
+        /// <returns>A new dimension</returns>
+        public abstract TDimension Load(TagCompound tag);
+
+        /// <summary>
+        /// Allow you to save the dimension to the <see cref="TagCompound"/>.
+        /// To the load it in the future session.
+        /// </summary>
+        /// <param name="dimension">The current dimension which should be saving</param>
+        /// <param name="tag">The <see cref="TagCompound"/> which will be store in the world <see cref="TagCompound"/>.</param>
+        public abstract void Save(TDimension dimension, TagCompound tag);
     }
 }

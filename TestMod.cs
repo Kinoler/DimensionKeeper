@@ -20,12 +20,13 @@ namespace TestMod
 
         public override void Load()
 		{
+            DimensionLoader.Initialize();
             DimensionLoader.RegisterDimensions<DimensionRegisterExample>();
         }
 
         public override void Unload()
         {
-            DimensionLoader.RegisteredDimension.Clear();
+            DimensionLoader.Unload();
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)

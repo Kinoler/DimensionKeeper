@@ -15,7 +15,6 @@ namespace TestMod.Tiles
 			TileObjectData.addTile(Type);
 		}
 
-
         public override bool NewRightClick(int x, int y)
         {
 			if (AllUIUpdater.PaintTooltipUI.Visible)

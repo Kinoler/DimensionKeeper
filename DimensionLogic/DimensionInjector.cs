@@ -5,7 +5,7 @@ namespace TestMod.DimensionLogic
     public abstract class DimensionInjector
     {
         internal abstract void Load(Dimension dimension);
-        internal abstract void Save(Dimension dimension);
+        internal abstract void Synchronize(Dimension dimension);
         internal abstract void Clear(Dimension dimension);
     }
 
@@ -37,12 +37,12 @@ namespace TestMod.DimensionLogic
             }
         }
 
-        internal override void Save(Dimension dimension)
+        internal override void Synchronize(Dimension dimension)
         {
             var dimensionGen = (TDimension)dimension;
             for (var i = 0; i < Phases.Count; i++)
             {
-                Phases[i].ExecuteSavePhase(dimensionGen);
+                Phases[i].ExecuteSynchronizePhase(dimensionGen);
             }
         }
 

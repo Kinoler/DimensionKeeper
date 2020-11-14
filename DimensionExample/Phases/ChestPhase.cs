@@ -39,7 +39,7 @@ namespace TestMod.DimensionExample.Phases
             }
         }
 
-        public override void ExecuteSavePhase(DimensionExample dimension)
+        public override void ExecuteSynchronizePhase(DimensionExample dimension)
         {
             var chests = new List<Chest>();
             //return;

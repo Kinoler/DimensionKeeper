@@ -13,7 +13,7 @@ namespace TestMod.DimensionLogic
         {
         }
 
-        public virtual void ExecuteSavePhase(TDimension dimension)
+        public virtual void ExecuteSynchronizePhase(TDimension dimension)
         {
         }
 

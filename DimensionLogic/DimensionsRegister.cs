@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace TestMod.DimensionLogic
 {
@@ -27,9 +28,9 @@ namespace TestMod.DimensionLogic
             DimensionScripts.Add(name, (parser, injector));
         }
 
-        internal void Clear()
+        internal IEnumerable<string> GetNames()
         {
-            DimensionScripts.Clear();
+            return DimensionScripts.Keys;
         }
 
         internal DataParser GetParser(string name)

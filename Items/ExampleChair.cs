@@ -1,5 +1,6 @@
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace TestMod.Items
 {
@@ -9,7 +10,7 @@ namespace TestMod.Items
 			Tooltip.SetDefault("This is a modded chair.");
 		}
 
-		public override void SetDefaults() {
+        public override void SetDefaults() {
 			item.width = 12;
 			item.height = 30;
 			item.maxStack = 99;
@@ -23,7 +24,7 @@ namespace TestMod.Items
 			item.createTile = ModContent.TileType<Tiles.ExampleChair>();
 		}
 
-		public override void AddRecipes() {
+        public override void AddRecipes() {
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

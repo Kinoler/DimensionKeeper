@@ -43,7 +43,7 @@ namespace TestMod.DimensionExample.Phases
             }
         }
 
-        public override void ExecuteSavePhase(DimensionExample dimension)
+        public override void ExecuteSynchronizePhase(DimensionExample dimension)
         {
             var currentDimension = dimension;
             var loadCoordinate = dimension.Location;

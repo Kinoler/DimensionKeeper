@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader.IO;
 using TestMod.DimensionLogic;
 using TestMod.Helpers;
 
@@ -34,7 +35,12 @@ namespace TestMod.DimensionExample
             return current;
         }
 
-        public override DimensionExample Load()
+        public override DimensionExample Initialize()
+        {
+            
+        }
+
+        public override DimensionExample Load(TagCompound tag)
         {
             if (Counter.Max == 0)
                 return null;
@@ -44,8 +50,8 @@ namespace TestMod.DimensionExample
             dimension.Location = new Point(LoadCoordinate.X, LoadCoordinate.Y - dimension.Height);
             return dimension;
         }
-
-        public override void Save(DimensionExample dimension)
+        
+        public override void Save(DimensionExample dimension, TagCompound tag)
         {
             if (Counter.Max == 0)
                 return;

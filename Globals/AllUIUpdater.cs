@@ -24,7 +24,7 @@ namespace TestMod.Globals
                 PaintTooltipUI.Hide();
             }
 		}
-
+        
         public void DrawUpdateAll(SpriteBatch spriteBatch)
 		{
             PaintTooltipUI.Update();
