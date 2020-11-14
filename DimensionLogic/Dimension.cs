@@ -11,7 +11,7 @@ namespace TestMod.DimensionLogic
 {
     public class Dimension
     {
-        public Point Location { get; set; }
+        public Point LocationToLoad { get; set; }
 
         public Tile[,] Tiles { get; set; } = new Tile[0, 0];
         public Chest[] Chests { get; set; } = new Chest[0];
@@ -21,7 +21,7 @@ namespace TestMod.DimensionLogic
 
         public void CopyFrom(Dimension dimension)
         {
-            this.Location = dimension.Location;
+            this.LocationToLoad = dimension.LocationToLoad;
             this.Tiles = dimension.Tiles;
             this.Chests = dimension.Chests;
         }

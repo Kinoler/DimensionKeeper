@@ -10,8 +10,6 @@ namespace TestMod.DimensionLogic
     {
         private Dimension _cachedDimension;
 
-        internal TagCompound TagToSave { get; set; }
-
         internal Dimension GetDimension(string name)
         {
             if (AlwaysNewInternal || _cachedDimension == null)
@@ -22,7 +20,7 @@ namespace TestMod.DimensionLogic
             return _cachedDimension;
         }
 
-        internal abstract bool AlwaysNewInternal { get; set; }
+        internal abstract bool AlwaysNewInternal { get; }
 
         internal abstract Dimension LoadInternal(string tag);
 
@@ -50,44 +48,24 @@ namespace TestMod.DimensionLogic
         internal override Dimension LoadInternal(string name)
         {
             Name = name;
-            var tag = DimensionLoader.DimensionsTag.GetCompound(name);
-            return tag != null ? Load(tag) : InitializeInternal();
+            return Load();
         }
 
         internal override void SaveInternal(Dimension dimension)
         {
-            TagToSave = new TagCompound();
-            Save((TDimension)dimension, TagToSave);
-        }
-
-        internal TDimension InitializeInternal()
-        {
-            var dimension = Initialize();
-            SaveInternal(dimension);
-            return dimension;
+            Save((TDimension)dimension);
         }
 
         /// <summary>
-        /// Called whenever dimension is loading provided that the world Tag Compound does not contain the dimension associated with the name.
-        /// This used to initialize dimension in the first time.
+        /// Allow you to load a dimension from the storage.
         /// </summary>
         /// <returns>A new dimension</returns>
-        public abstract TDimension Initialize();
+        public abstract TDimension Load();
 
         /// <summary>
-        /// Allow you to load a new dimension from the <see cref="TagCompound"/> class.
-        /// Which was saved in the past.
+        /// Allow you to save the dimension to the storage.
         /// </summary>
-        /// <param name="tag">The <see cref="TagCompound"/> which was saved in the past</param>
-        /// <returns>A new dimension</returns>
-        public abstract TDimension Load(TagCompound tag);
-
-        /// <summary>
-        /// Allow you to save the dimension to the <see cref="TagCompound"/>.
-        /// To the load it in the future session.
-        /// </summary>
-        /// <param name="dimension">The current dimension which should be saving</param>
-        /// <param name="tag">The <see cref="TagCompound"/> which will be store in the world <see cref="TagCompound"/>.</param>
-        public abstract void Save(TDimension dimension, TagCompound tag);
+        /// <param name="dimension">The dimension which should be saving</param>
+        public abstract void Save(TDimension dimension);
     }
 }

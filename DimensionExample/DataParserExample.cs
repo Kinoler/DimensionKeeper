@@ -35,23 +35,18 @@ namespace TestMod.DimensionExample
             return current;
         }
 
-        public override DimensionExample Initialize()
-        {
-            
-        }
-
-        public override DimensionExample Load(TagCompound tag)
+        public override DimensionExample Load()
         {
             if (Counter.Max == 0)
                 return null;
 
             CurrentLoadedDimension = Counter.Current;
             var dimension = Dimensions[Counter.Current];
-            dimension.Location = new Point(LoadCoordinate.X, LoadCoordinate.Y - dimension.Height);
+            dimension.LocationToLoad = new Point(LoadCoordinate.X, LoadCoordinate.Y - dimension.Height);
             return dimension;
         }
         
-        public override void Save(DimensionExample dimension, TagCompound tag)
+        public override void Save(DimensionExample dimension)
         {
             if (Counter.Max == 0)
                 return;

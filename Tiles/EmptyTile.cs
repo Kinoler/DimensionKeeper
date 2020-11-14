@@ -35,7 +35,7 @@ namespace TestMod.Tiles
         public override bool NewRightClick(int x, int y)
         {
             DataParserExample.SetLoadCoordinate((X > 0 ? X : x) + 10, Y > 0 ? Y : y);
-            DimensionLoader.Load("", true);
+            DimensionLoader.LoadDimension("");
             return false;
         }
 

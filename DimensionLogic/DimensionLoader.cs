@@ -11,7 +11,6 @@ namespace TestMod.DimensionLogic
     /// </summary>
     public static class DimensionLoader
     {
-        internal static TagCompound DimensionsTag { get; set; }
         internal static DimensionsRegister RegisteredDimension { get; private set; }
 
         private static DataParser CurrentParser { get; set; }
@@ -44,7 +43,7 @@ namespace TestMod.DimensionLogic
         /// </summary>
         /// <param name="name">The name which dimension is associated.</param>
         /// <param name="synchronizePrevious">Should the previous dimension be synchronized with changing in the world.</param>
-        public static void LoadDimension(string name, bool synchronizePrevious = false)
+        public static void LoadDimension(string name, bool synchronizePrevious = true)
         {
             if (synchronizePrevious)
                 SynchronizeCurrentDimension();
@@ -89,7 +88,6 @@ namespace TestMod.DimensionLogic
         internal static void Unload()
         {
             RegisteredDimension = null;
-            DimensionsTag = null;
             CurrentParser = null;
             CurrentInjector = null;
             CurrentDimension = null;

@@ -28,7 +28,7 @@ namespace TestMod.DimensionExample.Phases
             }
 
             Recipe.FindRecipes();
-            var locationPoint = dimension.Location;
+            var locationPoint = dimension.LocationToLoad;
             var updateExtended = 3;
             for (var x = locationPoint.X - updateExtended; x < locationPoint.X + dimension.Width + updateExtended; x++)
             {
@@ -46,10 +46,10 @@ namespace TestMod.DimensionExample.Phases
             for (var index = 0; index < Main.chest.Length; ++index)
             {
                 if (Main.chest[index] != null &&
-                    Main.chest[index].x >= dimension.Location.X &&
-                    Main.chest[index].x <= dimension.Location.X + dimension.Width &&
-                    Main.chest[index].y >= dimension.Location.Y &&
-                    Main.chest[index].y <= dimension.Location.Y + dimension.Height)
+                    Main.chest[index].x >= dimension.LocationToLoad.X &&
+                    Main.chest[index].x <= dimension.LocationToLoad.X + dimension.Width &&
+                    Main.chest[index].y >= dimension.LocationToLoad.Y &&
+                    Main.chest[index].y <= dimension.LocationToLoad.Y + dimension.Height)
                     chests.Add(Main.chest[index]);
             }
 
@@ -62,10 +62,10 @@ namespace TestMod.DimensionExample.Phases
             {
                 var chest = Main.chest[index];
                 if (chest != null &&
-                    chest.x >= dimension.Location.X &&
-                    chest.x <= dimension.Location.X + dimension.Width &&
-                    chest.y >= dimension.Location.Y &&
-                    chest.y <= dimension.Location.Y + dimension.Height)
+                    chest.x >= dimension.LocationToLoad.X &&
+                    chest.x <= dimension.LocationToLoad.X + dimension.Width &&
+                    chest.y >= dimension.LocationToLoad.Y &&
+                    chest.y <= dimension.LocationToLoad.Y + dimension.Height)
                 {
                     Main.chest[index] = (Chest)null;
                     if (Main.player[Main.myPlayer].chest == index)

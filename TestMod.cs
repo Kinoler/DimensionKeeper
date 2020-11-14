@@ -27,6 +27,7 @@ namespace TestMod
         public override void Unload()
         {
             DimensionLoader.Unload();
+            TestWorldMod.DimensionsTag = null;
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)

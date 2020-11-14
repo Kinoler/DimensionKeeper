@@ -14,7 +14,7 @@ namespace TestMod.DimensionExample.Phases
     {
         public override void ExecuteLoadPhase(DimensionExample dimension)
         {
-            var locationPoint = dimension.Location;
+            var locationPoint = dimension.LocationToLoad;
 
             for (var x = 0; x < dimension.Width; x++)
             {
@@ -46,7 +46,7 @@ namespace TestMod.DimensionExample.Phases
         public override void ExecuteSynchronizePhase(DimensionExample dimension)
         {
             var currentDimension = dimension;
-            var loadCoordinate = dimension.Location;
+            var loadCoordinate = dimension.LocationToLoad;
 
             var newDimension = DataParserExample.CreateDimension(
                 loadCoordinate.X,
@@ -69,7 +69,7 @@ namespace TestMod.DimensionExample.Phases
                 }
             }
 
-            var emptyDimension = new DimensionExample { Tiles = emptyTiles, Location = dimension.Location};
+            var emptyDimension = new DimensionExample { Tiles = emptyTiles, LocationToLoad = dimension.LocationToLoad};
             ExecuteLoadPhase(emptyDimension);
         }
     }
