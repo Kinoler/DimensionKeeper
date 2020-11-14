@@ -1,13 +1,9 @@
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Enums;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using TestMod.DimensionLogic;
 using TestMod.Globals;
 
-namespace ExampleMod.Tiles
+namespace TestMod.Tiles
 {
 	public class ExampleChair : ModTile
 	{
@@ -38,7 +34,7 @@ namespace ExampleMod.Tiles
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-			Item.NewItem(i * 16, j * 16, 16, 32, ModContent.ItemType<Items.Placeable.ExampleChair>());
+			Item.NewItem(i * 16, j * 16, 16, 32, ModContent.ItemType<global::TestMod.Items.ExampleChair>());
 		}
 	}
 }

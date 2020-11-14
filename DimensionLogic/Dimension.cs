@@ -13,8 +13,8 @@ namespace TestMod.DimensionLogic
     {
         public Point Location { get; set; }
 
-        public Tile[,] Tiles { get; set; }
-        public Chest[] Chests { get; set; }
+        public Tile[,] Tiles { get; set; } = new Tile[0, 0];
+        public Chest[] Chests { get; set; } = new Chest[0];
 
 
         public int Width => Tiles?.GetLength(0) ?? 0;
@@ -22,6 +22,7 @@ namespace TestMod.DimensionLogic
 
         public void CopyFrom(Dimension dimension)
         {
+            this.Location = dimension.Location;
             this.Tiles = dimension.Tiles;
             this.Chests = dimension.Chests;
         }

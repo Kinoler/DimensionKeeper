@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ExampleMod.Items.Placeable
+namespace TestMod.Items
 {
 	public class ExampleChair : ModItem
 	{

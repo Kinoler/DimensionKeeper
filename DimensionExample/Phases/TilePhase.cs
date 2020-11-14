@@ -69,7 +69,7 @@ namespace TestMod.DimensionExample.Phases
                 }
             }
 
-            var emptyDimension = new DimensionExample { Tiles = emptyTiles };
+            var emptyDimension = new DimensionExample { Tiles = emptyTiles, Location = dimension.Location};
             ExecuteLoadPhase(emptyDimension);
         }
     }

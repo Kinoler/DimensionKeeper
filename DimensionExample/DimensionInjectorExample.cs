@@ -8,6 +8,7 @@ namespace TestMod.DimensionExample
         public override void RegisterPhases()
         {
             AddPhase<TilePhase>();
+            AddPhase<ChestPhase>();
         }
     }
 }
