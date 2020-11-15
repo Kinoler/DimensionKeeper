@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace TestMod.DimensionLogic
 {
@@ -8,23 +11,47 @@ namespace TestMod.DimensionLogic
         private Dictionary<string, (DataParser Parser, DimensionInjector Injector)> DimensionScripts { get; } = 
             new Dictionary<string, (DataParser Parser, DimensionInjector Injector)>();
 
-        public void Register<TDataParser, TDimensionInjector, TDimension>(string name)
+
+        public void Register<TDimensionInjector, TDataParser, TDimension>(string name)
             where TDimension: Dimension
             where TDataParser: DataParser<TDimension>, new()
             where TDimensionInjector: DimensionInjector<TDimension>, new()
         {
             var parser = new TDataParser();
-            Register<TDataParser, TDimensionInjector, TDimension>(name, parser);
+            var injector = new TDimensionInjector();
+
+            Register<TDimensionInjector, TDataParser, TDimension>(name, injector, parser);
         }
 
-        public void Register<TDataParser, TDimensionInjector, TDimension>(string name, TDataParser parser)
+        public void Register<TDimensionInjector, TDataParser, TDimension>(string name, TDataParser parser)
             where TDimension : Dimension
-            where TDataParser : DataParser<TDimension>, new()
+            where TDataParser : DataParser<TDimension>
             where TDimensionInjector : DimensionInjector<TDimension>, new()
         {
             var injector = new TDimensionInjector();
-            injector.RegisterPhasesInternal();
+            Register<TDimensionInjector, TDataParser, TDimension>(name, injector, parser);
+        }
 
+        public void Register<TDimensionInjector, TDataParser, TDimension>(string name, TDimensionInjector injector)
+            where TDimension : Dimension
+            where TDataParser : DataParser<TDimension>, new()
+            where TDimensionInjector : DimensionInjector<TDimension>
+        {
+            var parser = new TDataParser();
+            Register<TDimensionInjector, TDataParser, TDimension>(name, injector, parser);
+        }
+
+        public void Register<TDimensionInjector, TDataParser, TDimension>(string name, TDimensionInjector injector, TDataParser parser)
+            where TDimension : Dimension
+            where TDataParser : DataParser<TDimension>
+            where TDimensionInjector : DimensionInjector<TDimension>
+        {
+            if (injector == null)
+                throw new ArgumentNullException(nameof(injector));
+            if (parser == null)
+                throw new ArgumentNullException(nameof(parser));
+
+            injector.RegisterPhasesInternal();
             DimensionScripts.Add(name, (parser, injector));
         }
 

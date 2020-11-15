@@ -5,7 +5,7 @@ namespace TestMod.DimensionExample
 {
     public class DimensionInjectorExample : DimensionInjector<DimensionExample>
     {
-        public override void RegisterPhases()
+        public override void OnPhasesRegister()
         {
             AddPhase<TilePhase>();
             AddPhase<ChestPhase>();

@@ -19,13 +19,13 @@ namespace TestMod.DimensionLogic
             Phases.Add(instance ?? new TPhase());
         }
 
-        public virtual void RegisterPhases()
+        public virtual void OnPhasesRegister()
         {
         }
 
         internal void RegisterPhasesInternal()
         {
-            RegisterPhases();
+            OnPhasesRegister();
         }
 
         internal override void Load(Dimension dimension)

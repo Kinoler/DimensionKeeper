@@ -1,7 +1,4 @@
-﻿using Terraria;
-using Terraria.ModLoader.IO;
-using TestMod.DimensionExample;
-using TestMod.Helpers;
+﻿using Microsoft.Xna.Framework;
 using TestMod.Interfaces;
 
 namespace TestMod.DimensionLogic
@@ -43,7 +40,8 @@ namespace TestMod.DimensionLogic
         /// </summary>
         /// <param name="name">The name which dimension is associated.</param>
         /// <param name="synchronizePrevious">Should the previous dimension be synchronized with changing in the world.</param>
-        public static void LoadDimension(string name, bool synchronizePrevious = true)
+        /// <param name="locationToLoad">Allow you to specify the dimension loading tile.</param>
+        public static void LoadDimension(string name, bool synchronizePrevious = true, Point? locationToLoad = null)
         {
             if (synchronizePrevious)
                 SynchronizeCurrentDimension();
@@ -54,6 +52,8 @@ namespace TestMod.DimensionLogic
             CurrentInjector = RegisteredDimension.GetInjector("Name");
 
             CurrentDimension = CurrentParser.GetDimension(name);
+            if (locationToLoad != null) 
+                CurrentDimension.LocationToLoad = locationToLoad.Value;
 
             LoadCurrentDimension();
         }
