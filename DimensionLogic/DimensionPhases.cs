@@ -32,6 +32,7 @@ namespace TestMod.DimensionLogic
         }
 
         /// <summary>
+        /// Takes something like a snapshot.
         /// Allows you to handle the synchronization process. Modify the <see cref="dimension"/> according to the terraria world.
         /// </summary>
         /// <remarks>

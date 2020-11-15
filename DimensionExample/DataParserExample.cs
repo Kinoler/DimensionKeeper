@@ -61,50 +61,5 @@ namespace TestMod.DimensionExample
         {
             Dimensions[num] = dimension;
         }
-
-        public static DimensionExample CreateDimension(int minX, int maxX, int minY, int maxY)
-        {
-            var stampTiles = new Tile[maxX - minX, maxY - minY];
-
-            for (var i = 0; i < maxX - minX; i++)
-            {
-                for (var j = 0; j < maxY - minY; j++)
-                {
-                    stampTiles[i, j] = new Tile();
-                }
-            }
-
-            for (var x = minX; x < maxX; x++)
-            {
-                for (var y = minY; y < maxY; y++)
-                {
-                    if (WorldGen.InWorld(x, y))
-                    {
-                        if (Main.tile[x, y].type == TileID.Count)
-                        {
-                        }
-
-                        if (Main.tile[x, y].active())
-                        {
-                            WorldGen.TileFrame(x, y, true, false);
-                        }
-
-                        if (Main.tile[x, y].wall > 0)
-                        {
-                            Framing.WallFrame(x, y, true);
-                        }
-
-                        var target = Framing.GetTileSafely(x, y);
-                        stampTiles[x - minX, y - minY].CopyFrom(target);
-                        if (Main.tile[x, y].type == TileID.Count)
-                            stampTiles[x - minX, y - minY].ClearTile();
-                        if (Main.tileContainer[Main.tile[x, y].type])
-                            stampTiles[x - minX, y - minY].ClearTile();
-                    }
-                }
-            }
-
-            return new DimensionExample(){Tiles = stampTiles};
-        }
     }
 }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader.IO;
-using TestMod.DimensionLogic;
+﻿using Terraria.ModLoader.IO;
 
-namespace TestMod.DimensionExample
+namespace TestMod.DimensionLogic.DefaultParsers
 {
     public abstract class TagCompoundParser<TDimension>: DataParser<TDimension> where TDimension : Dimension
     {
@@ -38,7 +32,7 @@ namespace TestMod.DimensionExample
         }
 
         /// <summary>
-        /// Do not override this method to class work correctly.
+        /// Do not override this method to class work correctly. Override <see cref="Save(TDimension, TagCompound)"/> instead.
         /// </summary>
         /// <param name="dimension"></param>
         public override void Save(TDimension dimension)

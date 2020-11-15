@@ -7,9 +7,9 @@ namespace TestMod.DimensionExample
     {
         public override void OnPhasesRegister()
         {
-            AddPhase<TilePhase>();
+            AddPhase<TilePhase, Dimension>();
             AddPhase<TileObjectDataPhase, Dimension>();
-            AddPhase<ChestPhase>();
+            AddPhase<ChestPhase, Dimension>();
 
             AddPhase<TileFramePhase, Dimension>();
         }

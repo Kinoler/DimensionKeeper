@@ -5,9 +5,9 @@ using Terraria.ObjectData;
 
 namespace TestMod.DimensionLogic.DefaultPhases
 {
-    public class TilePhase : DimensionPhases<DimensionExample.DimensionExample>
+    public class TilePhase : DimensionPhases<Dimension>
     {
-        public override void ExecuteLoadPhase(DimensionExample.DimensionExample dimension)
+        public override void ExecuteLoadPhase(Dimension dimension)
         {
             var locationToLoad = dimension.LocationToLoad;
 
@@ -21,7 +21,7 @@ namespace TestMod.DimensionLogic.DefaultPhases
                     if (!WorldGen.InWorld(worldX, worldY))
                         continue;
                     var targetTile = Framing.GetTileSafely(worldX, worldY);
-                    targetTile.ClearTile();
+                    targetTile.ClearEverything();
 
                     var dimensionTile = dimension.Tiles[x, y];
                     var dimensionTileData = TileObjectData.GetTileData(dimensionTile);
@@ -29,37 +29,9 @@ namespace TestMod.DimensionLogic.DefaultPhases
                         targetTile.CopyFrom(dimensionTile);
                 }
             }
-
-            /*
-            var updateExtended = 3;
-            for (var x = locationPoint.X - updateExtended; x < locationPoint.X + dimension.Width + updateExtended; x++)
-            {
-                for (var y = 0; y < locationPoint.Y + dimension.Height + updateExtended; y++)
-                {
-                    WorldGen.SquareTileFrame(x, y); // Need to do this after stamp so neighbors are correct.
-                }
-            }
-            /*
-            for (var x = 0; x < dimension.Width; x++)
-            {
-                for (var y = 0; y < dimension.Height; y++)
-                {
-                    var locationX = locationPoint.X + x;
-                    var locationY = locationPoint.Y + y;
-                    if (!WorldGen.InWorld(locationX, locationY))
-                        continue;
-                    var targetTile = Framing.GetTileSafely(locationX, locationY);
-                    var dimensionTile = dimension.Tiles[x, y];
-                    if (dimensionTile != null)
-                        targetTile.CopyFrom(dimensionTile);
-                    else
-                        Main.tile[locationX, locationY] = null;
-                }
-            }
-            */
         }
 
-        public override void ExecuteSynchronizePhase(DimensionExample.DimensionExample dimension)
+        public override void ExecuteSynchronizePhase(Dimension dimension)
         { 
             var currentDimension = dimension;
             var locationToLoad = currentDimension.LocationToLoad;
@@ -100,7 +72,7 @@ namespace TestMod.DimensionLogic.DefaultPhases
             dimension.Tiles = stampTiles;
         }
 
-        public override void ExecuteClearPhase(DimensionExample.DimensionExample dimension)
+        public override void ExecuteClearPhase(Dimension dimension)
         {
             var locationToLoad = dimension.LocationToLoad;
 

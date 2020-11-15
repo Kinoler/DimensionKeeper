@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TestMod.DimensionExample;
 using TestMod.DimensionLogic;
+using TestMod.DimensionLogic.DefaultParsers;
 
 namespace TestMod
 {
@@ -19,6 +20,12 @@ namespace TestMod
         {
             DimensionsTag = tag.GetCompound(DimensionsTagName);
         }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+        }
+
 
         public override TagCompound Save()
         {

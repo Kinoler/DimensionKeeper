@@ -1,3 +1,4 @@
 displayName = aMyCustomMod
 author = Roman
 version = 0.1
+includePDB = true

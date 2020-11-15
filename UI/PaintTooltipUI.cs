@@ -221,11 +221,17 @@ namespace TestMod.UI
                             Math.Max(startTileX, lastMouseTileX),
                             Math.Max(startTileY, lastMouseTileY));
 
-                        var dimension = DataParserExample.CreateDimension(
-                            (int) upperLeft.X,
-                            (int) lowerRight.X + 1,
-                            (int) upperLeft.Y, 
-                            (int) lowerRight.Y + 1);
+                        var width = (int)(lowerRight.X + 1 - upperLeft.X);
+                        var height = (int)(lowerRight.Y + 1 - upperLeft.Y);
+
+                        var dimension = new DimensionExample.DimensionExample()
+                        {
+                            LocationToLoad = upperLeft.ToPoint(),
+                            Tiles = new Tile[width, height]
+                        };
+
+                        var injector = DimensionLoader.RegisteredDimension.GetInjector(DimensionRegisterExample.ExampleName);
+                        injector.Synchronize(dimension);
 
                         DataParserExample.AddDimension(dimension);
 

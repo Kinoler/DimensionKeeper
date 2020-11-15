@@ -10,9 +10,11 @@ namespace TestMod.DimensionExample
 {
     public class DimensionRegisterExample : IDimensionRegister
     {
+        public const string ExampleName = "Name";
+
         public void Register(DimensionsRegister register)
         {
-            register.Register<DimensionInjectorExample, DataParserExample, DimensionExample>("Name");
+            register.Register<DimensionInjectorExample, DataParserExample, DimensionExample>(ExampleName);
         }
     }
 }
