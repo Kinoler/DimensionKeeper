@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ObjectData;
-using TestMod.DimensionLogic;
-using TestMod.Interfaces;
 
-namespace TestMod.DimensionExample.Phases
+namespace TestMod.DimensionLogic.DefaultPhases
 {
-    public class TilePhase : DimensionPhases<DimensionExample>
+    public class TilePhase : DimensionPhases<DimensionExample.DimensionExample>
     {
-        public override void ExecuteLoadPhase(DimensionExample dimension)
+        public override void ExecuteLoadPhase(DimensionExample.DimensionExample dimension)
         {
             var locationPoint = dimension.LocationToLoad;
 
@@ -36,6 +29,7 @@ namespace TestMod.DimensionExample.Phases
                         targetTile.CopyFrom(dimensionTile);
                 }
             }
+
             var checkedPoints = new List<Point>();
             for (var y = 0; y < dimension.Height; y++)
             {
@@ -105,7 +99,7 @@ namespace TestMod.DimensionExample.Phases
             */
         }
 
-        public override void ExecuteSynchronizePhase(DimensionExample dimension)
+        public override void ExecuteSynchronizePhase(DimensionExample.DimensionExample dimension)
         { 
             var currentDimension = dimension;
             var loadCoordinate = currentDimension.LocationToLoad;
@@ -146,7 +140,7 @@ namespace TestMod.DimensionExample.Phases
             dimension.Tiles = stampTiles;
         }
 
-        public override void ExecuteClearPhase(DimensionExample dimension)
+        public override void ExecuteClearPhase(DimensionExample.DimensionExample dimension)
         {
             var loadCoordinate = dimension.LocationToLoad;
 

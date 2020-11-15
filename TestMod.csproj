@@ -21,4 +21,7 @@
       <HintPath>E:\Games\SteamLibrary\steamapps\common\tModLoader\tModLoader.exe</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DimensionExample\Phases\" />
+  </ItemGroup>
 </Project>

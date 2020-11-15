@@ -1,5 +1,5 @@
-﻿using TestMod.DimensionExample.Phases;
-using TestMod.DimensionLogic;
+﻿using TestMod.DimensionLogic;
+using TestMod.DimensionLogic.DefaultPhases;
 
 namespace TestMod.DimensionExample
 {
@@ -8,6 +8,7 @@ namespace TestMod.DimensionExample
         public override void OnPhasesRegister()
         {
             AddPhase<TilePhase>();
+            //AddPhase<TileObjectDataPhase>();
             AddPhase<ChestPhase>();
         }
     }

@@ -7,7 +7,6 @@ using TestMod.DimensionLogic;
 
 namespace TestMod.Interfaces
 {
-
     public interface IDimensionRegister
     {
         void Register(DimensionsRegister register);

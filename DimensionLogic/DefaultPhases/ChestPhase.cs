@@ -1,51 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Terraria;
-using TestMod.DimensionLogic;
-using TestMod.Interfaces;
 
-namespace TestMod.DimensionExample.Phases
+namespace TestMod.DimensionLogic.DefaultPhases
 {
-    public class ChestPhase: DimensionPhases<DimensionExample>
+    public class ChestPhase: DimensionPhases<DimensionExample.DimensionExample>
     {
-        public override void ExecuteLoadPhase(DimensionExample dimension)
+        public override void ExecuteLoadPhase(DimensionExample.DimensionExample dimension)
         {
-
             for (var i = 0; i < dimension.Chests.Length; i++)
             {
                 var chest = dimension.Chests[i];
                 var chestIndex = Chest.CreateChest(chest.x, chest.y, -1);
-                Main.chest[chestIndex] = chest;
-                WorldGen.SquareTileFrame(chest.x, chest.y);
-            }
-
-            Recipe.FindRecipes();
-            return;
-            for (var i = 0; i < dimension.Chests.Length; i++)
-            {
-                var chest = dimension.Chests[i];
-                var chestIndex = WorldGen.PlaceChest(chest.x, chest.y + 1);
-                if (chestIndex == -1)
-                {
-                    TileObject.CanPlace(chest.x, chest.y, (int)21, 0, 1, out var objectData, false, false);
-                    TileObject.Place(objectData);
-                    chestIndex = Chest.CreateChest(chest.x, chest.y, -1);
-                }
-                chestIndex = Chest.CreateChest(chest.x, chest.y, -1);
                 Main.chest[chestIndex] = chest;
             }
 
             Recipe.FindRecipes();
         }
 
-        public override void ExecuteSynchronizePhase(DimensionExample dimension)
+        public override void ExecuteSynchronizePhase(DimensionExample.DimensionExample dimension)
         {
             var chests = new List<Chest>();
 
-            //return;
             for (var index = 0; index < Main.chest.Length; ++index)
             {
                 if (Main.chest[index] != null &&
@@ -59,7 +34,7 @@ namespace TestMod.DimensionExample.Phases
             dimension.Chests = chests.ToArray();
         }
 
-        public override void ExecuteClearPhase(DimensionExample dimension)
+        public override void ExecuteClearPhase(DimensionExample.DimensionExample dimension)
         {
             for (var index = 0; index < Main.chest.Length; index++)
             {
