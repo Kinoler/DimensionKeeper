@@ -45,7 +45,6 @@ namespace TestMod.DimensionLogic
         /// <param name="dimension">The synchronized dimension.</param>
         public virtual void ExecuteClearPhase(TDimension dimension)
         {
-            ExecuteSynchronizePhase(dimension);
         }
     }
 }

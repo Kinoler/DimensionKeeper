@@ -13,6 +13,17 @@ namespace TestMod.DimensionExample.Phases
     {
         public override void ExecuteLoadPhase(DimensionExample dimension)
         {
+
+            for (var i = 0; i < dimension.Chests.Length; i++)
+            {
+                var chest = dimension.Chests[i];
+                var chestIndex = Chest.CreateChest(chest.x, chest.y, -1);
+                Main.chest[chestIndex] = chest;
+                WorldGen.SquareTileFrame(chest.x, chest.y);
+            }
+
+            Recipe.FindRecipes();
+            return;
             for (var i = 0; i < dimension.Chests.Length; i++)
             {
                 var chest = dimension.Chests[i];
@@ -23,25 +34,17 @@ namespace TestMod.DimensionExample.Phases
                     TileObject.Place(objectData);
                     chestIndex = Chest.CreateChest(chest.x, chest.y, -1);
                 }
-
+                chestIndex = Chest.CreateChest(chest.x, chest.y, -1);
                 Main.chest[chestIndex] = chest;
             }
 
             Recipe.FindRecipes();
-            var locationPoint = dimension.LocationToLoad;
-            var updateExtended = 3;
-            for (var x = locationPoint.X - updateExtended; x < locationPoint.X + dimension.Width + updateExtended; x++)
-            {
-                for (var y = 0; y < locationPoint.Y + dimension.Height + updateExtended; y++)
-                {
-                    WorldGen.SquareTileFrame(x, y, false); // Need to do this after stamp so neighbors are correct.
-                }
-            }
         }
 
         public override void ExecuteSynchronizePhase(DimensionExample dimension)
         {
             var chests = new List<Chest>();
+
             //return;
             for (var index = 0; index < Main.chest.Length; ++index)
             {

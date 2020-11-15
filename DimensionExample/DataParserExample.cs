@@ -54,16 +54,7 @@ namespace TestMod.DimensionExample
             if (CurrentLoadedDimension == -1)
                 return;
 
-            var currentDimension = dimension;
-
-            var newDimension = CreateDimension(
-                LoadCoordinate.X,
-                LoadCoordinate.X + currentDimension.Width,
-                LoadCoordinate.Y - currentDimension.Height,
-                LoadCoordinate.Y
-            );
-
-            UpdateDimension(CurrentLoadedDimension, newDimension);
+            UpdateDimension(CurrentLoadedDimension, dimension);
         }
 
         public static void UpdateDimension(int num, DimensionExample dimension)
