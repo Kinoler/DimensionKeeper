@@ -12,7 +12,7 @@ namespace TestMod.DimensionExample
     {
         public void Register(DimensionsRegister register)
         {
-            register.Register<DataParserExample, DimensionInjectorExample, DimensionExample>("Name");
+            register.Register<DimensionInjectorExample, DataParserExample, DimensionExample>("Name");
         }
     }
 }
