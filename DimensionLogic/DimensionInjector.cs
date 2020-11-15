@@ -16,7 +16,7 @@ namespace TestMod.DimensionLogic
     /// <typeparam name="TDimension">The specific <see cref="Dimension"/>.</typeparam>
     public abstract class DimensionInjector<TDimension>: DimensionInjector where TDimension : Dimension
     {
-        public List<DimensionPhases<TDimension>> Phases { get; } = new List<DimensionPhases<TDimension>>();
+        public List<DimensionPhases> Phases { get; } = new List<DimensionPhases>();
 
         /// <summary>
         /// Adds the a phase. Create a new instance for <see cref="TPhase"/>.
@@ -25,16 +25,30 @@ namespace TestMod.DimensionLogic
         public void AddPhase<TPhase>()
             where TPhase : DimensionPhases<TDimension>, new()
         {
-            AddPhase(new TPhase());
+            AddPhase<TPhase, TDimension>(new TPhase());
+        }
+
+        /// <summary>
+        /// Adds the a phase. Create a new instance for <see cref="TPhase"/>.
+        /// </summary>
+        /// <typeparam name="TPhase">The phase.</typeparam>
+        /// <typeparam name="TSpecifyDimension">The open generic type for the <see cref="TPhase"/> type.</typeparam>
+        public void AddPhase<TPhase, TSpecifyDimension>()
+            where TSpecifyDimension : Dimension
+            where TPhase : DimensionPhases<TSpecifyDimension>, new()
+        {
+            AddPhase<TPhase, TSpecifyDimension>(new TPhase());
         }
 
         /// <summary>
         /// Adds the a phase. Using an instance.
         /// </summary>
         /// <typeparam name="TPhase">The phase.</typeparam>
-        /// <param name="instance"></param>
-        public void AddPhase<TPhase>(TPhase instance)
-            where TPhase : DimensionPhases<TDimension>
+        /// <typeparam name="TSpecifyDimension">The open generic type for the <see cref="TPhase"/> type.</typeparam>
+        /// <param name="instance">The instance of phase</param>
+        public void AddPhase<TPhase, TSpecifyDimension>(TPhase instance)
+            where TSpecifyDimension : Dimension
+            where TPhase : DimensionPhases<TSpecifyDimension>
         {
             if (instance == null) 
                 throw new ArgumentNullException(nameof(instance));
@@ -56,28 +70,25 @@ namespace TestMod.DimensionLogic
 
         internal override void Load(Dimension dimension)
         {
-            var dimensionGen = (TDimension)dimension;
             for (var i = 0; i < Phases.Count; i++)
             {
-                Phases[i].ExecuteLoadPhase(dimensionGen);
+                Phases[i].ExecuteLoadPhaseInternal(dimension);
             }
         }
 
         internal override void Synchronize(Dimension dimension)
         {
-            var dimensionGen = (TDimension)dimension;
             for (var i = 0; i < Phases.Count; i++)
             {
-                Phases[i].ExecuteSynchronizePhase(dimensionGen);
+                Phases[i].ExecuteSynchronizePhaseInternal(dimension);
             }
         }
 
         internal override void Clear(Dimension dimension)
         {
-            var dimensionGen = (TDimension)dimension;
             for (var i = 0; i < Phases.Count; i++)
             {
-                Phases[i].ExecuteClearPhase(dimensionGen);
+                Phases[i].ExecuteClearPhaseInternal(dimension);
             }
         }
     }

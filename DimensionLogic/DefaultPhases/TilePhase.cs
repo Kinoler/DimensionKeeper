@@ -9,14 +9,14 @@ namespace TestMod.DimensionLogic.DefaultPhases
     {
         public override void ExecuteLoadPhase(DimensionExample.DimensionExample dimension)
         {
-            var locationPoint = dimension.LocationToLoad;
+            var locationToLoad = dimension.LocationToLoad;
 
             for (var y = 0; y < dimension.Height; y++)
             {
                 for (var x = 0; x < dimension.Width; x++)
                 {
-                    var worldX = locationPoint.X + x;
-                    var worldY = locationPoint.Y + y;
+                    var worldX = locationToLoad.X + x;
+                    var worldY = locationToLoad.Y + y;
 
                     if (!WorldGen.InWorld(worldX, worldY))
                         continue;
@@ -27,46 +27,6 @@ namespace TestMod.DimensionLogic.DefaultPhases
                     var dimensionTileData = TileObjectData.GetTileData(dimensionTile);
                     if (dimensionTileData == null) 
                         targetTile.CopyFrom(dimensionTile);
-                }
-            }
-
-            var checkedPoints = new List<Point>();
-            for (var y = 0; y < dimension.Height; y++)
-            {
-                for (var x = 0; x < dimension.Width; x++)
-                {
-                    if (checkedPoints.Contains(new Point(x, y)))
-                        continue;
-
-                    var worldX = locationPoint.X + x;
-                    var worldY = locationPoint.Y + y;
-
-                    if (!WorldGen.InWorld(worldX, worldY))
-                        continue;
-                    var targetTile = Framing.GetTileSafely(worldX, worldY);
-
-                    var dimensionTile = dimension.Tiles[x, y];
-                    var dimensionTileData = TileObjectData.GetTileData(dimensionTile);
-                    if (dimensionTileData != null)
-                    {
-                        var style = -1;
-                        var alternate = -1;
-                        TileObjectData.GetTileInfo(dimensionTile, ref style, ref alternate);
-
-                        if (TileObject.CanPlace(worldX + dimensionTileData.Origin.X, worldY + dimensionTileData.Origin.Y, dimensionTile.type, style, alternate,
-                            out var tileObject))
-                        {
-                            TileObject.Place(tileObject);
-
-                            for (var j = 0; j < dimensionTileData.Height; j++)
-                            {
-                                for (var i = 0; i < dimensionTileData.Width; i++)
-                                {
-                                    checkedPoints.Add(new Point(x + i, y + j));
-                                }
-                            }
-                        }
-                    }
                 }
             }
 
@@ -102,12 +62,12 @@ namespace TestMod.DimensionLogic.DefaultPhases
         public override void ExecuteSynchronizePhase(DimensionExample.DimensionExample dimension)
         { 
             var currentDimension = dimension;
-            var loadCoordinate = currentDimension.LocationToLoad;
+            var locationToLoad = currentDimension.LocationToLoad;
 
-            var minX = loadCoordinate.X;
-            var maxX = loadCoordinate.X + currentDimension.Width;  
-            var minY = loadCoordinate.Y;
-            var maxY = loadCoordinate.Y + currentDimension.Height;
+            var minX = locationToLoad.X;
+            var maxX = locationToLoad.X + currentDimension.Width;  
+            var minY = locationToLoad.Y;
+            var maxY = locationToLoad.Y + currentDimension.Height;
 
             var stampTiles = new Tile[maxX - minX, maxY - minY];
 
@@ -142,14 +102,14 @@ namespace TestMod.DimensionLogic.DefaultPhases
 
         public override void ExecuteClearPhase(DimensionExample.DimensionExample dimension)
         {
-            var loadCoordinate = dimension.LocationToLoad;
+            var locationToLoad = dimension.LocationToLoad;
 
             for (var y = 0; y < dimension.Height; y++)
             {
                 for (var x = 0; x < dimension.Width; x++)
                 {
-                    var worldX = loadCoordinate.X + x;
-                    var worldY = loadCoordinate.Y + y;
+                    var worldX = locationToLoad.X + x;
+                    var worldY = locationToLoad.Y + y;
 
                     if (!WorldGen.InWorld(worldX, worldY))
                         continue;

@@ -8,8 +8,10 @@ namespace TestMod.DimensionExample
         public override void OnPhasesRegister()
         {
             AddPhase<TilePhase>();
-            //AddPhase<TileObjectDataPhase>();
+            AddPhase<TileObjectDataPhase, Dimension>();
             AddPhase<ChestPhase>();
+
+            AddPhase<TileFramePhase, Dimension>();
         }
     }
 }
