@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
 
 namespace TestMod.Helpers
 {
@@ -15,7 +16,7 @@ namespace TestMod.Helpers
             chest.item = new Item[chest.item.Length];
             for (var i = 0; i < chestToClone.item.Length; i++)
             {
-                if (chestToClone.item[i].type > 0)
+                if (chestToClone.item[i].type > ItemID.None)
                 {
                     chest.item[i] = chestToClone.item[i].Clone();
                 }

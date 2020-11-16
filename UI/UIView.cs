@@ -19,7 +19,7 @@ namespace TestMod.UI
 
 		//public static UIView exclusiveControl = null;
 
-		private static bool gameMouseOverwritten = false;
+		//private static bool gameMouseOverwritten = false;
 
 		protected static bool MouseLeftButton = false;
 
@@ -275,7 +275,7 @@ namespace TestMod.UI
 			{
 				UIView.mouseDownHandled = false;
 				UIView.mouseUpHandled = false;
-				UIView.gameMouseOverwritten = false;
+				//UIView.gameMouseOverwritten = false;
 			}
 			this.mouseForChildrenHandled = false;
 			if (this.Visible)
@@ -307,7 +307,7 @@ namespace TestMod.UI
 
 		private void OverWriteGameMouseInput()
 		{
-			UIView.gameMouseOverwritten = true;
+			//UIView.gameMouseOverwritten = true;
 			Main.mouseLeft = false;
 			Main.mouseLeftRelease = false;
 			Main.mouseRight = false;
