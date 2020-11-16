@@ -4,9 +4,10 @@ namespace TestMod.DimensionLogic.DefaultPhases
 {
     public class TileFramePhase: DimensionPhases<Dimension>
     {
-        public override void ExecuteLoadPhase(Dimension dimension)
+        public override void ExecuteLoadPhase(DimensionEntity<Dimension> entity)
         {
-            var locationToLoad = dimension.LocationToLoad;
+            var locationToLoad = entity.Location;
+            var dimension = entity.Dimension;
             var updateExtended = 3;
 
             for (var x = locationToLoad.X - updateExtended; x < locationToLoad.X + dimension.Width + updateExtended; x++)

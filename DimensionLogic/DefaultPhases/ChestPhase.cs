@@ -8,13 +8,16 @@ namespace TestMod.DimensionLogic.DefaultPhases
 {
     public class ChestPhase: DimensionPhases<Dimension>
     {
-        public override void ExecuteLoadPhase(Dimension dimension)
+        public override void ExecuteLoadPhase(DimensionEntity<Dimension> entity)
         {
+            var locationToLoad = entity.Location;
+            var dimension = entity.Dimension;
+
             for (var i = 0; i < dimension.Chests.Length; i++)
             {
                 var chest = dimension.Chests[i].CloneObject();
-                chest.x += dimension.LocationToLoad.X;
-                chest.y += dimension.LocationToLoad.Y;
+                chest.x += locationToLoad.X;
+                chest.y += locationToLoad.Y;
 
                 var chestIndex = Chest.CreateChest(chest.x, chest.y, -1);
                 Main.chest[chestIndex] = chest;
@@ -23,9 +26,10 @@ namespace TestMod.DimensionLogic.DefaultPhases
             Recipe.FindRecipes();
         }
 
-        public override void ExecuteSynchronizePhase(Dimension dimension)
+        public override void ExecuteSynchronizePhase(DimensionEntity<Dimension> entity)
         {
-            var locationToLoad = dimension.LocationToLoad;
+            var locationToLoad = entity.Location;
+            var dimension = entity.Dimension;
             var chests = new List<Chest>();
 
             for (var index = 0; index < Main.chest.Length; ++index)
@@ -48,16 +52,19 @@ namespace TestMod.DimensionLogic.DefaultPhases
             dimension.Chests = chests.ToArray();
         }
 
-        public override void ExecuteClearPhase(Dimension dimension)
+        public override void ExecuteClearPhase(DimensionEntity<Dimension> entity)
         {
+            var locationToLoad = entity.Location;
+            var dimension = entity.Dimension;
+
             for (var index = 0; index < Main.chest.Length; index++)
             {
                 var chest = Main.chest[index];
                 if (chest != null &&
-                    chest.x >= dimension.LocationToLoad.X &&
-                    chest.x <= dimension.LocationToLoad.X + dimension.Width &&
-                    chest.y >= dimension.LocationToLoad.Y &&
-                    chest.y <= dimension.LocationToLoad.Y + dimension.Height)
+                    chest.x >= locationToLoad.X &&
+                    chest.x <= locationToLoad.X + dimension.Width &&
+                    chest.y >= locationToLoad.Y &&
+                    chest.y <= locationToLoad.Y + dimension.Height)
                 {
                     Main.chest[index] = (Chest)null;
                     if (Main.player[Main.myPlayer].chest == index)

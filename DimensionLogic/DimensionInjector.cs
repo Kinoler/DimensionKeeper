@@ -5,9 +5,9 @@ namespace TestMod.DimensionLogic
 {
     public abstract class DimensionInjector
     {
-        internal abstract void Load(Dimension dimension);
-        internal abstract void Synchronize(Dimension dimension);
-        internal abstract void Clear(Dimension dimension);
+        internal abstract void Load(DimensionEntity dimension);
+        internal abstract void Synchronize(DimensionEntity dimension);
+        internal abstract void Clear(DimensionEntity dimension);
     }
 
     /// <summary>
@@ -68,7 +68,7 @@ namespace TestMod.DimensionLogic
             OnPhasesRegister();
         }
 
-        internal override void Load(Dimension dimension)
+        internal override void Load(DimensionEntity dimension)
         {
             for (var i = 0; i < Phases.Count; i++)
             {
@@ -76,7 +76,7 @@ namespace TestMod.DimensionLogic
             }
         }
 
-        internal override void Synchronize(Dimension dimension)
+        internal override void Synchronize(DimensionEntity dimension)
         {
             for (var i = 0; i < Phases.Count; i++)
             {
@@ -84,7 +84,7 @@ namespace TestMod.DimensionLogic
             }
         }
 
-        internal override void Clear(Dimension dimension)
+        internal override void Clear(DimensionEntity dimension)
         {
             for (var i = 0; i < Phases.Count; i++)
             {

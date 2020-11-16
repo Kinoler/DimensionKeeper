@@ -7,9 +7,10 @@ namespace TestMod.DimensionLogic.DefaultPhases
 {
     public class TileObjectDataPhase: DimensionPhases<Dimension>
     {
-        public override void ExecuteLoadPhase(Dimension dimension)
+        public override void ExecuteLoadPhase(DimensionEntity<Dimension> entity)
         {
-            var locationToLoad = dimension.LocationToLoad;
+            var locationToLoad = entity.Location;
+            var dimension = entity.Dimension;
 
             var checkedPoints = new List<Point>();
             for (var y = 0; y < dimension.Height; y++)

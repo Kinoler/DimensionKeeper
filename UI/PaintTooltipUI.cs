@@ -225,16 +225,20 @@ namespace TestMod.UI
                         var width = (int)(lowerRight.X + 1 - upperLeft.X);
                         var height = (int)(lowerRight.Y + 1 - upperLeft.Y);
 
-                        var dimension = new DimensionExample.DimensionExample()
+                        var entity = new DimensionEntity<DimensionExample.DimensionExample>
                         {
-                            LocationToLoad = upperLeft.ToPoint(),
-                            Tiles = new Tile[width, height]
+                            Location = upperLeft.ToPoint(),
+                            TypeName = DimensionRegisterExample.ExampleName,
+                            Dimension = new DimensionExample.DimensionExample
+                            {
+                                Tiles = new Tile[width, height]
+                            }
                         };
 
-                        var injector = DimensionLoader.RegisteredDimension.GetInjector(DimensionRegisterExample.ExampleName);
-                        injector.Synchronize(dimension);
+                        var injector = DimensionLoader.RegisteredDimension.GetInjector(entity.TypeName);
+                        injector.Synchronize(entity);
 
-                        DataParserExample.AddDimension(dimension);
+                        DataParserExample.AddDimension(entity.Dimension);
 
                         Hide();
                     }

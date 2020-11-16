@@ -3,14 +3,15 @@ using Terraria;
 using Terraria.Map;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using TestMod.Interfaces;
 
 namespace TestMod.DimensionLogic
 {
     public abstract class DataParser
     {
-        private Dimension _cachedDimension;
+        private DimensionEntity _cachedDimension;
 
-        internal Dimension GetDimension(string name)
+        internal DimensionEntity GetDimension(string name)
         {
             if (AlwaysNewInternal || _cachedDimension == null)
             {
@@ -22,9 +23,9 @@ namespace TestMod.DimensionLogic
 
         internal abstract bool AlwaysNewInternal { get; }
 
-        internal abstract Dimension LoadInternal(string tag);
+        internal abstract DimensionEntity LoadInternal(string name);
 
-        internal abstract void SaveInternal(Dimension dimension);
+        internal abstract void SaveInternal(DimensionEntity dimension);
     }
 
     /// <summary>
@@ -32,29 +33,16 @@ namespace TestMod.DimensionLogic
     /// </summary>
     /// <typeparam name="TDimension">The dimension type that should be storing.</typeparam>
     public abstract class DataParser<TDimension>: DataParser where TDimension: Dimension
-    {
-        /// <summary>
-        /// Should the loading method be called instead of using the cached dimension.
-        /// </summary>
-        public virtual bool AlwaysNew => false;
-
+    {        
         /// <summary>
         /// The name with which the <see cref="DimensionLoader.LoadDimension"/> method was called.
         /// </summary>
         public string Name { get; private set; }
 
-        internal override bool AlwaysNewInternal => AlwaysNew;
-
-        internal override Dimension LoadInternal(string name)
-        {
-            Name = name;
-            return Load();
-        }
-
-        internal override void SaveInternal(Dimension dimension)
-        {
-            Save((TDimension)dimension);
-        }
+        /// <summary>
+        /// Should the loading method be called instead of using the cached dimension.
+        /// </summary>
+        public virtual bool AlwaysNew => false;
 
         /// <summary>
         /// Allow you to load a dimension from the storage.
@@ -67,5 +55,23 @@ namespace TestMod.DimensionLogic
         /// </summary>
         /// <param name="dimension">The dimension which should be saving</param>
         public abstract void Save(TDimension dimension);
+
+        internal override bool AlwaysNewInternal => AlwaysNew;
+
+        internal override DimensionEntity LoadInternal(string name)
+        {
+            Name = name;
+            var entity = new DimensionEntity<TDimension>
+            {
+                TypeName = Name,
+                Dimension = Load()
+            };
+            return entity;
+        }
+
+        internal override void SaveInternal(DimensionEntity entity)
+        {
+            Save((TDimension)entity.DimensionInternal);
+        }
     }
 }

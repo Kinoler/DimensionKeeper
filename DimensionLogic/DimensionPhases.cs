@@ -9,9 +9,9 @@ namespace TestMod.DimensionLogic
 {
     public abstract class DimensionPhases
     {
-        internal abstract void ExecuteLoadPhaseInternal(Dimension dimension);
-        internal abstract void ExecuteSynchronizePhaseInternal(Dimension dimension);
-        internal abstract void ExecuteClearPhaseInternal(Dimension dimension);
+        internal abstract void ExecuteLoadPhaseInternal(DimensionEntity dimension);
+        internal abstract void ExecuteSynchronizePhaseInternal(DimensionEntity dimension);
+        internal abstract void ExecuteClearPhaseInternal(DimensionEntity dimension);
     }
 
     /// <summary>
@@ -27,7 +27,7 @@ namespace TestMod.DimensionLogic
         /// Calls whenever the <see cref="DimensionLoader.LoadDimension"/> is called. (For each registered phases)
         /// </remarks>
         /// <param name="dimension">The loading dimension</param>
-        public virtual void ExecuteLoadPhase(TDimension dimension)
+        public virtual void ExecuteLoadPhase(DimensionEntity<TDimension> dimension)
         {
         }
 
@@ -39,7 +39,7 @@ namespace TestMod.DimensionLogic
         /// Calls whenever the <see cref="DimensionLoader.LoadDimension"/> is called with the synchronizePrevious is true. (For each registered phases)
         /// </remarks>
         /// <param name="dimension">The dimension which should be modified</param>
-        public virtual void ExecuteSynchronizePhase(TDimension dimension)
+        public virtual void ExecuteSynchronizePhase(DimensionEntity<TDimension> dimension)
         {
         }
 
@@ -51,23 +51,32 @@ namespace TestMod.DimensionLogic
         /// Calls whenever the <see cref="DimensionLoader.LoadDimension"/> is called. (For each registered phases)
         /// </remarks>
         /// <param name="dimension">The synchronized dimension.</param>
-        public virtual void ExecuteClearPhase(TDimension dimension)
+        public virtual void ExecuteClearPhase(DimensionEntity<TDimension> dimension)
         {
         }
 
-        internal override void ExecuteLoadPhaseInternal(Dimension dimension)
+        internal override void ExecuteLoadPhaseInternal(DimensionEntity dimension)
         {
-            ExecuteLoadPhase((TDimension) dimension);
+            var temp = new DimensionEntity<TDimension>();
+            temp.CopyFrom(dimension);
+
+            ExecuteLoadPhase(temp);
         }
 
-        internal override void ExecuteSynchronizePhaseInternal(Dimension dimension)
+        internal override void ExecuteSynchronizePhaseInternal(DimensionEntity dimension)
         {
-            ExecuteSynchronizePhase((TDimension)dimension);
+            var temp = new DimensionEntity<TDimension>();
+            temp.CopyFrom(dimension);
+
+            ExecuteSynchronizePhase(temp);
         }
 
-        internal override void ExecuteClearPhaseInternal(Dimension dimension)
+        internal override void ExecuteClearPhaseInternal(DimensionEntity dimension)
         {
-            ExecuteClearPhase((TDimension)dimension);
+            var temp = new DimensionEntity<TDimension>();
+            temp.CopyFrom(dimension);
+
+            ExecuteClearPhase(temp);
         }
     }
 }

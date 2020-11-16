@@ -13,12 +13,10 @@ namespace TestMod.DimensionLogic
 
         private static DataParser CurrentParser { get; set; }
         private static DimensionInjector CurrentInjector { get; set; }
-        private static Dimension CurrentDimension { get; set; }
 
-        private static string CurrentName { get; set; }
-        private static Point? CurrentLocation { get; set; }
+        private static DimensionEntity CurrentEntity { get; set; }
 
-        private static bool DimensionLoaded => CurrentLocation != null;
+        private static bool DimensionLoaded => CurrentEntity != null;
 
         /// <summary>
         /// Register the open generic type which register the dimensions.
@@ -42,23 +40,21 @@ namespace TestMod.DimensionLogic
         /// <summary>
         /// Load (inject) registered dimension into the world.
         /// </summary>
-        /// <param name="name">The name which dimension is associated.</param>
+        /// <param name="type">The type which dimension was registered.</param>
         /// <param name="synchronizePrevious">Should the previous dimension be synchronized with changing in the world.</param>
-        /// <param name="locationToLoad">Allow you to specify the dimension loading tile.</param>
-        public static void LoadDimension(string name, bool synchronizePrevious = true, Point? locationToLoad = null)
+        /// <param name="locationToLoad">Specify the dimension loading tile. Points to the upper left corner.</param>
+        public static void LoadDimension(string type, Point locationToLoad, bool synchronizePrevious = true)
         {
             if (synchronizePrevious)
                 SynchronizeCurrentDimension();
 
             ClearCurrentDimension();
 
-            CurrentParser = RegisteredDimension.GetParser("Name");
-            CurrentInjector = RegisteredDimension.GetInjector("Name");
-            CurrentName = name;
-            CurrentDimension = CurrentParser.GetDimension(CurrentName);
-            if (locationToLoad != null)
-                CurrentDimension.LocationToLoad = locationToLoad.Value;
-            CurrentLocation = CurrentDimension.LocationToLoad;
+            CurrentParser = RegisteredDimension.GetParser(type);
+            CurrentInjector = RegisteredDimension.GetInjector(type);
+
+            CurrentEntity = CurrentParser.GetDimension(type);
+            CurrentEntity.Location = new Point(locationToLoad.X, locationToLoad.Y - CurrentEntity.DimensionInternal.Height);
 
             LoadCurrentDimension();
         }
@@ -67,38 +63,45 @@ namespace TestMod.DimensionLogic
         {
             if (!DimensionLoaded)
                 return;
-            CurrentInjector.Load(CurrentDimension);
+            CurrentInjector.Load(CurrentEntity);
         }
 
         private static void SynchronizeCurrentDimension()
         {
             if (!DimensionLoaded)
                 return;
-            CurrentInjector.Synchronize(CurrentDimension);
-            CurrentParser.SaveInternal(CurrentDimension);
+            CurrentInjector.Synchronize(CurrentEntity);
+            CurrentParser.SaveInternal(CurrentEntity);
         }
 
         private static void ClearCurrentDimension()
         {
             if (!DimensionLoaded)
                 return;
-            CurrentInjector.Clear(CurrentDimension);
+            CurrentInjector.Clear(CurrentEntity);
         }
 
         internal static TagCompound Save()
         {
-            var tag = new TagCompound 
+            var tag = new TagCompound
             {
-                {"Name", CurrentName}, 
-                {"Location", CurrentLocation}
+                {"TypeName", CurrentEntity?.TypeName}, 
+                {"Id", CurrentEntity?.Id}, 
+                {"Location", CurrentEntity?.Location}
             };
+
             return tag;
         }
 
         internal static void Load(TagCompound tag)
         {
-            CurrentName = tag.Get<string>("Name");
-            CurrentLocation = tag.Get<Point>("Location");
+            var name = tag.Get<string>("TypeName");
+            if (string.IsNullOrEmpty(name))
+                return;
+
+            CurrentEntity = RegisteredDimension.GetParser(name).GetDimension(name);
+            CurrentEntity.Location = tag.Get<Point>("Location");
+            CurrentEntity.Id = tag.Get<string>("Id");
         }
 
         internal static void Initialize()
@@ -116,9 +119,7 @@ namespace TestMod.DimensionLogic
         {
             CurrentParser = null;
             CurrentInjector = null;
-            CurrentDimension = null;
-            CurrentName = null;
-            CurrentLocation = null;
+            CurrentEntity = null;
         }
     }
 }
