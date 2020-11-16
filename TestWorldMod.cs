@@ -15,7 +15,9 @@ namespace TestMod
 {
     public class TestWorldMod: ModWorld
     {
-        private const string DimensionsTagName = "Dimensions";
+        private const string DimensionListTagName = "DimensionList";
+        private const string CurrentDimensionTagName = "CurentDimension";
+
         internal static TagCompound DimensionsTag { get; set; }
 
         public override void Initialize()
@@ -25,24 +27,17 @@ namespace TestMod
 
         public override void Load(TagCompound tag)
         {
-            DimensionsTag = tag.GetCompound(DimensionsTagName);
+            DimensionsTag = tag.GetCompound(DimensionListTagName);
+            DimensionLoader.Load(tag.GetCompound(CurrentDimensionTagName));
         }
 
         public override TagCompound Save()
         {
             var dimensionsTag = new TagCompound();
-            dimensionsTag.Set(DimensionsTagName, TagCompoundParser<Dimension>.OnWorldSave());
+            dimensionsTag.Set(DimensionListTagName, TagCompoundParser<Dimension>.OnWorldSave());
+            dimensionsTag.Set(CurrentDimensionTagName, DimensionLoader.Save());
 
             return dimensionsTag;
         }
-    }
-
-    public class TestPlayerMod: ModPlayer
-    {
-        public override void Initialize()
-        {
-            base.Initialize();
-        }
-        
     }
 }

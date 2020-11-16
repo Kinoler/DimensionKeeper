@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Terraria.ModLoader.IO;
 using TestMod.Interfaces;
 
 namespace TestMod.DimensionLogic
@@ -14,7 +15,10 @@ namespace TestMod.DimensionLogic
         private static DimensionInjector CurrentInjector { get; set; }
         private static Dimension CurrentDimension { get; set; }
 
-        private static bool DimensionLoaded => CurrentDimension != null;
+        private static string CurrentName { get; set; }
+        private static Point? CurrentLocation { get; set; }
+
+        private static bool DimensionLoaded => CurrentLocation != null;
 
         /// <summary>
         /// Register the open generic type which register the dimensions.
@@ -50,10 +54,11 @@ namespace TestMod.DimensionLogic
 
             CurrentParser = RegisteredDimension.GetParser("Name");
             CurrentInjector = RegisteredDimension.GetInjector("Name");
-
-            CurrentDimension = CurrentParser.GetDimension(name);
-            if (locationToLoad != null) 
+            CurrentName = name;
+            CurrentDimension = CurrentParser.GetDimension(CurrentName);
+            if (locationToLoad != null)
                 CurrentDimension.LocationToLoad = locationToLoad.Value;
+            CurrentLocation = CurrentDimension.LocationToLoad;
 
             LoadCurrentDimension();
         }
@@ -80,6 +85,22 @@ namespace TestMod.DimensionLogic
             CurrentInjector.Clear(CurrentDimension);
         }
 
+        internal static TagCompound Save()
+        {
+            var tag = new TagCompound 
+            {
+                {"Name", CurrentName}, 
+                {"Location", CurrentLocation}
+            };
+            return tag;
+        }
+
+        internal static void Load(TagCompound tag)
+        {
+            CurrentName = tag.Get<string>("Name");
+            CurrentLocation = tag.Get<Point>("Location");
+        }
+
         internal static void Initialize()
         {
             RegisteredDimension = new DimensionsRegister();
@@ -96,6 +117,8 @@ namespace TestMod.DimensionLogic
             CurrentParser = null;
             CurrentInjector = null;
             CurrentDimension = null;
+            CurrentName = null;
+            CurrentLocation = null;
         }
     }
 }
