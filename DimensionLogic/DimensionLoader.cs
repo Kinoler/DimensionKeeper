@@ -88,6 +88,11 @@ namespace TestMod.DimensionLogic
         internal static void Unload()
         {
             RegisteredDimension = null;
+            Clear();
+        }
+
+        internal static void Clear()
+        {
             CurrentParser = null;
             CurrentInjector = null;
             CurrentDimension = null;
