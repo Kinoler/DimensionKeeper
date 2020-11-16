@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using TestMod.DimensionLogic.InternalHelperClasses;
 
 namespace TestMod.DimensionLogic
 {
-    public abstract class DimensionInjector
-    {
-        internal abstract void Load(DimensionEntity dimension);
-        internal abstract void Synchronize(DimensionEntity dimension);
-        internal abstract void Clear(DimensionEntity dimension);
-    }
-
     /// <summary>
     /// The class used to register <see cref="DimensionPhases{TDimension}"/> phases for specific <see cref="TDimension"/>.
     /// </summary>

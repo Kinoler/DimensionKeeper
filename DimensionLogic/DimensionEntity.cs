@@ -5,21 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Mono.CompilerServices.SymbolWriter;
+using TestMod.DimensionLogic.InternalHelperClasses;
 
 namespace TestMod.DimensionLogic
 {
-    public abstract class DimensionEntity
-    {
-        public string TypeName { get; internal set; }
-        public string Id { get; internal set; }
-
-        public Point Location { get; internal set; }
-
-        internal abstract Dimension DimensionInternal { get; set; }
-    }
-
     /// <summary>
-    /// Represent the loaded dimension into the world.
+    /// Represents the dimension which will be or already loaded into the world.
     /// </summary>
     public class DimensionEntity<TDimension>: DimensionEntity where TDimension: Dimension
     {

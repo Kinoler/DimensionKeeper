@@ -3,17 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestMod.DimensionLogic.InternalHelperClasses;
 using TestMod.Interfaces;
 
 namespace TestMod.DimensionLogic
 {
-    public abstract class DimensionPhases
-    {
-        internal abstract void ExecuteLoadPhaseInternal(DimensionEntity dimension);
-        internal abstract void ExecuteSynchronizePhaseInternal(DimensionEntity dimension);
-        internal abstract void ExecuteClearPhaseInternal(DimensionEntity dimension);
-    }
-
     /// <summary>
     /// The class that allow you to handle inject process.
     /// </summary>

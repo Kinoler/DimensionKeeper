@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
+using TestMod.DimensionLogic.InternalHelperClasses;
 
 namespace TestMod.DimensionLogic
 {
@@ -10,7 +11,6 @@ namespace TestMod.DimensionLogic
     {
         private Dictionary<string, (DataParser Parser, DimensionInjector Injector)> DimensionScripts { get; } = 
             new Dictionary<string, (DataParser Parser, DimensionInjector Injector)>();
-
 
         public void Register<TDimensionInjector, TDataParser, TDimension>(string name)
             where TDimension: Dimension

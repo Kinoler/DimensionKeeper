@@ -3,31 +3,11 @@ using Terraria;
 using Terraria.Map;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using TestMod.DimensionLogic.InternalHelperClasses;
 using TestMod.Interfaces;
 
 namespace TestMod.DimensionLogic
 {
-    public abstract class DataParser
-    {
-        private DimensionEntity _cachedDimension;
-
-        internal DimensionEntity GetDimension(string name)
-        {
-            if (AlwaysNewInternal || _cachedDimension == null)
-            {
-                _cachedDimension = LoadInternal(name);
-            }
-
-            return _cachedDimension;
-        }
-
-        internal abstract bool AlwaysNewInternal { get; }
-
-        internal abstract DimensionEntity LoadInternal(string name);
-
-        internal abstract void SaveInternal(DimensionEntity dimension);
-    }
-
     /// <summary>
     /// The class that allows you to handle storage of dimensions.
     /// </summary>
