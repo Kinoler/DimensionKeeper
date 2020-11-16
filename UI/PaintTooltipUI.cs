@@ -12,6 +12,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TestMod.DimensionExample;
 using TestMod.DimensionLogic;
+using TestMod.Helpers;
 
 namespace TestMod.UI
 {
@@ -409,60 +410,5 @@ namespace TestMod.UI
             Visible = true;
             EyeDropperActive = true;
         }
-
-        public static bool CanDrawColorWall(Tile tile)
-        {
-            return tile != null && tile.wallColor() > 0 && Main.wallAltTextureDrawn[tile.wall, tile.wallColor()] && Main.wallAltTextureInit[tile.wall, tile.wallColor()];
-        }
-
-        public static void DrawPreview(SpriteBatch sb, Tile[,] BrushTiles, Vector2 position, float scale = 1f)
-		{
-			Color color = Color.White;
-			color.A = 160;
-			int width = BrushTiles.GetLength(0);
-			int height = BrushTiles.GetLength(1);
-			for (int y = 0; y < height; y++)
-			{
-				for (int x = 0; x < width; x++)
-				{
-					Tile tile = BrushTiles[x, y];
-					if (tile.wall > 0 && tile.wall < WallLoader.WallCount)
-					{
-						Main.instance.LoadWall(tile.wall);
-						Texture2D textureWall;
-						if (CanDrawColorWall(tile) && tile.type < Main.wallAltTexture.GetLength(0) && Main.wallAltTexture[tile.type, tile.wallColor()] != null)
-							textureWall = Main.wallAltTexture[tile.type, tile.wallColor()];
-						else
-							textureWall = Main.wallTexture[tile.wall];
-						int wallFrame = Main.wallFrame[tile.wall] * 180;
-						Rectangle value = new Rectangle(tile.wallFrameX(), tile.wallFrameY() + wallFrame, 32, 32);
-						Vector2 pos = position + new Vector2(x * 16 - 8, y * 16 - 8);
-						sb.Draw(textureWall, pos * scale, value, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
-					}
-					if (tile.liquid > 14)
-					{
-						Texture2D textureWater;
-						if (tile.honey())
-							textureWater = LiquidRenderer.Instance._liquidTextures[11].Offset(16, 48, 16, 16);
-						else if (tile.lava())
-							textureWater = LiquidRenderer.Instance._liquidTextures[1].Offset(16, 48, 16, 16);
-						else
-							textureWater = LiquidRenderer.Instance._liquidTextures[0].Offset(16, 48, 16, 16);
-						int waterSize = (tile.liquid + 1) / 16;
-						Vector2 pos = position + new Vector2(x * 16, y * 16 + (16 - waterSize));
-						sb.Draw(textureWater, pos * scale, new Rectangle(0, 16 - waterSize, 16, waterSize), color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
-					}
-					if (tile.active() && tile.type < TileLoader.TileCount) // Tile
-					{
-						Main.instance.LoadTiles(tile.type);
-						Texture2D texture = Main.tileTexture[tile.type];
-						Rectangle? value = new Rectangle(tile.frameX, tile.frameY, 16, 16/* tileData.CoordinateWidth, tileData.CoordinateHeights[j - (int)op.ObjectStart.Y]*/);
-						Vector2 pos = position + new Vector2(x * 16, y * 16);
-						sb.Draw(texture, pos * scale, value, color, 0f, Vector2.Zero, scale, /*spriteEffects*/SpriteEffects.None, 0f);
-					}
-				}
-			}
-			// Draw deleted tiles with non transparent selection?
-		}
-	}
+    }
 }
