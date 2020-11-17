@@ -13,9 +13,6 @@ namespace TestMod.DimensionLogic
     {
         internal static DimensionsRegister RegisteredDimension { get; private set; }
 
-        private static DataParser CurrentParser { get; set; }
-        private static DimensionInjector CurrentInjector { get; set; }
-
         private static DimensionEntity CurrentEntity { get; set; }
 
         /// <summary>
@@ -50,10 +47,7 @@ namespace TestMod.DimensionLogic
 
             ClearCurrentDimension(CurrentEntity);
 
-            CurrentParser = RegisteredDimension.GetParser(type);
-            CurrentInjector = RegisteredDimension.GetInjector(type);
-
-            CurrentEntity = CurrentParser.GetDimension(type, id);
+            CurrentEntity = RegisteredDimension.GetParser(type).GetDimension(id);
             if (CurrentEntity.DimensionInternal == null)
             {
                 Clear();
@@ -116,11 +110,8 @@ namespace TestMod.DimensionLogic
             if (string.IsNullOrEmpty(type))
                 return;
 
-            CurrentParser = RegisteredDimension.GetParser(type);
-            CurrentInjector = RegisteredDimension.GetInjector(type);
-
             var id = tag.Get<string>("Id");
-            CurrentEntity = CurrentParser.GetDimension(type, id);
+            CurrentEntity = RegisteredDimension.GetParser(type).GetDimension(id);
 
             CurrentEntity.Location = tag.Get<Vector2>("Location").ToPoint();
             CurrentEntity.Id = tag.Get<string>("Id");
@@ -142,8 +133,6 @@ namespace TestMod.DimensionLogic
 
         internal static void Clear()
         {
-            CurrentParser = null;
-            CurrentInjector = null;
             CurrentEntity = null;
         }
     }
