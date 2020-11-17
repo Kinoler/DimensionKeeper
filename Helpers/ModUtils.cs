@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
+using TestMod.DimensionLogic.InternalHelperClasses;
 
 namespace TestMod.Helpers
 {
@@ -24,16 +26,19 @@ namespace TestMod.Helpers
 			return position;
 		}
 
-        internal static Chest Offset(this Chest chest, Point point)
-		{
-            return chest.Offset(point.X, point.Y);
-		}
+        public static IEnumerable<Point> RectangularPoints(this DimensionEntity entity, Point offset = default)
+        {
+            var locationToLoad = entity.Location;
+            var offsetX = offset.X;
+            var offsetY = offset.Y;
 
-        internal static Chest Offset(this Chest chest, int x, int y)
-		{
-            chest.x += x;
-            chest.y += y;
-			return chest;
-		}
-	}
+            for (var x = locationToLoad.X + offsetX; x < locationToLoad.X + entity.Width - offsetX; x++)
+            {
+                for (var y = locationToLoad.Y + offsetY; y < locationToLoad.Y + entity.Height - offsetY; y++)
+                {
+                    yield return new Point(x, y);
+                }
+            }
+        }
+    }
 }

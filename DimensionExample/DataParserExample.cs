@@ -10,22 +10,30 @@ namespace TestMod.DimensionExample
 {
     public class DataParserExample : DataParser<DimensionExample>
     {
-        internal static Point LoadCoordinate { get; set; }
-        internal static List<DimensionExample> Dimensions { get; } = new List<DimensionExample>();
-        internal static CycledCounter Counter { get; } = new CycledCounter();
-        internal static int CurrentLoadedDimension { get; set; } = -1;
+        internal static List<DimensionExample> Dimensions { get; set; }
+        internal static CycledCounter Counter { get; set; }
+        internal static int CurrentLoadedDimension { get; set; }
+
+        internal static void Initialize()
+        {
+            Dimensions = new List<DimensionExample>();
+            Counter = new CycledCounter();
+            CurrentLoadedDimension = -1;
+        }
+
+        internal static void Clear()
+        {
+            Dimensions = null;
+            Counter = null;
+        }
 
         public override bool AlwaysNew => true;
-
-        public static void SetLoadCoordinate(int x, int y)
-        {
-            LoadCoordinate = new Point(x, y);
-        }
 
         public static void AddDimension(DimensionExample dimension)
         {
             Dimensions.Add(dimension);
             Counter.AddNew();
+            NextDimension();
         }
 
         public static int NextDimension()
@@ -41,15 +49,17 @@ namespace TestMod.DimensionExample
                 return null;
 
             CurrentLoadedDimension = Counter.Current;
-            var dimension = Dimensions[Counter.Current];
-            dimension.LocationToLoad = new Point(LoadCoordinate.X, LoadCoordinate.Y - dimension.Height);
-            return dimension;
+            return Dimensions[Counter.Current];
         }
         
         public override void Save(DimensionExample dimension)
         {
             if (Counter.Max == 0)
+            {
+                AddDimension(dimension);
                 return;
+            }
+
 
             if (CurrentLoadedDimension == -1)
                 return;

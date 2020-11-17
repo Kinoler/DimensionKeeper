@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TestMod.DimensionExample;
@@ -13,24 +15,30 @@ namespace TestMod
 {
     public class TestWorldMod: ModWorld
     {
-        private const string DimensionsTagName = "Dimensions";
-        internal static TagCompound DimensionsTag { get; set; }
+        private const string DimensionListTagName = "DimensionList";
+        private const string CurrentDimensionTagName = "CurentDimension";
+        private const string SingleEntryTagName = "SingleEntries";
 
-        public override void Load(TagCompound tag)
-        {
-            DimensionsTag = tag.GetCompound(DimensionsTagName);
-        }
+        internal static TagCompound DimensionsTag { get; set; }
 
         public override void Initialize()
         {
-            base.Initialize();
+            DataParserExample.Initialize();
         }
 
+        public override void Load(TagCompound tag)
+        {
+            DimensionsTag = tag.GetCompound(DimensionListTagName);
+            DimensionKeeper.Instance.Load(tag.GetCompound(SingleEntryTagName));
+        }
 
         public override TagCompound Save()
         {
-            var dimensionsTag = new TagCompound();
-            dimensionsTag.Set(DimensionsTagName, TagCompoundParser<Dimension>.OnWorldSave());
+            var dimensionsTag = new TagCompound
+            {
+                {SingleEntryTagName, DimensionKeeper.Instance.Save()}
+            };
+            //dimensionsTag.Set(DimensionListTagName, TagCompoundParser<Dimension>.OnWorldSave());
 
             return dimensionsTag;
         }

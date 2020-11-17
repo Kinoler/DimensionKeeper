@@ -3,71 +3,77 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestMod.DimensionLogic.InternalHelperClasses;
 using TestMod.Interfaces;
 
 namespace TestMod.DimensionLogic
 {
-    public abstract class DimensionPhases
-    {
-        internal abstract void ExecuteLoadPhaseInternal(Dimension dimension);
-        internal abstract void ExecuteSynchronizePhaseInternal(Dimension dimension);
-        internal abstract void ExecuteClearPhaseInternal(Dimension dimension);
-    }
-
     /// <summary>
     /// The class that allow you to handle inject process.
     /// </summary>
     /// <typeparam name="TDimension">The specific <see cref="Dimension"/>.</typeparam>
     public class DimensionPhases<TDimension>: DimensionPhases where TDimension: Dimension
     {
+        //TODO remarks
         /// <summary>
-        /// Allows you to handle the load process. Modify the terraria world according to <see cref="dimension"/>.
+        /// Allows you to handle the load process. Modify the terraria world according to <see cref="entity"/>.
         /// </summary>
         /// <remarks>
-        /// Calls whenever the <see cref="DimensionLoader.LoadDimension"/> is called. (For each registered phases)
+        /// Calls whenever the  is called. (For each registered phases)
         /// </remarks>
-        /// <param name="dimension">The loading dimension</param>
-        public virtual void ExecuteLoadPhase(TDimension dimension)
+        /// <param name="entity">The loading dimension</param>
+        public virtual void ExecuteLoadPhase(DimensionEntity<TDimension> entity)
         {
         }
 
+        //TODO remarks
         /// <summary>
         /// Takes something like a snapshot.
-        /// Allows you to handle the synchronization process. Modify the <see cref="dimension"/> according to the terraria world.
+        /// Allows you to handle the synchronization process. Modify the <see cref="entity"/> according to the terraria world.
         /// </summary>
         /// <remarks>
-        /// Calls whenever the <see cref="DimensionLoader.LoadDimension"/> is called with the synchronizePrevious is true. (For each registered phases)
+        /// Calls whenever the  is called with the synchronizePrevious is true. (For each registered phases)
         /// </remarks>
-        /// <param name="dimension">The dimension which should be modified</param>
-        public virtual void ExecuteSynchronizePhase(TDimension dimension)
+        /// <param name="entity">The dimension which should be modified</param>
+        public virtual void ExecuteSynchronizePhase(DimensionEntity<TDimension> entity)
         {
         }
 
+        //TODO remarks
         /// <summary>
         /// Allows you to handle the clear process.
         /// Clear the terraria world according to the <see cref="ExecuteLoadPhase"/> method changes.
         /// </summary>
         /// <remarks>
-        /// Calls whenever the <see cref="DimensionLoader.LoadDimension"/> is called. (For each registered phases)
+        /// Calls whenever the  is called. (For each registered phases)
         /// </remarks>
-        /// <param name="dimension">The synchronized dimension.</param>
-        public virtual void ExecuteClearPhase(TDimension dimension)
+        /// <param name="entity">The synchronized dimension.</param>
+        public virtual void ExecuteClearPhase(DimensionEntity<TDimension> entity)
         {
         }
 
-        internal override void ExecuteLoadPhaseInternal(Dimension dimension)
+        internal override void ExecuteLoadPhaseInternal(DimensionEntity entity)
         {
-            ExecuteLoadPhase((TDimension) dimension);
+            var temp = new DimensionEntity<TDimension>();
+            temp.CopyFrom(entity);
+
+            ExecuteLoadPhase(temp);
         }
 
-        internal override void ExecuteSynchronizePhaseInternal(Dimension dimension)
+        internal override void ExecuteSynchronizePhaseInternal(DimensionEntity entity)
         {
-            ExecuteSynchronizePhase((TDimension)dimension);
+            var temp = new DimensionEntity<TDimension>();
+            temp.CopyFrom(entity);
+
+            ExecuteSynchronizePhase(temp);
         }
 
-        internal override void ExecuteClearPhaseInternal(Dimension dimension)
+        internal override void ExecuteClearPhaseInternal(DimensionEntity entity)
         {
-            ExecuteClearPhase((TDimension)dimension);
+            var temp = new DimensionEntity<TDimension>();
+            temp.CopyFrom(entity);
+
+            ExecuteClearPhase(temp);
         }
     }
 }

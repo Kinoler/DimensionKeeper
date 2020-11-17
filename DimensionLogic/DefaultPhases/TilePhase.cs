@@ -7,13 +7,14 @@ namespace TestMod.DimensionLogic.DefaultPhases
 {
     public class TilePhase : DimensionPhases<Dimension>
     {
-        public override void ExecuteLoadPhase(Dimension dimension)
+        public override void ExecuteLoadPhase(DimensionEntity<Dimension> entity)
         {
-            var locationToLoad = dimension.LocationToLoad;
+            var locationToLoad = entity.Location;
+            var dimension = entity.Dimension;
 
-            for (var y = 0; y < dimension.Height; y++)
+            for (var y = 0; y < entity.Height; y++)
             {
-                for (var x = 0; x < dimension.Width; x++)
+                for (var x = 0; x < entity.Width; x++)
                 {
                     var worldX = locationToLoad.X + x;
                     var worldY = locationToLoad.Y + y;
@@ -31,15 +32,14 @@ namespace TestMod.DimensionLogic.DefaultPhases
             }
         }
 
-        public override void ExecuteSynchronizePhase(Dimension dimension)
-        { 
-            var currentDimension = dimension;
-            var locationToLoad = currentDimension.LocationToLoad;
+        public override void ExecuteSynchronizePhase(DimensionEntity<Dimension> entity)
+        {
+            var locationToLoad = entity.Location;
 
             var minX = locationToLoad.X;
-            var maxX = locationToLoad.X + currentDimension.Width;  
+            var maxX = locationToLoad.X + entity.Width;  
             var minY = locationToLoad.Y;
-            var maxY = locationToLoad.Y + currentDimension.Height;
+            var maxY = locationToLoad.Y + entity.Height;
 
             var stampTiles = new Tile[maxX - minX, maxY - minY];
 
@@ -69,16 +69,16 @@ namespace TestMod.DimensionLogic.DefaultPhases
                 }
             }
 
-            dimension.Tiles = stampTiles;
+            entity.Dimension.Tiles = stampTiles;
         }
 
-        public override void ExecuteClearPhase(Dimension dimension)
+        public override void ExecuteClearPhase(DimensionEntity<Dimension> entity)
         {
-            var locationToLoad = dimension.LocationToLoad;
+            var locationToLoad = entity.Location;
 
-            for (var y = 0; y < dimension.Height; y++)
+            for (var y = 0; y < entity.Height; y++)
             {
-                for (var x = 0; x < dimension.Width; x++)
+                for (var x = 0; x < entity.Width; x++)
                 {
                     var worldX = locationToLoad.X + x;
                     var worldY = locationToLoad.Y + y;
