@@ -1,17 +1,25 @@
-﻿namespace TestMod.DimensionLogic.InternalHelperClasses
+﻿using System.Collections.Generic;
+
+namespace TestMod.DimensionLogic.InternalHelperClasses
 {
     public abstract class DataParser
     {
-        private DimensionEntity _cachedDimension;
+        private readonly Dictionary<string, DimensionEntity> _cachedDimensions = 
+            new Dictionary<string, DimensionEntity>();
 
         internal DimensionEntity GetDimension(string id)
         {
-            if (AlwaysNewInternal || _cachedDimension == null)
+            if (AlwaysNewInternal)
             {
-                _cachedDimension = LoadInternal(id);
+                return LoadInternal(id);
             }
 
-            return _cachedDimension;
+            if (!_cachedDimensions.ContainsKey(id))
+            {
+                _cachedDimensions.Add(id, LoadInternal(id));
+            }
+
+            return _cachedDimensions[id];
         }
 
         internal abstract bool AlwaysNewInternal { get; }

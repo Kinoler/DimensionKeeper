@@ -4,6 +4,7 @@ using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 using TestMod.DimensionLogic.InternalHelperClasses;
+using TestMod.Interfaces;
 
 namespace TestMod.DimensionLogic
 {
@@ -15,6 +16,27 @@ namespace TestMod.DimensionLogic
         {
             get => _instance ?? (_instance = new DimensionsRegister());
             internal set => _instance = value;
+        }
+
+        /// <summary>
+        /// Registers the open generic type which register the dimensions.
+        /// You can call the <see cref="Register{TDimensionInjector,TDataParser,TDimension}(string)"/> method directly through the Instance but it looks better in the IDimensionRegister.
+        /// </summary>
+        /// <typeparam name="TDimensionRegister">The class which inherit from <see cref="IDimensionRegister"/>.</typeparam>
+        public static void SetupDimensionTypesRegister<TDimensionRegister>()
+            where TDimensionRegister : IDimensionRegister, new()
+        {
+            SetupDimensionTypesRegister(new TDimensionRegister());
+        }
+
+        /// <summary>
+        /// Register the class which register the dimensions.
+        /// You can call the <see cref="Register{TDimensionInjector,TDataParser,TDimension}(string)"/> method directly through the Instance but it looks better in the IDimensionRegister.
+        /// </summary>
+        /// <param name="register">The instance of class which inherit from <see cref="IDimensionRegister"/>.</param>
+        public static void SetupDimensionTypesRegister(IDimensionRegister register)
+        {
+            register.Register(Instance);
         }
 
         private Dictionary<string, DataParser> Parsers { get; } =

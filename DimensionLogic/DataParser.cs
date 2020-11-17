@@ -16,7 +16,7 @@ namespace TestMod.DimensionLogic
     public abstract class DataParser<TDimension>: DataParser where TDimension: Dimension, new()
     {        
         /// <summary>
-        /// The type with which the <see cref="DimensionLoader.LoadDimension"/> method was called.
+        /// The type of registered dimension.
         /// </summary>
         public string Type { get; internal set; }
         public string Id { get; private set; }

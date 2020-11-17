@@ -2,7 +2,12 @@
 
 namespace TestMod.DimensionLogic.DefaultParsers
 {
-    public abstract class TagCompoundParser<TDimension>: DataParser<TDimension> where TDimension : Dimension, new()
+    internal interface ITagCompoundParser
+    {
+        TagCompound TagToSave { get; set; }
+    }
+
+    public abstract class TagCompoundParser<TDimension>: DataParser<TDimension>, ITagCompoundParser where TDimension : Dimension, new()
     {
         internal static TagCompound OnWorldSave()
         {
@@ -10,7 +15,7 @@ namespace TestMod.DimensionLogic.DefaultParsers
             foreach (var name in DimensionLoader.RegisteredDimension.GetNames())
             {
                 var parser = DimensionLoader.RegisteredDimension.GetParser(name);
-                if (parser is TagCompoundParser<TDimension> tagCompoundParser)
+                if (parser is ITagCompoundParser tagCompoundParser)
                 {
                     dimensionsTag.Set(name, tagCompoundParser.TagToSave);
                 }
@@ -19,7 +24,7 @@ namespace TestMod.DimensionLogic.DefaultParsers
             return dimensionsTag;
         }
 
-        internal TagCompound TagToSave { get; set; }
+        public TagCompound TagToSave { get; set; }
 
         /// <summary>
         /// Do not override this method to class work correctly. Override <see cref="Load(TagCompound)"/> instead.
@@ -27,8 +32,12 @@ namespace TestMod.DimensionLogic.DefaultParsers
         /// <returns></returns>
         public override TDimension Load()
         {
+            if (AlwaysNew || !TestWorldMod.DimensionsTag.ContainsKey(Id))
+                return InitializeInternal();
+
             var tag = TestWorldMod.DimensionsTag.GetCompound(Id);
-            return tag != null ? Load(tag) : InitializeInternal();
+            return Load(tag);
+
         }
 
         /// <summary>
@@ -44,7 +53,10 @@ namespace TestMod.DimensionLogic.DefaultParsers
         internal TDimension InitializeInternal()
         {
             var dimension = Initialize();
-            Save(dimension);
+            if (!AlwaysNew)
+            {
+                Save(dimension);
+            }
             return dimension;
         }
 

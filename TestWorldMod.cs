@@ -17,25 +17,28 @@ namespace TestMod
     {
         private const string DimensionListTagName = "DimensionList";
         private const string CurrentDimensionTagName = "CurentDimension";
+        private const string SingleEntryTagName = "SingleEntries";
 
         internal static TagCompound DimensionsTag { get; set; }
 
         public override void Initialize()
         {
-            DimensionLoader.Clear();
+            DataParserExample.Initialize();
         }
 
         public override void Load(TagCompound tag)
         {
             DimensionsTag = tag.GetCompound(DimensionListTagName);
-            DimensionLoader.Load(tag.GetCompound(CurrentDimensionTagName));
+            DimensionKeeper.Instance.Load(tag.GetCompound(SingleEntryTagName));
         }
 
         public override TagCompound Save()
         {
-            var dimensionsTag = new TagCompound();
-            dimensionsTag.Set(DimensionListTagName, TagCompoundParser<Dimension>.OnWorldSave());
-            dimensionsTag.Set(CurrentDimensionTagName, DimensionLoader.Save());
+            var dimensionsTag = new TagCompound
+            {
+                {SingleEntryTagName, DimensionKeeper.Instance.Save()}
+            };
+            //dimensionsTag.Set(DimensionListTagName, TagCompoundParser<Dimension>.OnWorldSave());
 
             return dimensionsTag;
         }

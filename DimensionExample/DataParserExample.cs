@@ -10,9 +10,22 @@ namespace TestMod.DimensionExample
 {
     public class DataParserExample : DataParser<DimensionExample>
     {
-        internal static List<DimensionExample> Dimensions { get; } = new List<DimensionExample>();
-        internal static CycledCounter Counter { get; } = new CycledCounter();
-        internal static int CurrentLoadedDimension { get; set; } = -1;
+        internal static List<DimensionExample> Dimensions { get; set; }
+        internal static CycledCounter Counter { get; set; }
+        internal static int CurrentLoadedDimension { get; set; }
+
+        internal static void Initialize()
+        {
+            Dimensions = new List<DimensionExample>();
+            Counter = new CycledCounter();
+            CurrentLoadedDimension = -1;
+        }
+
+        internal static void Clear()
+        {
+            Dimensions = null;
+            Counter = null;
+        }
 
         public override bool AlwaysNew => true;
 
