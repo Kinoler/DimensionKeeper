@@ -29,16 +29,15 @@ namespace TestMod.DimensionLogic.DefaultPhases
         public override void ExecuteSynchronizePhase(DimensionEntity<Dimension> entity)
         {
             var locationToLoad = entity.Location;
-            var dimension = entity.Dimension;
             var chests = new List<Chest>();
 
             for (var index = 0; index < Main.chest.Length; ++index)
             {
                 if (Main.chest[index] != null &&
                     Main.chest[index].x >= locationToLoad.X &&
-                    Main.chest[index].x <= locationToLoad.X + dimension.Width &&
+                    Main.chest[index].x <= locationToLoad.X + entity.Width &&
                     Main.chest[index].y >= locationToLoad.Y &&
-                    Main.chest[index].y <= locationToLoad.Y + dimension.Height)
+                    Main.chest[index].y <= locationToLoad.Y + entity.Height)
                 {
                     var chest = Main.chest[index].CloneObject();
 
@@ -49,22 +48,21 @@ namespace TestMod.DimensionLogic.DefaultPhases
                 }
             }
 
-            dimension.Chests = chests.ToArray();
+            entity.Dimension.Chests = chests.ToArray();
         }
 
         public override void ExecuteClearPhase(DimensionEntity<Dimension> entity)
         {
             var locationToLoad = entity.Location;
-            var dimension = entity.Dimension;
 
             for (var index = 0; index < Main.chest.Length; index++)
             {
                 var chest = Main.chest[index];
                 if (chest != null &&
                     chest.x >= locationToLoad.X &&
-                    chest.x <= locationToLoad.X + dimension.Width &&
+                    chest.x <= locationToLoad.X + entity.Width &&
                     chest.y >= locationToLoad.Y &&
-                    chest.y <= locationToLoad.Y + dimension.Height)
+                    chest.y <= locationToLoad.Y + entity.Height)
                 {
                     Main.chest[index] = (Chest)null;
                     if (Main.player[Main.myPlayer].chest == index)

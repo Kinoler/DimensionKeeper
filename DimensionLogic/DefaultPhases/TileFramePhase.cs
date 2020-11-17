@@ -7,12 +7,11 @@ namespace TestMod.DimensionLogic.DefaultPhases
         public override void ExecuteLoadPhase(DimensionEntity<Dimension> entity)
         {
             var locationToLoad = entity.Location;
-            var dimension = entity.Dimension;
             var updateExtended = 3;
 
-            for (var x = locationToLoad.X - updateExtended; x < locationToLoad.X + dimension.Width + updateExtended; x++)
+            for (var x = locationToLoad.X - updateExtended; x < locationToLoad.X + entity.Width + updateExtended; x++)
             {
-                for (var y = 0; y < locationToLoad.Y + dimension.Height + updateExtended; y++)
+                for (var y = 0; y < locationToLoad.Y + entity.Height + updateExtended; y++)
                 {
                     WorldGen.TileFrame(x, y);
                 }

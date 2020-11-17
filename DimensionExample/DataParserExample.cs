@@ -20,6 +20,7 @@ namespace TestMod.DimensionExample
         {
             Dimensions.Add(dimension);
             Counter.AddNew();
+            NextDimension();
         }
 
         public static int NextDimension()
@@ -41,7 +42,11 @@ namespace TestMod.DimensionExample
         public override void Save(DimensionExample dimension)
         {
             if (Counter.Max == 0)
+            {
+                AddDimension(dimension);
                 return;
+            }
+
 
             if (CurrentLoadedDimension == -1)
                 return;

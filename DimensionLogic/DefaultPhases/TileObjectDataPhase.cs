@@ -13,9 +13,9 @@ namespace TestMod.DimensionLogic.DefaultPhases
             var dimension = entity.Dimension;
 
             var checkedPoints = new List<Point>();
-            for (var y = 0; y < dimension.Height; y++)
+            for (var y = 0; y < entity.Height; y++)
             {
-                for (var x = 0; x < dimension.Width; x++)
+                for (var x = 0; x < entity.Width; x++)
                 {
                     if (checkedPoints.Contains(new Point(x, y)))
                         continue;

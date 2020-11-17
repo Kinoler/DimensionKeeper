@@ -13,7 +13,7 @@ namespace TestMod.DimensionLogic
             new Dictionary<string, (DataParser Parser, DimensionInjector Injector)>();
 
         public void Register<TDimensionInjector, TDataParser, TDimension>(string name)
-            where TDimension: Dimension
+            where TDimension: Dimension, new()
             where TDataParser: DataParser<TDimension>, new()
             where TDimensionInjector: DimensionInjector<TDimension>, new()
         {
@@ -24,7 +24,7 @@ namespace TestMod.DimensionLogic
         }
 
         public void Register<TDimensionInjector, TDataParser, TDimension>(string name, TDataParser parser)
-            where TDimension : Dimension
+            where TDimension : Dimension, new()
             where TDataParser : DataParser<TDimension>
             where TDimensionInjector : DimensionInjector<TDimension>, new()
         {
@@ -33,7 +33,7 @@ namespace TestMod.DimensionLogic
         }
 
         public void Register<TDimensionInjector, TDataParser, TDimension>(string name, TDimensionInjector injector)
-            where TDimension : Dimension
+            where TDimension : Dimension, new()
             where TDataParser : DataParser<TDimension>, new()
             where TDimensionInjector : DimensionInjector<TDimension>
         {
@@ -42,7 +42,7 @@ namespace TestMod.DimensionLogic
         }
 
         public void Register<TDimensionInjector, TDataParser, TDimension>(string name, TDimensionInjector injector, TDataParser parser)
-            where TDimension : Dimension
+            where TDimension : Dimension, new()
             where TDataParser : DataParser<TDimension>
             where TDimensionInjector : DimensionInjector<TDimension>
         {

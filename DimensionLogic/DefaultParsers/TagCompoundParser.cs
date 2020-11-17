@@ -2,7 +2,7 @@
 
 namespace TestMod.DimensionLogic.DefaultParsers
 {
-    public abstract class TagCompoundParser<TDimension>: DataParser<TDimension> where TDimension : Dimension
+    public abstract class TagCompoundParser<TDimension>: DataParser<TDimension> where TDimension : Dimension, new()
     {
         internal static TagCompound OnWorldSave()
         {

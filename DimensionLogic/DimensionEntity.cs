@@ -22,6 +22,7 @@ namespace TestMod.DimensionLogic
             Location = otherEntity.Location;
             TypeName = otherEntity.TypeName;
             Id = otherEntity.Id;
+            Size = otherEntity.Size;
         }
 
         internal override Dimension DimensionInternal

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader.IO;
 using TestMod.DimensionLogic.InternalHelperClasses;
 using TestMod.Interfaces;
@@ -17,7 +18,7 @@ namespace TestMod.DimensionLogic
 
         private static DimensionEntity CurrentEntity { get; set; }
 
-        private static bool DimensionLoaded => CurrentEntity != null;
+        private static bool DimensionLoaded => CurrentEntity?.DimensionInternal != null;
 
         /// <summary>
         /// Register the open generic type which register the dimensions.
@@ -55,7 +56,13 @@ namespace TestMod.DimensionLogic
             CurrentInjector = RegisteredDimension.GetInjector(type);
 
             CurrentEntity = CurrentParser.GetDimension(type);
-            CurrentEntity.Location = new Point(locationToLoad.X, locationToLoad.Y - CurrentEntity.DimensionInternal.Height);
+            if (CurrentEntity.DimensionInternal == null)
+            {
+                Clear();
+                return;
+            }
+
+            CurrentEntity.Location = new Point(locationToLoad.X, locationToLoad.Y - CurrentEntity.Height);
 
             LoadCurrentDimension();
         }
@@ -67,12 +74,14 @@ namespace TestMod.DimensionLogic
             CurrentInjector.Load(CurrentEntity);
         }
 
-        private static void SynchronizeCurrentDimension()
+        private static void SynchronizeCurrentDimension(bool needSave = true)
         {
             if (!DimensionLoaded)
                 return;
             CurrentInjector.Synchronize(CurrentEntity);
-            CurrentParser.SaveInternal(CurrentEntity);
+
+            if (needSave) 
+                CurrentParser.SaveInternal(CurrentEntity);
         }
 
         private static void ClearCurrentDimension()
@@ -88,7 +97,11 @@ namespace TestMod.DimensionLogic
             {
                 {"TypeName", CurrentEntity?.TypeName}, 
                 {"Id", CurrentEntity?.Id}, 
-                {"Location", CurrentEntity?.Location}
+                {"Location", CurrentEntity?.Location.ToVector2()},
+                {"Size", CurrentEntity != null ?
+                    new Point(CurrentEntity.Width, CurrentEntity.Height).ToVector2() : 
+                    (object) null
+                }
             };
 
             return tag;
@@ -100,9 +113,15 @@ namespace TestMod.DimensionLogic
             if (string.IsNullOrEmpty(name))
                 return;
 
-            CurrentEntity = RegisteredDimension.GetParser(name).GetDimension(name);
-            CurrentEntity.Location = tag.Get<Point>("Location");
+            CurrentParser = RegisteredDimension.GetParser(name);
+            CurrentInjector = RegisteredDimension.GetInjector(name);
+            CurrentEntity = CurrentParser.GetDimension(name);
+
+            CurrentEntity.Location = tag.Get<Vector2>("Location").ToPoint();
             CurrentEntity.Id = tag.Get<string>("Id");
+            CurrentEntity.Size = tag.Get<Vector2>("Size").ToPoint();
+
+            SynchronizeCurrentDimension();
         }
 
         internal static void Initialize()

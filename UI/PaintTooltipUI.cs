@@ -229,10 +229,8 @@ namespace TestMod.UI
                         {
                             Location = upperLeft.ToPoint(),
                             TypeName = DimensionRegisterExample.ExampleName,
-                            Dimension = new DimensionExample.DimensionExample
-                            {
-                                Tiles = new Tile[width, height]
-                            }
+                            Size = new Point(width, height),
+                            Dimension = new DimensionExample.DimensionExample()
                         };
 
                         var injector = DimensionLoader.RegisteredDimension.GetInjector(entity.TypeName);

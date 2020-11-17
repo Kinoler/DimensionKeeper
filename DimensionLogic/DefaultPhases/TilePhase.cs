@@ -12,9 +12,9 @@ namespace TestMod.DimensionLogic.DefaultPhases
             var locationToLoad = entity.Location;
             var dimension = entity.Dimension;
 
-            for (var y = 0; y < dimension.Height; y++)
+            for (var y = 0; y < entity.Height; y++)
             {
-                for (var x = 0; x < dimension.Width; x++)
+                for (var x = 0; x < entity.Width; x++)
                 {
                     var worldX = locationToLoad.X + x;
                     var worldY = locationToLoad.Y + y;
@@ -35,12 +35,11 @@ namespace TestMod.DimensionLogic.DefaultPhases
         public override void ExecuteSynchronizePhase(DimensionEntity<Dimension> entity)
         {
             var locationToLoad = entity.Location;
-            var dimension = entity.Dimension;
 
             var minX = locationToLoad.X;
-            var maxX = locationToLoad.X + dimension.Width;  
+            var maxX = locationToLoad.X + entity.Width;  
             var minY = locationToLoad.Y;
-            var maxY = locationToLoad.Y + dimension.Height;
+            var maxY = locationToLoad.Y + entity.Height;
 
             var stampTiles = new Tile[maxX - minX, maxY - minY];
 
@@ -70,17 +69,16 @@ namespace TestMod.DimensionLogic.DefaultPhases
                 }
             }
 
-            dimension.Tiles = stampTiles;
+            entity.Dimension.Tiles = stampTiles;
         }
 
         public override void ExecuteClearPhase(DimensionEntity<Dimension> entity)
         {
             var locationToLoad = entity.Location;
-            var dimension = entity.Dimension;
 
-            for (var y = 0; y < dimension.Height; y++)
+            for (var y = 0; y < entity.Height; y++)
             {
-                for (var x = 0; x < dimension.Width; x++)
+                for (var x = 0; x < entity.Width; x++)
                 {
                     var worldX = locationToLoad.X + x;
                     var worldY = locationToLoad.Y + y;

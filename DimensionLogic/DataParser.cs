@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Map;
 using Terraria.ModLoader;
@@ -12,7 +13,7 @@ namespace TestMod.DimensionLogic
     /// The class that allows you to handle storage of dimensions.
     /// </summary>
     /// <typeparam name="TDimension">The dimension type that should be storing.</typeparam>
-    public abstract class DataParser<TDimension>: DataParser where TDimension: Dimension
+    public abstract class DataParser<TDimension>: DataParser where TDimension: Dimension, new()
     {        
         /// <summary>
         /// The name with which the <see cref="DimensionLoader.LoadDimension"/> method was called.
@@ -44,8 +45,13 @@ namespace TestMod.DimensionLogic
             var entity = new DimensionEntity<TDimension>
             {
                 TypeName = Name,
-                Dimension = Load()
+                Dimension = Load() ?? new TDimension(),
             };
+
+            entity.Size = new Point(
+                entity.Dimension.Tiles?.GetLength(0) ?? 0, 
+                entity.Dimension.Tiles?.GetLength(1) ?? 0);
+
             return entity;
         }
 
