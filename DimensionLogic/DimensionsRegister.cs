@@ -9,6 +9,14 @@ namespace TestMod.DimensionLogic
 {
     public class DimensionsRegister
     {
+        private static DimensionsRegister _instance;
+
+        public static DimensionsRegister Instance
+        {
+            get => _instance ?? (_instance = new DimensionsRegister());
+            internal set => _instance = value;
+        }
+
         private Dictionary<string, DataParser> Parsers { get; } =
             new Dictionary<string, DataParser>();
 

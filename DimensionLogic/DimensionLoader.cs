@@ -11,7 +11,7 @@ namespace TestMod.DimensionLogic
     /// </summary>
     public static class DimensionLoader
     {
-        internal static DimensionsRegister RegisteredDimension { get; private set; }
+        internal static DimensionsRegister RegisteredDimension => DimensionsRegister.Instance;
 
         private static DimensionEntity CurrentEntity { get; set; }
 
@@ -120,14 +120,8 @@ namespace TestMod.DimensionLogic
             SynchronizeCurrentDimension(CurrentEntity);
         }
 
-        internal static void Initialize()
-        {
-            RegisteredDimension = new DimensionsRegister();
-        }
-
         internal static void Unload()
         {
-            RegisteredDimension = null;
             Clear();
         }
 

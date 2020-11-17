@@ -20,13 +20,13 @@ namespace TestMod
 
         public override void Load()
 		{
-            DimensionLoader.Initialize();
             DimensionLoader.RegisterDimensions<DimensionRegisterExample>();
         }
 
         public override void Unload()
         {
             DimensionLoader.Unload();
+            DimensionsRegister.Instance = null;
             TestWorldMod.DimensionsTag = null;
         }
 
