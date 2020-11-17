@@ -18,8 +18,6 @@ namespace TestMod.DimensionLogic
 
         private static DimensionEntity CurrentEntity { get; set; }
 
-        private static bool DimensionLoaded => CurrentEntity?.DimensionInternal != null;
-
         /// <summary>
         /// Register the open generic type which register the dimensions.
         /// </summary>
@@ -45,17 +43,17 @@ namespace TestMod.DimensionLogic
         /// <param name="type">The type which dimension was registered.</param>
         /// <param name="synchronizePrevious">Should the previous dimension be synchronized with changing in the world.</param>
         /// <param name="locationToLoad">Specify the dimension loading tile. Points to the upper left corner.</param>
-        public static void LoadDimension(string type, Point locationToLoad, bool synchronizePrevious = true)
+        public static void LoadDimension(string type, Point locationToLoad, string id = null, bool synchronizePrevious = true)
         {
             if (synchronizePrevious)
-                SynchronizeCurrentDimension();
+                SynchronizeCurrentDimension(CurrentEntity);
 
-            ClearCurrentDimension();
+            ClearCurrentDimension(CurrentEntity);
 
             CurrentParser = RegisteredDimension.GetParser(type);
             CurrentInjector = RegisteredDimension.GetInjector(type);
 
-            CurrentEntity = CurrentParser.GetDimension(type);
+            CurrentEntity = CurrentParser.GetDimension(type, id);
             if (CurrentEntity.DimensionInternal == null)
             {
                 Clear();
@@ -64,38 +62,43 @@ namespace TestMod.DimensionLogic
 
             CurrentEntity.Location = new Point(locationToLoad.X, locationToLoad.Y - CurrentEntity.Height);
 
-            LoadCurrentDimension();
+            LoadCurrentDimension(CurrentEntity);
         }
 
-        private static void LoadCurrentDimension()
+        private static bool DimensionLoaded(DimensionEntity entity)
         {
-            if (!DimensionLoaded)
-                return;
-            CurrentInjector.Load(CurrentEntity);
+            return entity?.DimensionInternal != null;
         }
 
-        private static void SynchronizeCurrentDimension(bool needSave = true)
+        private static void LoadCurrentDimension(DimensionEntity entity)
         {
-            if (!DimensionLoaded)
+            if (!DimensionLoaded(entity))
                 return;
-            CurrentInjector.Synchronize(CurrentEntity);
-
-            if (needSave) 
-                CurrentParser.SaveInternal(CurrentEntity);
+            RegisteredDimension.GetInjector(entity.Type).Load(entity);
         }
 
-        private static void ClearCurrentDimension()
+        private static void SynchronizeCurrentDimension(DimensionEntity entity, bool needSave = true)
         {
-            if (!DimensionLoaded)
+            if (!DimensionLoaded(entity))
                 return;
-            CurrentInjector.Clear(CurrentEntity);
+            RegisteredDimension.GetInjector(entity.Type).Synchronize(entity);
+
+            if (needSave)
+                RegisteredDimension.GetParser(entity.Type).SaveInternal(entity);
+        }
+
+        private static void ClearCurrentDimension(DimensionEntity entity)
+        {
+            if (!DimensionLoaded(entity))
+                return;
+            RegisteredDimension.GetInjector(entity.Type).Clear(entity);
         }
 
         internal static TagCompound Save()
         {
             var tag = new TagCompound
             {
-                {"TypeName", CurrentEntity?.TypeName}, 
+                {"TypeName", CurrentEntity?.Type}, 
                 {"Id", CurrentEntity?.Id}, 
                 {"Location", CurrentEntity?.Location.ToVector2()},
                 {"Size", CurrentEntity != null ?
@@ -109,19 +112,21 @@ namespace TestMod.DimensionLogic
 
         internal static void Load(TagCompound tag)
         {
-            var name = tag.Get<string>("TypeName");
-            if (string.IsNullOrEmpty(name))
+            var type = tag.Get<string>("Type");
+            if (string.IsNullOrEmpty(type))
                 return;
 
-            CurrentParser = RegisteredDimension.GetParser(name);
-            CurrentInjector = RegisteredDimension.GetInjector(name);
-            CurrentEntity = CurrentParser.GetDimension(name);
+            CurrentParser = RegisteredDimension.GetParser(type);
+            CurrentInjector = RegisteredDimension.GetInjector(type);
+
+            var id = tag.Get<string>("Id");
+            CurrentEntity = CurrentParser.GetDimension(type, id);
 
             CurrentEntity.Location = tag.Get<Vector2>("Location").ToPoint();
             CurrentEntity.Id = tag.Get<string>("Id");
             CurrentEntity.Size = tag.Get<Vector2>("Size").ToPoint();
 
-            SynchronizeCurrentDimension();
+            SynchronizeCurrentDimension(CurrentEntity);
         }
 
         internal static void Initialize()

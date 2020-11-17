@@ -27,7 +27,7 @@ namespace TestMod.DimensionLogic.DefaultParsers
         /// <returns></returns>
         public override TDimension Load()
         {
-            var tag = TestWorldMod.DimensionsTag.GetCompound(Name);
+            var tag = TestWorldMod.DimensionsTag.GetCompound(Id);
             return tag != null ? Load(tag) : InitializeInternal();
         }
 

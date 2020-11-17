@@ -228,12 +228,12 @@ namespace TestMod.UI
                         var entity = new DimensionEntity<DimensionExample.DimensionExample>
                         {
                             Location = upperLeft.ToPoint(),
-                            TypeName = DimensionRegisterExample.ExampleName,
+                            Type = DimensionRegisterExample.ExampleName,
                             Size = new Point(width, height),
                             Dimension = new DimensionExample.DimensionExample()
                         };
 
-                        var injector = DimensionLoader.RegisteredDimension.GetInjector(entity.TypeName);
+                        var injector = DimensionLoader.RegisteredDimension.GetInjector(entity.Type);
                         injector.Synchronize(entity);
 
                         DataParserExample.AddDimension(entity.Dimension);

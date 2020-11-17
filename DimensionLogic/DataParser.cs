@@ -16,9 +16,10 @@ namespace TestMod.DimensionLogic
     public abstract class DataParser<TDimension>: DataParser where TDimension: Dimension, new()
     {        
         /// <summary>
-        /// The name with which the <see cref="DimensionLoader.LoadDimension"/> method was called.
+        /// The type with which the <see cref="DimensionLoader.LoadDimension"/> method was called.
         /// </summary>
-        public string Name { get; private set; }
+        public string Type { get; internal set; }
+        public string Id { get; private set; }
 
         /// <summary>
         /// Should the loading method be called instead of using the cached dimension.
@@ -39,12 +40,14 @@ namespace TestMod.DimensionLogic
 
         internal override bool AlwaysNewInternal => AlwaysNew;
 
-        internal override DimensionEntity LoadInternal(string name)
+        internal override DimensionEntity LoadInternal(string id)
         {
-            Name = name;
+            Id = id;
+
             var entity = new DimensionEntity<TDimension>
             {
-                TypeName = Name,
+                Type = Type,
+                Id = Id,
                 Dimension = Load() ?? new TDimension(),
             };
 

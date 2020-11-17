@@ -20,7 +20,7 @@ namespace TestMod.DimensionLogic
         {
             DimensionInternal = otherEntity.DimensionInternal;
             Location = otherEntity.Location;
-            TypeName = otherEntity.TypeName;
+            Type = otherEntity.Type;
             Id = otherEntity.Id;
             Size = otherEntity.Size;
         }
