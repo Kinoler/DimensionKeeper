@@ -114,7 +114,6 @@ namespace TestMod.DimensionLogic
             CurrentEntity = RegisteredDimension.GetParser(type).GetDimension(id);
 
             CurrentEntity.Location = tag.Get<Vector2>("Location").ToPoint();
-            CurrentEntity.Id = tag.Get<string>("Id");
             CurrentEntity.Size = tag.Get<Vector2>("Size").ToPoint();
 
             SynchronizeCurrentDimension(CurrentEntity);
