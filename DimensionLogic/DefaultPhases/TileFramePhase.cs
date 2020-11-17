@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using TestMod.Helpers;
 
 namespace TestMod.DimensionLogic.DefaultPhases
 {
@@ -15,6 +17,16 @@ namespace TestMod.DimensionLogic.DefaultPhases
                 {
                     WorldGen.TileFrame(x, y);
                 }
+            }
+        }
+
+        public override void ExecuteClearPhase(DimensionEntity<Dimension> entity)
+        {
+            var locationToLoad = entity.Location;
+
+            foreach (var point in entity.RectangularPoints(new Point(-1, -1)))
+            {
+                    WorldGen.TileFrame(point.X, point.Y);
             }
         }
     }
