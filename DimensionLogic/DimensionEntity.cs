@@ -12,18 +12,9 @@ namespace TestMod.DimensionLogic
     /// <summary>
     /// Represents the dimension which will be or already loaded into the world.
     /// </summary>
-    public class DimensionEntity<TDimension>: DimensionEntity where TDimension: Dimension
+    public sealed class DimensionEntity<TDimension>: DimensionEntity where TDimension: Dimension
     {
         public TDimension Dimension { get; internal set; }
-
-        public void CopyFrom(DimensionEntity otherEntity)
-        {
-            DimensionInternal = otherEntity.DimensionInternal;
-            Location = otherEntity.Location;
-            Type = otherEntity.Type;
-            Id = otherEntity.Id;
-            Size = otherEntity.Size;
-        }
 
         internal override Dimension DimensionInternal
         {
@@ -31,5 +22,13 @@ namespace TestMod.DimensionLogic
             set => Dimension = (TDimension)value;
         }
 
+        internal void CopyFrom(DimensionEntity otherEntity)
+        {
+            DimensionInternal = otherEntity.DimensionInternal;
+            Location = otherEntity.Location;
+            Type = otherEntity.Type;
+            Id = otherEntity.Id;
+            Size = otherEntity.Size;
+        }
     }
 }

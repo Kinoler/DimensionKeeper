@@ -16,15 +16,16 @@ namespace TestMod.DimensionLogic
 
         internal static bool ValidateDimension(DimensionEntity entity)
         {
-            return entity?.DimensionInternal != null && 
-                   entity.Size != Point.Zero && 
-                   entity.Location != Point.Zero;
+            return !(entity == null ||
+                   entity.Size == Point.Zero ||
+                   entity.Location == Point.Zero);
         }
 
         internal static void LoadDimension(DimensionEntity entity)
         {
             if (!ValidateDimension(entity))
                 return;
+
             RegisteredDimension.GetInjector(entity.Type).Load(entity);
         }
 
@@ -32,6 +33,7 @@ namespace TestMod.DimensionLogic
         {
             if (!ValidateDimension(entity))
                 return;
+
             RegisteredDimension.GetInjector(entity.Type).Synchronize(entity);
 
             if (needSave)
@@ -42,6 +44,7 @@ namespace TestMod.DimensionLogic
         {
             if (!ValidateDimension(entity))
                 return;
+
             RegisteredDimension.GetInjector(entity.Type).Clear(entity);
         }
     }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestMod.DimensionLogic.InternalHelperClasses
+﻿namespace TestMod.DimensionLogic.InternalHelperClasses
 {
     public abstract class DimensionPhasesInternal
     {

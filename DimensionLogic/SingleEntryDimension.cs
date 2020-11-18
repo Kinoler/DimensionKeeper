@@ -36,8 +36,7 @@ namespace TestMod.DimensionLogic
 
             ClearDimension(synchronizePrevious);
 
-            id = id ?? type;
-            CurrentEntity = DimensionsRegister.Instance.GetParser(type).GetDimension(id);
+            CurrentEntity = DimensionsRegister.Instance.GetParser(type).LoadInternal(id ?? type);
             CurrentEntity.Location = new Point(LocationToLoad.X, LocationToLoad.Y - CurrentEntity.Height);
 
             DimensionLoader.LoadDimension(CurrentEntity);
@@ -79,7 +78,7 @@ namespace TestMod.DimensionLogic
             var location = tag.Get<Vector2>(nameof(CurrentEntity.Location)).ToPoint();
             var size = tag.Get<Vector2>(nameof(CurrentEntity.Size)).ToPoint();
 
-            CurrentEntity = DimensionsRegister.Instance.GetParser(type).GetDimension(id);
+            CurrentEntity = DimensionsRegister.Instance.GetParser(type).LoadInternal(id);
             CurrentEntity.Location = location;
             CurrentEntity.Size = size;
 
