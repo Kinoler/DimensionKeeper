@@ -169,7 +169,7 @@ namespace TestMod.UI
                     var width = (int)(maxX - minX + 1);
                     var height = (int)(maxY - minY + 1);
 
-                    var entity = new DimensionEntity<DimensionExample.DimensionExample>
+                    var entity = new DimensionEntity<Dimension>
                     {
                         Location = new Point(minX, minY),
                         Type = DimensionRegisterExample.ExampleName,

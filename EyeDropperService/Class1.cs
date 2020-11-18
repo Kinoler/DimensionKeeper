@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Terraria;
-using TestMod.DimensionLogic;
 
-namespace TestMod.DimensionExample
+namespace TestMod.EyeDropperService
 {
-    public class DimensionExample: Dimension
+    class Class1
     {
+
     }
 }

@@ -8,15 +8,15 @@ using TestMod.Helpers;
 
 namespace TestMod.DimensionExample
 {
-    public class DimensionStorageExample : DimensionStorage<DimensionExample>
+    public class DimensionStorageExample : DimensionStorage<Dimension>
     {
-        internal static List<DimensionExample> Dimensions { get; set; }
+        internal static List<Dimension> Dimensions { get; set; }
         internal static CycledCounter Counter { get; set; }
         internal static int CurrentLoadedDimension { get; set; }
 
         internal static void Initialize()
         {
-            Dimensions = new List<DimensionExample>();
+            Dimensions = new List<Dimension>();
             Counter = new CycledCounter();
             CurrentLoadedDimension = -1;
         }
@@ -27,7 +27,7 @@ namespace TestMod.DimensionExample
             Counter = null;
         }
 
-        public static void AddDimension(DimensionExample dimension)
+        public static void AddDimension(Dimension dimension)
         {
             Dimensions.Add(dimension);
             Counter.AddNew();
@@ -41,7 +41,7 @@ namespace TestMod.DimensionExample
             return current;
         }
 
-        public override DimensionExample Load()
+        public override Dimension Load()
         {
             if (Counter.Max == 0)
                 return null;
@@ -50,7 +50,7 @@ namespace TestMod.DimensionExample
             return Dimensions[Counter.Current];
         }
         
-        public override void Save(DimensionExample dimension)
+        public override void Save(Dimension dimension)
         {
             if (Counter.Max == 0)
             {
@@ -65,7 +65,7 @@ namespace TestMod.DimensionExample
             UpdateDimension(CurrentLoadedDimension, dimension);
         }
 
-        public static void UpdateDimension(int num, DimensionExample dimension)
+        public static void UpdateDimension(int num, Dimension dimension)
         {
             Dimensions[num] = dimension;
         }

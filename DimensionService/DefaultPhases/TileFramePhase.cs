@@ -26,7 +26,7 @@ namespace TestMod.DimensionLogic.DefaultPhases
 
             foreach (var point in entity.RectangularPoints(new Point(-1, -1)))
             {
-                    WorldGen.TileFrame(point.X, point.Y);
+                WorldGen.TileFrame(point.X, point.Y);
             }
         }
     }

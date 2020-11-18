@@ -1,9 +1,8 @@
-﻿using TestMod.DimensionLogic;
-using TestMod.DimensionLogic.DefaultPhases;
+﻿using TestMod.DimensionLogic.DefaultPhases;
 
-namespace TestMod.DimensionExample
+namespace TestMod.DimensionLogic.DefaultInjectors
 {
-    public class DimensionInjectorExample : DimensionInjector<DimensionExample>
+    public class DefaultInjector<TDimension> : DimensionInjector<TDimension> where TDimension: Dimension
     {
         public override void RegisterPhases()
         {

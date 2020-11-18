@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestMod.DimensionLogic;
+﻿using TestMod.DimensionLogic;
+using TestMod.DimensionLogic.DefaultInjectors;
 using TestMod.Interfaces;
 
 namespace TestMod.DimensionExample
@@ -14,7 +10,7 @@ namespace TestMod.DimensionExample
 
         public void Register(DimensionsRegister register)
         {
-            register.Register<DimensionInjectorExample, DimensionStorageExample, DimensionExample>(ExampleName);
+            register.Register<DefaultInjector<Dimension>, DimensionStorageExample, Dimension>(ExampleName);
         }
     }
 }
