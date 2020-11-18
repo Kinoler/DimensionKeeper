@@ -23,7 +23,7 @@ namespace TestMod
 
         public override void Initialize()
         {
-            DataParserExample.Initialize();
+            DimensionStorageExample.Initialize();
         }
 
         public override void Load(TagCompound tag)

@@ -12,6 +12,13 @@ namespace TestMod.DimensionLogic
     {
         private static DimensionsRegister _instance;
 
+        private Dictionary<string, DimensionStorageInternal> Parsers { get; } =
+            new Dictionary<string, DimensionStorageInternal>();
+
+        private Dictionary<string, DimensionInjector> Injectors { get; } =
+            new Dictionary<string, DimensionInjector>();
+
+
         public static DimensionsRegister Instance
         {
             get => _instance ?? (_instance = new DimensionsRegister());
@@ -39,15 +46,9 @@ namespace TestMod.DimensionLogic
             register.Register(Instance);
         }
 
-        private Dictionary<string, DataParser> Parsers { get; } =
-            new Dictionary<string, DataParser>();
-
-        private Dictionary<string, DimensionInjector> Injectors { get; } =
-            new Dictionary<string, DimensionInjector>();
-
         public void Register<TDimensionInjector, TDataParser, TDimension>(string type)
             where TDimension: Dimension, new()
-            where TDataParser: DataParser<TDimension>, new()
+            where TDataParser: DimensionStorage<TDimension>, new()
             where TDimensionInjector: DimensionInjector<TDimension>, new()
         {
             var parser = new TDataParser();
@@ -58,7 +59,7 @@ namespace TestMod.DimensionLogic
 
         public void Register<TDimensionInjector, TDataParser, TDimension>(string type, TDataParser parser)
             where TDimension : Dimension, new()
-            where TDataParser : DataParser<TDimension>
+            where TDataParser : DimensionStorage<TDimension>
             where TDimensionInjector : DimensionInjector<TDimension>, new()
         {
             var injector = new TDimensionInjector();
@@ -68,7 +69,7 @@ namespace TestMod.DimensionLogic
 
         public void Register<TDimensionInjector, TDataParser, TDimension>(string type, TDimensionInjector injector)
             where TDimension : Dimension, new()
-            where TDataParser : DataParser<TDimension>, new()
+            where TDataParser : DimensionStorage<TDimension>, new()
             where TDimensionInjector : DimensionInjector<TDimension>
         {
             var parser = new TDataParser();
@@ -78,7 +79,7 @@ namespace TestMod.DimensionLogic
 
         public void Register<TDimensionInjector, TDataParser, TDimension>(string type, TDimensionInjector injector, TDataParser parser)
             where TDimension : Dimension, new()
-            where TDataParser : DataParser<TDimension>
+            where TDataParser : DimensionStorage<TDimension>
             where TDimensionInjector : DimensionInjector<TDimension>
         {
             if (injector == null)
@@ -98,7 +99,7 @@ namespace TestMod.DimensionLogic
             return Parsers.Keys;
         }
 
-        internal DataParser GetParser(string name)
+        internal DimensionStorageInternal GetParser(string name)
         {
             return Parsers[name];
         }

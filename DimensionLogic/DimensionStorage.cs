@@ -13,7 +13,7 @@ namespace TestMod.DimensionLogic
     /// The class that allows you to handle storage of dimensions.
     /// </summary>
     /// <typeparam name="TDimension">The dimension type that should be storing.</typeparam>
-    public abstract class DataParser<TDimension>: DataParser where TDimension: Dimension, new()
+    public abstract class DimensionStorage<TDimension>: DimensionStorageInternal where TDimension: Dimension, new()
     {        
         /// <summary>
         /// The type of registered dimension.

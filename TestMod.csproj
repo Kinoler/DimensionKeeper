@@ -21,7 +21,4 @@
       <HintPath>E:\Games\SteamLibrary\steamapps\common\tModLoader\tModLoader.exe</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Globals\" />
-  </ItemGroup>
 </Project>

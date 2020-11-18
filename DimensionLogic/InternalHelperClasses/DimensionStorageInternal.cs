@@ -2,7 +2,7 @@
 
 namespace TestMod.DimensionLogic.InternalHelperClasses
 {
-    public abstract class DataParser
+    public abstract class DimensionStorageInternal
     {
         private readonly Dictionary<string, DimensionEntity> _cachedDimensions = 
             new Dictionary<string, DimensionEntity>();

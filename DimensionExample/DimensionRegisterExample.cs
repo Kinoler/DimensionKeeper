@@ -14,7 +14,7 @@ namespace TestMod.DimensionExample
 
         public void Register(DimensionsRegister register)
         {
-            register.Register<DimensionInjectorExample, DataParserExample, DimensionExample>(ExampleName);
+            register.Register<DimensionInjectorExample, DimensionStorageExample, DimensionExample>(ExampleName);
         }
     }
 }

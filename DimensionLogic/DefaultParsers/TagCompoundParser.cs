@@ -1,13 +1,14 @@
-﻿using Terraria.ModLoader.IO;
+﻿using System.Collections.Generic;
+using Terraria.ModLoader.IO;
 
 namespace TestMod.DimensionLogic.DefaultParsers
 {
     internal interface ITagCompoundParser
     {
-        TagCompound TagToSave { get; set; }
+        Dictionary<string, TagCompound> TagsToSave { get; set; }
     }
 
-    public abstract class TagCompoundParser<TDimension>: DataParser<TDimension>, ITagCompoundParser where TDimension : Dimension, new()
+    public abstract class TagCompoundParser<TDimension>: DimensionStorage<TDimension>, ITagCompoundParser where TDimension : Dimension, new()
     {
         internal static TagCompound OnWorldSave()
         {
@@ -17,14 +18,14 @@ namespace TestMod.DimensionLogic.DefaultParsers
                 var parser = DimensionLoader.RegisteredDimension.GetParser(name);
                 if (parser is ITagCompoundParser tagCompoundParser)
                 {
-                    dimensionsTag.Set(name, tagCompoundParser.TagToSave);
+                    dimensionsTag.Add(name, tagCompoundParser.TagsToSave);
                 }
             }
 
             return dimensionsTag;
         }
 
-        public TagCompound TagToSave { get; set; }
+        public Dictionary<string, TagCompound> TagsToSave { get; set; }
 
         /// <summary>
         /// Do not override this method to class work correctly. Override <see cref="Load(TagCompound)"/> instead.
@@ -46,8 +47,10 @@ namespace TestMod.DimensionLogic.DefaultParsers
         /// <param name="dimension"></param>
         public override void Save(TDimension dimension)
         {
-            TagToSave = new TagCompound();
-            Save(dimension, TagToSave);
+            var tagToSave = new TagCompound();
+            Save(dimension, tagToSave);
+
+            TagsToSave.Add(Id, tagToSave);
         }
 
         internal TDimension InitializeInternal()

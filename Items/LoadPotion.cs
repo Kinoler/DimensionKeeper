@@ -34,7 +34,7 @@ namespace TestMod.Items
 
         public override bool UseItem(Player player)
         {
-            DataParserExample.NextDimension();
+            DimensionStorageExample.NextDimension();
             return true;
         }
 

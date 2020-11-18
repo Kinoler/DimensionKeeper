@@ -8,7 +8,7 @@ using TestMod.Helpers;
 
 namespace TestMod.DimensionExample
 {
-    public class DataParserExample : DataParser<DimensionExample>
+    public class DimensionStorageExample : DimensionStorage<DimensionExample>
     {
         internal static List<DimensionExample> Dimensions { get; set; }
         internal static CycledCounter Counter { get; set; }

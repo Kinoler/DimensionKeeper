@@ -28,7 +28,7 @@ namespace TestMod
             DimensionsRegister.Instance = null;
             EyeDropperUpdater.Instance = null;
 
-            DataParserExample.Dimensions = null;
+            DimensionStorageExample.Dimensions = null;
             TestWorldMod.DimensionsTag = null;
         }
 

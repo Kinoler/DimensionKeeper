@@ -34,10 +34,22 @@ namespace TestMod.Helpers
 
             for (var x = locationToLoad.X + offsetX; x < locationToLoad.X + entity.Width - offsetX; x++)
             {
-                for (var y = locationToLoad.Y + offsetY; y < locationToLoad.Y + entity.Height - offsetY; y++)
-                {
-                    yield return new Point(x, y);
-                }
+                yield return new Point(x, locationToLoad.Y + offsetY);
+            }
+
+            for (var y = locationToLoad.Y + offsetY; y < locationToLoad.Y + entity.Height - offsetY; y++)
+            {
+                yield return new Point(locationToLoad.X + entity.Width - offsetX, y);
+            }
+
+            for (var y = locationToLoad.Y + offsetY; y < locationToLoad.Y + entity.Height - offsetY; y++)
+            {
+                yield return new Point(locationToLoad.X + offsetX, y);
+            }
+
+            for (var x = locationToLoad.X + offsetX; x < locationToLoad.X + entity.Width - offsetX; x++)
+            {
+                yield return new Point(x, locationToLoad.Y + entity.Height - offsetY);
             }
         }
     }

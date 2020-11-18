@@ -180,7 +180,7 @@ namespace TestMod.UI
                     var injector = DimensionLoader.RegisteredDimension.GetInjector(entity.Type);
                     injector.Synchronize(entity);
 
-                    DataParserExample.AddDimension(entity.Dimension);
+                    DimensionStorageExample.AddDimension(entity.Dimension);
 
                     Hide();
                 }
