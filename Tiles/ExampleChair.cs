@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using TestMod.Globals;
+using TestMod.UI;
 
 namespace TestMod.Tiles
 {
@@ -17,15 +17,15 @@ namespace TestMod.Tiles
 
         public override bool NewRightClick(int x, int y)
         {
-			if (AllUIUpdater.PaintTooltipUI.Visible)
+			if (EyeDropperUpdater.Instance.PaintTooltipUI.Visible)
             {
-                AllUIUpdater.PaintTooltipUI.Hide();
+                EyeDropperUpdater.Instance.PaintTooltipUI.Hide();
             }
             else
             {
-                AllUIUpdater.PaintTooltipUI.Show();
+                EyeDropperUpdater.Instance.PaintTooltipUI.Show();
             }
-			return false;
+            return false;
         }
 
 		public override void NumDust(int i, int j, bool fail, ref int num) {
