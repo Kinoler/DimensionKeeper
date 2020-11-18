@@ -61,6 +61,11 @@ namespace TestMod.DimensionLogic
         internal override void SaveInternal(DimensionEntity entity)
         {
             Save((TDimension)entity.DimensionInternal);
+
+            if (!AlwaysNew)
+            {
+                CachedDimensions.Add(entity.Id, entity);
+            }
         }
     }
 }

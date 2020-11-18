@@ -16,10 +16,10 @@ namespace TestMod.DimensionLogic
         /// Adds the a phase. Create a new instance for <see cref="TPhase"/>.
         /// </summary>
         /// <typeparam name="TPhase">The phase.</typeparam>
-        public void AddPhase<TPhase>()
+        public void AddPhase<TPhase>(Func<TDimension, bool> condition = null)
             where TPhase : DimensionPhases<TDimension>, new()
         {
-            AddPhase<TPhase, TDimension>(new TPhase());
+            AddPhase<TPhase, TDimension>(new TPhase(), condition);
         }
 
         /// <summary>
@@ -27,11 +27,11 @@ namespace TestMod.DimensionLogic
         /// </summary>
         /// <typeparam name="TPhase">The phase.</typeparam>
         /// <typeparam name="TSpecifyDimension">The open generic type for the <see cref="TPhase"/> type.</typeparam>
-        public void AddPhase<TPhase, TSpecifyDimension>()
+        public void AddPhase<TPhase, TSpecifyDimension>(Func<TSpecifyDimension, bool> condition = null)
             where TSpecifyDimension : Dimension
             where TPhase : DimensionPhases<TSpecifyDimension>, new()
         {
-            AddPhase<TPhase, TSpecifyDimension>(new TPhase());
+            AddPhase<TPhase, TSpecifyDimension>(new TPhase(), condition);
         }
 
         /// <summary>
@@ -40,18 +40,20 @@ namespace TestMod.DimensionLogic
         /// <typeparam name="TPhase">The phase.</typeparam>
         /// <typeparam name="TSpecifyDimension">The open generic type for the <see cref="TPhase"/> type.</typeparam>
         /// <param name="instance">The instance of phase</param>
-        public void AddPhase<TPhase, TSpecifyDimension>(TPhase instance)
+        /// <param name="condition">Allow you execute the phase by condition.</param>
+        public void AddPhase<TPhase, TSpecifyDimension>(TPhase instance, Func<TSpecifyDimension, bool> condition = null)
             where TSpecifyDimension : Dimension
             where TPhase : DimensionPhases<TSpecifyDimension>
         {
             if (instance == null) 
                 throw new ArgumentNullException(nameof(instance));
 
+            instance.Condition = condition;
             Phases.Add(instance);
         }
 
         /// <summary>
-        /// Allow you to register custom phases using the <see cref="AddPhase{TPhase}()"/> method.
+        /// Allow you to register custom phases using the <see cref="AddPhase{TPhase}"/> method.
         /// </summary>
         public virtual void OnPhasesRegister()
         {

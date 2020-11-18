@@ -4,22 +4,18 @@ namespace TestMod.DimensionLogic.InternalHelperClasses
 {
     public abstract class DimensionStorageInternal
     {
-        private readonly Dictionary<string, DimensionEntity> _cachedDimensions = 
+        protected internal readonly Dictionary<string, DimensionEntity> CachedDimensions = 
             new Dictionary<string, DimensionEntity>();
 
         internal DimensionEntity GetDimension(string id)
         {
             if (AlwaysNewInternal)
-            {
                 return LoadInternal(id);
-            }
 
-            if (!_cachedDimensions.ContainsKey(id))
-            {
-                _cachedDimensions.Add(id, LoadInternal(id));
-            }
+            if (!CachedDimensions.ContainsKey(id)) 
+                CachedDimensions.Add(id, LoadInternal(id));
 
-            return _cachedDimensions[id];
+            return CachedDimensions[id];
         }
 
         internal abstract bool AlwaysNewInternal { get; }

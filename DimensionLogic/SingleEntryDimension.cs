@@ -83,7 +83,7 @@ namespace TestMod.DimensionLogic
             CurrentEntity.Location = location;
             CurrentEntity.Size = size;
 
-            DimensionLoader.SynchronizeDimension(CurrentEntity);
+            //DimensionLoader.SynchronizeDimension(CurrentEntity);
         }
     }
 }

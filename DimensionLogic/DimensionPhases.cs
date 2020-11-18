@@ -14,6 +14,8 @@ namespace TestMod.DimensionLogic
     /// <typeparam name="TDimension">The specific <see cref="Dimension"/>.</typeparam>
     public class DimensionPhases<TDimension>: DimensionPhasesInternal where TDimension: Dimension
     {
+        internal Func<TDimension, bool> Condition { get; set; }
+
         //TODO remarks
         /// <summary>
         /// Allows you to handle the load process. Modify the terraria world according to <see cref="entity"/>.
@@ -57,7 +59,8 @@ namespace TestMod.DimensionLogic
             var temp = new DimensionEntity<TDimension>();
             temp.CopyFrom(entity);
 
-            ExecuteLoadPhase(temp);
+            if (Condition?.Invoke(temp.Dimension) ?? true)
+                ExecuteLoadPhase(temp);
         }
 
         internal override void ExecuteSynchronizePhaseInternal(DimensionEntity entity)
@@ -65,7 +68,8 @@ namespace TestMod.DimensionLogic
             var temp = new DimensionEntity<TDimension>();
             temp.CopyFrom(entity);
 
-            ExecuteSynchronizePhase(temp);
+            if (Condition?.Invoke(temp.Dimension) ?? true)
+                ExecuteSynchronizePhase(temp);
         }
 
         internal override void ExecuteClearPhaseInternal(DimensionEntity entity)
@@ -73,7 +77,8 @@ namespace TestMod.DimensionLogic
             var temp = new DimensionEntity<TDimension>();
             temp.CopyFrom(entity);
 
-            ExecuteClearPhase(temp);
+            if (Condition?.Invoke(temp.Dimension) ?? true)
+                ExecuteClearPhase(temp);
         }
     }
 }
