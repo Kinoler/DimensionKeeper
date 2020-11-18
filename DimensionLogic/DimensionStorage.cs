@@ -22,11 +22,6 @@ namespace TestMod.DimensionLogic
         public string Id { get; private set; }
 
         /// <summary>
-        /// Should the loading method be called instead of using the cached dimension.
-        /// </summary>
-        public virtual bool AlwaysNew => false;
-
-        /// <summary>
         /// Allow you to load a dimension from the storage.
         /// </summary>
         /// <returns>A new dimension</returns>
@@ -37,8 +32,6 @@ namespace TestMod.DimensionLogic
         /// </summary>
         /// <param name="dimension">The dimension which should be saving</param>
         public abstract void Save(TDimension dimension);
-
-        internal override bool AlwaysNewInternal => AlwaysNew;
 
         internal override DimensionEntity LoadInternal(string id)
         {
@@ -60,12 +53,9 @@ namespace TestMod.DimensionLogic
 
         internal override void SaveInternal(DimensionEntity entity)
         {
-            Save((TDimension)entity.DimensionInternal);
+            Id = entity.Id;
 
-            if (!AlwaysNew)
-            {
-                CachedDimensions.Add(entity.Id, entity);
-            }
+            Save((TDimension)entity.DimensionInternal);
         }
     }
 }

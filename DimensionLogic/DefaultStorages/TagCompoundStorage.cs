@@ -33,7 +33,7 @@ namespace TestMod.DimensionLogic.DefaultParsers
         /// <returns></returns>
         public override TDimension Load()
         {
-            if (AlwaysNew || !TestWorldMod.DimensionsTag.ContainsKey(Id))
+            if (!TestWorldMod.DimensionsTag.ContainsKey(Id))
                 return InitializeInternal();
 
             var tag = TestWorldMod.DimensionsTag.GetCompound(Id);
@@ -56,10 +56,7 @@ namespace TestMod.DimensionLogic.DefaultParsers
         internal TDimension InitializeInternal()
         {
             var dimension = Initialize();
-            if (!AlwaysNew)
-            {
-                Save(dimension);
-            }
+            Save(dimension);
             return dimension;
         }
 

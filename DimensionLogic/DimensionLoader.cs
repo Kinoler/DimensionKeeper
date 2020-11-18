@@ -16,7 +16,9 @@ namespace TestMod.DimensionLogic
 
         internal static bool ValidateDimension(DimensionEntity entity)
         {
-            return entity?.DimensionInternal != null && entity.Size != Point.Zero && entity.Location != Point.Zero;
+            return entity?.DimensionInternal != null && 
+                   entity.Size != Point.Zero && 
+                   entity.Location != Point.Zero;
         }
 
         internal static void LoadDimension(DimensionEntity entity)

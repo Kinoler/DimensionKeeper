@@ -27,8 +27,6 @@ namespace TestMod.DimensionExample
             Counter = null;
         }
 
-        public override bool AlwaysNew => true;
-
         public static void AddDimension(DimensionExample dimension)
         {
             Dimensions.Add(dimension);

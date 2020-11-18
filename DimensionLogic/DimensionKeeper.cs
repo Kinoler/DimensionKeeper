@@ -39,10 +39,8 @@ namespace TestMod.DimensionLogic
             foreach (var entry in SingleEntryDimensions)
             {
                 var entryCompound = entry.Value.Save();
-                if (entryCompound != null)
-                {
+                if (entryCompound != null) 
                     tag.Add(entry.Key, entryCompound);
-                }
             }
 
             return tag;
