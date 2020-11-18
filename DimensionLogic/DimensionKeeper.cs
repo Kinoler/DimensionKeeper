@@ -8,7 +8,7 @@ using TestMod.Interfaces;
 
 namespace TestMod.DimensionLogic
 {
-    public class DimensionKeeper: ITagCompound
+    public class DimensionKeeper
     {
         private static DimensionKeeper _instance;
 
@@ -31,8 +31,7 @@ namespace TestMod.DimensionLogic
             return SingleEntryDimensions[entryName];
         }
 
-
-        public TagCompound Save()
+        internal TagCompound Save()
         {
             var tag = new TagCompound();
 
@@ -46,7 +45,7 @@ namespace TestMod.DimensionLogic
             return tag;
         }
 
-        public void Load(TagCompound tag)
+        internal void Load(TagCompound tag)
         {
             SingleEntryDimensions.Clear();
             

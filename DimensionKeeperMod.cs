@@ -5,21 +5,18 @@ using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
-using TestMod.DimensionExample;
 using TestMod.DimensionLogic;
 using TestMod.UI;
 
 namespace TestMod
 {
-	public class TestMod : Mod
+	public class DimensionKeeperMod : Mod
     {
         public bool EnableEyeDropper { get; set; }
 
         public override void Load()
         {
             EnableEyeDropper = true;
-
-            DimensionsRegister.SetupDimensionTypesRegister<DimensionRegisterExample>();
         }
 
         public override void Unload()
@@ -28,8 +25,7 @@ namespace TestMod
             DimensionsRegister.Instance = null;
             EyeDropperUpdater.Instance = null;
 
-            DimensionStorageExample.Dimensions = null;
-            TestWorldMod.DimensionsTag = null;
+            DimensionKeeperModWorld.DimensionsTag = null;
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)

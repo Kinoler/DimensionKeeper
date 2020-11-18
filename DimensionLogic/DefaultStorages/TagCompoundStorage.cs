@@ -5,59 +5,35 @@ namespace TestMod.DimensionLogic.DefaultParsers
 {
     internal interface ITagCompoundStorage
     {
-        Dictionary<string, TagCompound> TagsToSave { get; set; }
+        Dictionary<string, TagCompound> SavedDimensionTags { get; set; }
     }
 
     public abstract class TagCompoundStorage<TDimension>: DimensionStorage<TDimension>, ITagCompoundStorage where TDimension : Dimension, new()
     {
-        internal static TagCompound OnWorldSave()
-        {
-            var dimensionsTag = new TagCompound();
-            foreach (var name in DimensionLoader.RegisteredDimension.GetNames())
-            {
-                var parser = DimensionLoader.RegisteredDimension.GetParser(name);
-                if (parser is ITagCompoundStorage tagCompoundParser)
-                {
-                    dimensionsTag.Add(name, tagCompoundParser.TagsToSave);
-                }
-            }
-
-            return dimensionsTag;
-        }
-
-        public Dictionary<string, TagCompound> TagsToSave { get; set; }
+        public Dictionary<string, TagCompound> SavedDimensionTags { get; set; }
 
         /// <summary>
-        /// Do not override this method to class work correctly. Override <see cref="Load(TagCompound)"/> instead.
+        /// Do not override this method to class work correctly. Override the <see cref="LoadTag(TagCompound)"/> instead.
         /// </summary>
         /// <returns></returns>
         public override TDimension Load()
         {
             if (!TestWorldMod.DimensionsTag.ContainsKey(Id))
-                return InitializeInternal();
+                return InitializeTag();
 
             var tag = TestWorldMod.DimensionsTag.GetCompound(Id);
-            return Load(tag);
+            return LoadTag(tag);
 
         }
 
         /// <summary>
-        /// Do not override this method to class work correctly. Override <see cref="Save(TDimension, TagCompound)"/> instead.
+        /// Do not override this method to class work correctly. Override the <see cref="SaveTag(TDimension)"/> instead.
         /// </summary>
         /// <param name="dimension"></param>
         public override void Save(TDimension dimension)
         {
-            var tagToSave = new TagCompound();
-            Save(dimension, tagToSave);
-
-            TagsToSave.Add(Id, tagToSave);
-        }
-
-        internal TDimension InitializeInternal()
-        {
-            var dimension = Initialize();
-            Save(dimension);
-            return dimension;
+            var tagToSave = SaveTag(dimension);
+            SavedDimensionTags.Add(Id, tagToSave);
         }
 
         /// <summary>
@@ -65,7 +41,7 @@ namespace TestMod.DimensionLogic.DefaultParsers
         /// This used to initialize dimension in the first time.
         /// </summary>
         /// <returns>A new dimension</returns>
-        public abstract TDimension Initialize();
+        public abstract TDimension InitializeTag();
 
         /// <summary>
         /// Allow you to load a new dimension from the <see cref="TagCompound"/> class.
@@ -73,14 +49,13 @@ namespace TestMod.DimensionLogic.DefaultParsers
         /// </summary>
         /// <param name="tag">The <see cref="TagCompound"/> which was saved in the past.</param>
         /// <returns>A new dimension.</returns>
-        public abstract TDimension Load(TagCompound tag);
+        public abstract TDimension LoadTag(TagCompound tag);
 
         /// <summary>
         /// Allow you to save the dimension to the <see cref="TagCompound"/>.
         /// To the load it in the future session.
         /// </summary>
         /// <param name="dimension">The current dimension which should be saving.</param>
-        /// <param name="tag">The <see cref="TagCompound"/> which will be store in the world <see cref="TagCompound"/>.</param>
-        public abstract void Save(TDimension dimension, TagCompound tag);
+        public abstract TagCompound SaveTag(TDimension dimension);
     }
 }
