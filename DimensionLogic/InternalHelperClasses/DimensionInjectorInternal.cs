@@ -1,6 +1,6 @@
 ﻿namespace TestMod.DimensionLogic.InternalHelperClasses
 {
-    public abstract class DimensionInjector
+    public abstract class DimensionInjectorInternal
     {
         internal abstract void Load(DimensionEntity dimension);
 

@@ -38,7 +38,11 @@ namespace TestMod.DimensionLogic
 
             foreach (var entry in SingleEntryDimensions)
             {
-                tag.Add(entry.Key, (entry.Value as ITagCompound)?.Save());
+                var entryCompound = entry.Value.Save();
+                if (entryCompound != null)
+                {
+                    tag.Add(entry.Key, entryCompound);
+                }
             }
 
             return tag;
@@ -51,9 +55,13 @@ namespace TestMod.DimensionLogic
             foreach (var valuePair in tag)
             {
                 var key = valuePair.Key;
+                var entryCompound = tag.GetCompound(key);
+
+                if (entryCompound.Count == 0)
+                    continue;
 
                 var entry = new SingleEntryDimension();
-                ((ITagCompound) entry).Load(tag.GetCompound(key));
+                entry.Load(entryCompound);
 
                 SingleEntryDimensions.Add(key, entry);
             }

@@ -11,10 +11,8 @@ using TestMod.Interfaces;
 
 namespace TestMod.DimensionLogic
 {
-    public class SingleEntryDimension: ITagCompound
+    public class SingleEntryDimension
     {
-        private DimensionsRegister RegisteredDimension => DimensionsRegister.Instance;
-
         /// <summary>
         /// Contains data of current loaded dimension.
         /// </summary>
@@ -29,53 +27,61 @@ namespace TestMod.DimensionLogic
         /// Load (inject) dimension into the world. Set the <see cref="LocationToLoad"/> to specify loading position.
         /// </summary>
         /// <param name="type">The type which dimension was registered.</param>
-        /// <param name="id">The identifier for the dimension.</param>
+        /// <param name="id">The identifier for the dimension. By default equals to the type</param>
         /// <param name="synchronizePrevious">Should the previous dimension be synchronized with changing in the world.</param>
         public void LoadDimension(string type, string id = default, bool synchronizePrevious = true)
         {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
+            ClearDimension(synchronizePrevious);
+
             id = id ?? type;
-
-            if (synchronizePrevious)
-                DimensionLoader.SynchronizeDimension(CurrentEntity);
-
-            DimensionLoader.ClearDimension(CurrentEntity);
-
-            CurrentEntity = RegisteredDimension.GetParser(type).GetDimension(id);
+            CurrentEntity = DimensionsRegister.Instance.GetParser(type).GetDimension(id);
             CurrentEntity.Location = new Point(LocationToLoad.X, LocationToLoad.Y - CurrentEntity.Height);
 
             DimensionLoader.LoadDimension(CurrentEntity);
         }
 
-        TagCompound ITagCompound.Save()
+        /// <summary>
+        /// Clear current loaded dimension.
+        /// </summary>
+        /// <param name="synchronizePrevious">Should the previous dimension be synchronized with changing in the world.</param>
+        public void ClearDimension(bool synchronizePrevious = true)
+        {
+            if (synchronizePrevious)
+                DimensionLoader.SynchronizeDimension(CurrentEntity);
+
+            DimensionLoader.ClearDimension(CurrentEntity);
+        }
+
+        internal TagCompound Save()
         {
             if (!DimensionLoader.ValidateDimension(CurrentEntity))
                 return null;
 
             var tag = new TagCompound
             {
-                {"Type", CurrentEntity?.Type},
-                {"Id", CurrentEntity?.Id},
-                {"Location", CurrentEntity?.Location.ToVector2()},
-                {"Size", CurrentEntity != null ?
-                    new Point(CurrentEntity.Width, CurrentEntity.Height).ToVector2() :
-                    (object) null
-                }
+                {nameof(CurrentEntity.Type), CurrentEntity.Type},
+                {nameof(CurrentEntity.Id), CurrentEntity.Id},
+                {nameof(CurrentEntity.Location), CurrentEntity.Location.ToVector2()},
+                {nameof(CurrentEntity.Size), CurrentEntity.Size.ToVector2()},
+                {nameof(LocationToLoad), LocationToLoad.ToVector2()}
             };
 
             return tag;
         }
 
-        void ITagCompound.Load(TagCompound tag)
+        internal void Load(TagCompound tag)
         {
-            var type = tag.Get<string>("Type");
-            if (string.IsNullOrEmpty(type))
-                return;
+            var type = tag.Get<string>(nameof(CurrentEntity.Type));
+            var id = tag.Get<string>(nameof(CurrentEntity.Id));
+            var location = tag.Get<Vector2>(nameof(CurrentEntity.Location)).ToPoint();
+            var size = tag.Get<Vector2>(nameof(CurrentEntity.Size)).ToPoint();
 
-            var id = tag.Get<string>("Id");
-            CurrentEntity = RegisteredDimension.GetParser(type).GetDimension(id);
-
-            CurrentEntity.Location = tag.Get<Vector2>("Location").ToPoint();
-            CurrentEntity.Size = tag.Get<Vector2>("Size").ToPoint();
+            CurrentEntity = DimensionsRegister.Instance.GetParser(type).GetDimension(id);
+            CurrentEntity.Location = location;
+            CurrentEntity.Size = size;
 
             DimensionLoader.SynchronizeDimension(CurrentEntity);
         }

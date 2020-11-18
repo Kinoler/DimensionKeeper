@@ -8,9 +8,9 @@ namespace TestMod.DimensionLogic
     /// The class used to register <see cref="DimensionPhases{TDimension}"/> phases for specific <see cref="TDimension"/>.
     /// </summary>
     /// <typeparam name="TDimension">The specific <see cref="Dimension"/>.</typeparam>
-    public abstract class DimensionInjector<TDimension>: DimensionInjector where TDimension : Dimension
+    public abstract class DimensionInjector<TDimension>: DimensionInjectorInternal where TDimension : Dimension
     {
-        public List<DimensionPhases> Phases { get; } = new List<DimensionPhases>();
+        public List<DimensionPhasesInternal> Phases { get; } = new List<DimensionPhasesInternal>();
 
         /// <summary>
         /// Adds the a phase. Create a new instance for <see cref="TPhase"/>.

@@ -12,7 +12,7 @@ namespace TestMod.DimensionLogic
     /// The class that allow you to handle inject process.
     /// </summary>
     /// <typeparam name="TDimension">The specific <see cref="Dimension"/>.</typeparam>
-    public class DimensionPhases<TDimension>: DimensionPhases where TDimension: Dimension
+    public class DimensionPhases<TDimension>: DimensionPhasesInternal where TDimension: Dimension
     {
         //TODO remarks
         /// <summary>

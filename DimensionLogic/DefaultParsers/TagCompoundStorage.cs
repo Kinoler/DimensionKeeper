@@ -3,12 +3,12 @@ using Terraria.ModLoader.IO;
 
 namespace TestMod.DimensionLogic.DefaultParsers
 {
-    internal interface ITagCompoundParser
+    internal interface ITagCompoundStorage
     {
         Dictionary<string, TagCompound> TagsToSave { get; set; }
     }
 
-    public abstract class TagCompoundParser<TDimension>: DimensionStorage<TDimension>, ITagCompoundParser where TDimension : Dimension, new()
+    public abstract class TagCompoundStorage<TDimension>: DimensionStorage<TDimension>, ITagCompoundStorage where TDimension : Dimension, new()
     {
         internal static TagCompound OnWorldSave()
         {
@@ -16,7 +16,7 @@ namespace TestMod.DimensionLogic.DefaultParsers
             foreach (var name in DimensionLoader.RegisteredDimension.GetNames())
             {
                 var parser = DimensionLoader.RegisteredDimension.GetParser(name);
-                if (parser is ITagCompoundParser tagCompoundParser)
+                if (parser is ITagCompoundStorage tagCompoundParser)
                 {
                     dimensionsTag.Add(name, tagCompoundParser.TagsToSave);
                 }

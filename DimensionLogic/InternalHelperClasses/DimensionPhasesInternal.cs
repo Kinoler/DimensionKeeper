@@ -1,6 +1,6 @@
 ﻿namespace TestMod.DimensionLogic.InternalHelperClasses
 {
-    public abstract class DimensionPhases
+    public abstract class DimensionPhasesInternal
     {
         internal abstract void ExecuteLoadPhaseInternal(DimensionEntity dimension);
 

@@ -12,21 +12,20 @@ namespace TestMod.DimensionLogic
     {
         private static DimensionsRegister _instance;
 
-        private Dictionary<string, DimensionStorageInternal> Parsers { get; } =
-            new Dictionary<string, DimensionStorageInternal>();
-
-        private Dictionary<string, DimensionInjector> Injectors { get; } =
-            new Dictionary<string, DimensionInjector>();
-
-
         public static DimensionsRegister Instance
         {
             get => _instance ?? (_instance = new DimensionsRegister());
             internal set => _instance = value;
         }
 
+        private Dictionary<string, DimensionStorageInternal> Parsers { get; } =
+            new Dictionary<string, DimensionStorageInternal>();
+
+        private Dictionary<string, DimensionInjectorInternal> Injectors { get; } =
+            new Dictionary<string, DimensionInjectorInternal>();
+
         /// <summary>
-        /// Registers the open generic type which register the dimensions.
+        /// Registers the open generic type which register the dimension types.
         /// You can call the <see cref="Register{TDimensionInjector,TDataParser,TDimension}(string)"/> method directly through the Instance but it looks better in the IDimensionRegister.
         /// </summary>
         /// <typeparam name="TDimensionRegister">The class which inherit from <see cref="IDimensionRegister"/>.</typeparam>
@@ -37,7 +36,7 @@ namespace TestMod.DimensionLogic
         }
 
         /// <summary>
-        /// Register the class which register the dimensions.
+        /// Register the class which register the dimension types.
         /// You can call the <see cref="Register{TDimensionInjector,TDataParser,TDimension}(string)"/> method directly through the Instance but it looks better in the IDimensionRegister.
         /// </summary>
         /// <param name="register">The instance of class which inherit from <see cref="IDimensionRegister"/>.</param>
@@ -104,7 +103,7 @@ namespace TestMod.DimensionLogic
             return Parsers[name];
         }
 
-        internal DimensionInjector GetInjector(string name)
+        internal DimensionInjectorInternal GetInjector(string name)
         {
             return Injectors[name];
         }

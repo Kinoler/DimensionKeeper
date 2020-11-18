@@ -38,7 +38,7 @@ namespace TestMod
             {
                 {SingleEntryTagName, DimensionKeeper.Instance.Save()}
             };
-            //dimensionsTag.Set(DimensionListTagName, TagCompoundParser<Dimension>.OnWorldSave());
+            //dimensionsTag.Set(DimensionListTagName, TagCompoundStorage<Dimension>.OnWorldSave());
 
             return dimensionsTag;
         }
