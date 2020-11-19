@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DimensionKeeper.DimensionService.InternalHelperClasses;
+using DimensionKeeper.DimensionService.InternalClasses;
 using Microsoft.Xna.Framework;
 
 namespace DimensionKeeper.Helpers
@@ -25,7 +25,7 @@ namespace DimensionKeeper.Helpers
 			return position;
 		}
 
-        public static IEnumerable<Point> RectangularPoints(this DimensionEntity entity, Point offset = default)
+        public static IEnumerable<Point> RectangularPoints(this DimensionEntityInternal entity, Point offset = default)
         {
             var locationToLoad = entity.Location;
             var offsetX = offset.X;

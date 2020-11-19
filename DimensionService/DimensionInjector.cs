@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using DimensionKeeper.DimensionService.InternalHelperClasses;
+using DimensionKeeper.DimensionService.InternalClasses;
+using DimensionKeeper.Interfaces;
+using DimensionKeeper.Interfaces.Internal;
 
 namespace DimensionKeeper.DimensionService
 {
@@ -10,7 +12,7 @@ namespace DimensionKeeper.DimensionService
     /// <typeparam name="TDimension">The specific <see cref="Dimension"/>.</typeparam>
     public abstract class DimensionInjector<TDimension>: IDimensionInjector where TDimension : Dimension
     {
-        public List<DimensionPhasesInternal> Phases { get; } = new List<DimensionPhasesInternal>();
+        public List<IDimensionPhase> Phases { get; } = new List<IDimensionPhase>();
 
         #region Add phase overloads
 
@@ -19,7 +21,7 @@ namespace DimensionKeeper.DimensionService
         /// </summary>
         /// <typeparam name="TPhase">The phase.</typeparam>
         public void AddPhase<TPhase>(Func<TDimension, bool> condition = null)
-            where TPhase : DimensionPhases<TDimension>, new()
+            where TPhase : DimensionPhase<TDimension>, new()
         {
             AddPhase<TPhase, TDimension>(new TPhase(), condition);
         }
@@ -31,7 +33,7 @@ namespace DimensionKeeper.DimensionService
         /// <typeparam name="TSpecifyDimension">The open generic type for the <see cref="TPhase"/> type.</typeparam>
         public void AddPhase<TPhase, TSpecifyDimension>(Func<TSpecifyDimension, bool> condition = null)
             where TSpecifyDimension : Dimension
-            where TPhase : DimensionPhases<TSpecifyDimension>, new()
+            where TPhase : DimensionPhase<TSpecifyDimension>, new()
         {
             AddPhase<TPhase, TSpecifyDimension>(new TPhase(), condition);
         }
@@ -45,7 +47,7 @@ namespace DimensionKeeper.DimensionService
         /// <param name="condition">Allow you execute the phase by condition.</param>
         public void AddPhase<TPhase, TSpecifyDimension>(TPhase instance, Func<TSpecifyDimension, bool> condition = null)
             where TSpecifyDimension : Dimension
-            where TPhase : DimensionPhases<TSpecifyDimension>
+            where TPhase : DimensionPhase<TSpecifyDimension>
         {
             if (instance == null)
                 throw new ArgumentNullException(nameof(instance));
@@ -70,7 +72,7 @@ namespace DimensionKeeper.DimensionService
 
         #region Phases execution
 
-        void IDimensionInjector.Load(DimensionEntity dimension)
+        void IDimensionInjector.Load(DimensionEntityInternal dimension)
         {
             for (var i = 0; i < Phases.Count; i++)
             {
@@ -78,7 +80,7 @@ namespace DimensionKeeper.DimensionService
             }
         }
 
-        void IDimensionInjector.Synchronize(DimensionEntity dimension)
+        void IDimensionInjector.Synchronize(DimensionEntityInternal dimension)
         {
             for (var i = 0; i < Phases.Count; i++)
             {
@@ -86,7 +88,7 @@ namespace DimensionKeeper.DimensionService
             }
         }
 
-        void IDimensionInjector.Clear(DimensionEntity dimension)
+        void IDimensionInjector.Clear(DimensionEntityInternal dimension)
         {
             for (var i = 0; i < Phases.Count; i++)
             {

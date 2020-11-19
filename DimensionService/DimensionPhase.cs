@@ -1,5 +1,6 @@
 ﻿using System;
-using DimensionKeeper.DimensionService.InternalHelperClasses;
+using DimensionKeeper.DimensionService.InternalClasses;
+using DimensionKeeper.Interfaces;
 
 namespace DimensionKeeper.DimensionService
 {
@@ -7,7 +8,7 @@ namespace DimensionKeeper.DimensionService
     /// The class that allow you to handle inject process.
     /// </summary>
     /// <typeparam name="TDimension">The specific <see cref="Dimension"/>.</typeparam>
-    public class DimensionPhases<TDimension>: DimensionPhasesInternal where TDimension: Dimension
+    public class DimensionPhase<TDimension>: IDimensionPhase where TDimension: Dimension
     {
         internal Func<TDimension, bool> Condition { get; set; }
 
@@ -49,7 +50,7 @@ namespace DimensionKeeper.DimensionService
         {
         }
 
-        internal override void ExecuteLoadPhaseInternal(DimensionEntity entity)
+        void IDimensionPhase.ExecuteLoadPhaseInternal(DimensionEntityInternal entity)
         {
             var temp = new DimensionEntity<TDimension>();
             temp.CopyFrom(entity);
@@ -58,7 +59,7 @@ namespace DimensionKeeper.DimensionService
                 ExecuteLoadPhase(temp);
         }
 
-        internal override void ExecuteSynchronizePhaseInternal(DimensionEntity entity)
+        void IDimensionPhase.ExecuteSynchronizePhaseInternal(DimensionEntityInternal entity)
         {
             var temp = new DimensionEntity<TDimension>();
             temp.CopyFrom(entity);
@@ -67,7 +68,7 @@ namespace DimensionKeeper.DimensionService
                 ExecuteSynchronizePhase(temp);
         }
 
-        internal override void ExecuteClearPhaseInternal(DimensionEntity entity)
+        void IDimensionPhase.ExecuteClearPhaseInternal(DimensionEntityInternal entity)
         {
             var temp = new DimensionEntity<TDimension>();
             temp.CopyFrom(entity);

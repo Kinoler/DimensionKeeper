@@ -1,5 +1,5 @@
 ﻿using System;
-using DimensionKeeper.DimensionService.InternalHelperClasses;
+using DimensionKeeper.DimensionService.InternalClasses;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader.IO;
@@ -11,7 +11,7 @@ namespace DimensionKeeper.DimensionService
         /// <summary>
         /// Contains data of current loaded dimension.
         /// </summary>
-        public DimensionEntity CurrentEntity { get; internal set; }
+        public DimensionEntityInternal CurrentEntity { get; internal set; }
 
         /// <summary>
         /// Specify the dimension loading tile. Points to the down left corner.

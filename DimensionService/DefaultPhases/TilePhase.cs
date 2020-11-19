@@ -3,7 +3,7 @@ using Terraria.ObjectData;
 
 namespace DimensionKeeper.DimensionService.DefaultPhases
 {
-    public class TilePhase : DimensionPhases<Dimension>
+    public class TilePhase : DimensionPhase<Dimension>
     {
         public override void ExecuteLoadPhase(DimensionEntity<Dimension> entity)
         {

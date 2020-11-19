@@ -4,7 +4,7 @@ using Terraria;
 
 namespace DimensionKeeper.DimensionService.DefaultPhases
 {
-    public class TileFramePhase: DimensionPhases<Dimension>
+    public class TileFramePhase: DimensionPhase<Dimension>
     {
         public override void ExecuteLoadPhase(DimensionEntity<Dimension> entity)
         {

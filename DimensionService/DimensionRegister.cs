@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using DimensionKeeper.DimensionService.InternalHelperClasses;
 using DimensionKeeper.Interfaces;
+using DimensionKeeper.Interfaces.Internal;
 
 namespace DimensionKeeper.DimensionService
 {
@@ -15,8 +15,8 @@ namespace DimensionKeeper.DimensionService
             internal set => _instance = value;
         }
 
-        private Dictionary<string, DimensionStorageInternal> Stores { get; } =
-            new Dictionary<string, DimensionStorageInternal>();
+        private Dictionary<string, IDimensionStorage> Stores { get; } =
+            new Dictionary<string, IDimensionStorage>();
 
         private Dictionary<string, IDimensionInjector> Injectors { get; } =
             new Dictionary<string, IDimensionInjector>();
@@ -95,7 +95,7 @@ namespace DimensionKeeper.DimensionService
             return Stores.Keys;
         }
 
-        internal DimensionStorageInternal GetStorage(string name)
+        internal IDimensionStorage GetStorage(string name)
         {
             return Stores[name];
         }

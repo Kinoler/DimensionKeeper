@@ -1,4 +1,5 @@
-﻿using DimensionKeeper.DimensionService.InternalHelperClasses;
+﻿using DimensionKeeper.DimensionService.InternalClasses;
+using DimensionKeeper.Interfaces.Internal;
 using Microsoft.Xna.Framework;
 
 namespace DimensionKeeper.DimensionService
@@ -7,7 +8,7 @@ namespace DimensionKeeper.DimensionService
     /// The class that allows you to handle storage of dimensions.
     /// </summary>
     /// <typeparam name="TDimension">The dimension type that should be storing.</typeparam>
-    public abstract class DimensionStorage<TDimension>: DimensionStorageInternal where TDimension: Dimension, new()
+    public abstract class DimensionStorage<TDimension>: IDimensionStorage where TDimension: Dimension, new()
     {        
         /// <summary>
         /// The type of registered dimension.
@@ -27,7 +28,7 @@ namespace DimensionKeeper.DimensionService
         /// <param name="dimension">The dimension which should be saving</param>
         public abstract void Save(TDimension dimension);
 
-        internal override DimensionEntity CreateEmptyEntity(Point location, Point size)
+        DimensionEntityInternal IDimensionStorage.CreateEmptyEntity(Point location, Point size)
         {
             return new DimensionEntity<TDimension>
             {
@@ -38,7 +39,7 @@ namespace DimensionKeeper.DimensionService
             };
         }
 
-        internal override DimensionEntity LoadInternal(string id)
+        DimensionEntityInternal IDimensionStorage.LoadInternal(string id)
         {
             Id = id;
 
@@ -56,7 +57,7 @@ namespace DimensionKeeper.DimensionService
             return entity;
         }
 
-        internal override void SaveInternal(DimensionEntity entity)
+        void IDimensionStorage.SaveInternal(DimensionEntityInternal entity)
         {
             Id = entity.Id;
 
