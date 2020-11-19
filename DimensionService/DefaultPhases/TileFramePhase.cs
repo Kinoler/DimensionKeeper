@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DimensionKeeper.Helpers;
+using Microsoft.Xna.Framework;
 using Terraria;
-using TestMod.Helpers;
 
-namespace TestMod.DimensionService.DefaultPhases
+namespace DimensionKeeper.DimensionService.DefaultPhases
 {
     public class TileFramePhase: DimensionPhases<Dimension>
     {

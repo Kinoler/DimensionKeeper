@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Terraria;
+﻿using DimensionKeeper.Tiles;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
-using static Terraria.ModLoader.ModContent;
 
-namespace TestMod.Items
+namespace DimensionKeeper.Items
 {
     public class ExampleClock : ModItem
     {
@@ -28,7 +23,7 @@ namespace TestMod.Items
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.consumable = true;
             item.value = 500;
-            item.createTile = TileType<Tiles.EmptyTile>();
+            item.createTile = ModContent.TileType<EmptyTile>();
         }
 
         public override void AddRecipes()

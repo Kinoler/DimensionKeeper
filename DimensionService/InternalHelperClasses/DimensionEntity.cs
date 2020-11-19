@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace TestMod.DimensionService.InternalHelperClasses
+namespace DimensionKeeper.DimensionService.InternalHelperClasses
 {
     public abstract class DimensionEntity
     {

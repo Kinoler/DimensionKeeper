@@ -1,10 +1,10 @@
 ﻿using System;
+using DimensionKeeper.DimensionService.InternalHelperClasses;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader.IO;
-using TestMod.DimensionService.InternalHelperClasses;
 
-namespace TestMod.DimensionService
+namespace DimensionKeeper.DimensionService
 {
     public class SingleEntryDimension
     {

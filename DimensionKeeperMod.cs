@@ -1,15 +1,11 @@
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.GameContent.UI;
-using Terraria.ID;
+using DimensionKeeper.DimensionExample;
+using DimensionKeeper.DimensionService;
+using DimensionKeeper.UI;
 using Terraria.ModLoader;
 using Terraria.UI;
-using TestMod.DimensionExample;
-using TestMod.DimensionService;
-using TestMod.UI;
 
-namespace TestMod
+namespace DimensionKeeper
 {
 	public class DimensionKeeperMod : Mod
     {
@@ -27,7 +23,7 @@ namespace TestMod
 
         public override void Unload()
         {
-            DimensionKeeper.Instance = null;
+            DimensionKeeper.DimensionService.DimensionKeeper.Instance = null;
             DimensionRegister.Instance = null;
             EyeDropperUpdater.Instance = null;
 

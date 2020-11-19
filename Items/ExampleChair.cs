@@ -1,8 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
-namespace TestMod.Items
+namespace DimensionKeeper.Items
 {
 	public class ExampleChair : ModItem
 	{

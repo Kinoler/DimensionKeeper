@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using TestMod.DimensionService.InternalHelperClasses;
-using TestMod.Interfaces;
+using DimensionKeeper.DimensionService.InternalHelperClasses;
+using DimensionKeeper.Interfaces;
 
-namespace TestMod.DimensionService
+namespace DimensionKeeper.DimensionService
 {
     public class DimensionRegister
     {

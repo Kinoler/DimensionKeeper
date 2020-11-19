@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
-using Terraria.DataStructures;
+﻿using DimensionKeeper.DimensionExample;
+using DimensionKeeper.DimensionService;
+using DimensionKeeper.DimensionService.DefaultStorages;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using TestMod.DimensionExample;
-using TestMod.DimensionService;
-using TestMod.DimensionService.DefaultStorages;
 
-namespace TestMod
+namespace DimensionKeeper
 {
     public class DimensionKeeperModWorld: ModWorld
     {
@@ -30,14 +23,14 @@ namespace TestMod
         {
             DimensionsTag = tag.GetCompound(DimensionListTagName);
             var singleEntryTags = tag.GetCompound(SingleEntryTagName);
-            DimensionKeeper.Instance.Load(singleEntryTags);
+            DimensionKeeper.DimensionService.DimensionKeeper.Instance.Load(singleEntryTags);
         }
 
         public override TagCompound Save()
         {
             return new TagCompound
             {
-                {SingleEntryTagName, DimensionKeeper.Instance.Save()},
+                {SingleEntryTagName, DimensionKeeper.DimensionService.DimensionKeeper.Instance.Save()},
                 {DimensionListTagName, SaveTagCompoundStorage()}
             };
         }

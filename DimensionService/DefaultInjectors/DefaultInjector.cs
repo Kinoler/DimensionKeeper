@@ -1,6 +1,6 @@
-﻿using TestMod.DimensionService.DefaultPhases;
+﻿using DimensionKeeper.DimensionService.DefaultPhases;
 
-namespace TestMod.DimensionService.DefaultInjectors
+namespace DimensionKeeper.DimensionService.DefaultInjectors
 {
     public class DefaultInjector<TDimension> : DimensionInjector<TDimension> where TDimension: Dimension
     {

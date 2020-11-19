@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
+using DimensionKeeper.DimensionService.InternalHelperClasses;
 using Microsoft.Xna.Framework;
-using Terraria;
-using TestMod.DimensionService.InternalHelperClasses;
 
-namespace TestMod.Helpers
+namespace DimensionKeeper.Helpers
 {
     public static class ModUtils
     {

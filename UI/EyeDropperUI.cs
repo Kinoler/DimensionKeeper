@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DimensionKeeper.DimensionService;
+using DimensionKeeper.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Terraria;
-using Terraria.GameContent.Liquid;
 using Terraria.ID;
-using Terraria.ModLoader;
-using TestMod.DimensionExample;
-using TestMod.DimensionService;
-using TestMod.Helpers;
 
-namespace TestMod.UI
+namespace DimensionKeeper.UI
 {
     public class EyeDropperUI
     {

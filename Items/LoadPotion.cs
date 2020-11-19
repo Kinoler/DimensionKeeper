@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DimensionKeeper.DimensionExample;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TestMod.DimensionExample;
 
-namespace TestMod.Items
+namespace DimensionKeeper.Items
 {
     public class LoadPotion : ModItem
     {

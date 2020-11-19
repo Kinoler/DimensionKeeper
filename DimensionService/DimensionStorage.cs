@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using TestMod.DimensionService.InternalHelperClasses;
+﻿using DimensionKeeper.DimensionService.InternalHelperClasses;
+using Microsoft.Xna.Framework;
 
-namespace TestMod.DimensionService
+namespace DimensionKeeper.DimensionService
 {
     /// <summary>
     /// The class that allows you to handle storage of dimensions.

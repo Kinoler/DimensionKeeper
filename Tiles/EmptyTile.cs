@@ -1,14 +1,11 @@
-﻿using System;
+﻿using DimensionKeeper.DimensionExample;
+using DimensionKeeper.Items;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using TestMod.DimensionExample;
-using TestMod.DimensionService;
-using static Terraria.ModLoader.ModContent;
 
-namespace TestMod.Tiles
+namespace DimensionKeeper.Tiles
 {
     public class EmptyTile : ModTile
 	{
@@ -34,7 +31,7 @@ namespace TestMod.Tiles
 
         public override bool NewRightClick(int x, int y)
         {
-            var entry = DimensionKeeper.Instance.GetEntry("SomeEntry");
+            var entry = DimensionKeeper.DimensionService.DimensionKeeper.Instance.GetEntry("SomeEntry");
             entry.LocationToLoad = new Point((X > 0 ? X : x) + 10, Y > 0 ? Y : y);
             entry.LoadDimension(DimensionRegisterExample.ExampleName);
             return false;
@@ -62,7 +59,7 @@ namespace TestMod.Tiles
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(i * 16, j * 16, 48, 32, ItemType<Items.ExampleClock>());
+			Item.NewItem(i * 16, j * 16, 48, 32, ModContent.ItemType<ExampleClock>());
 		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using Terraria;
 
-namespace TestMod.DimensionService
+namespace DimensionKeeper.DimensionService
 {
     public class Dimension
     {

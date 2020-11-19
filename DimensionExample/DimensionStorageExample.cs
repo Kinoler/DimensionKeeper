@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
+using DimensionKeeper.DimensionService;
+using DimensionKeeper.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader.IO;
-using TestMod.DimensionService;
-using TestMod.Helpers;
 
-namespace TestMod.DimensionExample
+namespace DimensionKeeper.DimensionExample
 {
     public class DimensionStorageExample : DimensionStorage<Dimension>
     {

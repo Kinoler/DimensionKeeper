@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Terraria.ModLoader.IO;
 
-namespace TestMod.DimensionService.DefaultStorages
+namespace DimensionKeeper.DimensionService.DefaultStorages
 {
     internal interface ITagCompoundStorage
     {

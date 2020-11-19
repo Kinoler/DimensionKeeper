@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using TestMod.DimensionService.InternalHelperClasses;
+﻿using DimensionKeeper.DimensionService.InternalHelperClasses;
+using Microsoft.Xna.Framework;
 
-namespace TestMod.DimensionService
+namespace DimensionKeeper.DimensionService
 {
     /// <summary>
     /// The main class DimensionKeeper that allows you to manipulate dimensions.

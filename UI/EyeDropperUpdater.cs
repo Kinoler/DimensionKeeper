@@ -1,7 +1,7 @@
 ﻿using System;
 using Terraria;
 
-namespace TestMod.UI
+namespace DimensionKeeper.UI
 {
     public class EyeDropperUpdater
     {

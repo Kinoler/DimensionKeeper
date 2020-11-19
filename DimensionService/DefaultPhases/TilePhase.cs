@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ObjectData;
 
-namespace TestMod.DimensionService.DefaultPhases
+namespace DimensionKeeper.DimensionService.DefaultPhases
 {
     public class TilePhase : DimensionPhases<Dimension>
     {

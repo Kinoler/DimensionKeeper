@@ -1,8 +1,8 @@
-﻿using TestMod.DimensionService;
-using TestMod.DimensionService.DefaultInjectors;
-using TestMod.Interfaces;
+﻿using DimensionKeeper.DimensionService;
+using DimensionKeeper.DimensionService.DefaultInjectors;
+using DimensionKeeper.Interfaces;
 
-namespace TestMod.DimensionExample
+namespace DimensionKeeper.DimensionExample
 {
     public class DimensionRegisterExample : IDimensionRegister
     {

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ObjectData;
 
-namespace TestMod.DimensionService.DefaultPhases
+namespace DimensionKeeper.DimensionService.DefaultPhases
 {
     public class TileObjectDataPhase: DimensionPhases<Dimension>
     {

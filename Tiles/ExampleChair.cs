@@ -1,9 +1,9 @@
+using DimensionKeeper.UI;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using TestMod.UI;
 
-namespace TestMod.Tiles
+namespace DimensionKeeper.Tiles
 {
 	public class ExampleChair : ModTile
 	{
@@ -33,7 +33,7 @@ namespace TestMod.Tiles
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-			Item.NewItem(i * 16, j * 16, 16, 32, ModContent.ItemType<global::TestMod.Items.ExampleChair>());
+			Item.NewItem(i * 16, j * 16, 16, 32, ModContent.ItemType<global::DimensionKeeper.Items.ExampleChair>());
 		}
 	}
 }

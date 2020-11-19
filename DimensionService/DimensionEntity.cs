@@ -1,6 +1,6 @@
-﻿using TestMod.DimensionService.InternalHelperClasses;
+﻿using DimensionKeeper.DimensionService.InternalHelperClasses;
 
-namespace TestMod.DimensionService
+namespace DimensionKeeper.DimensionService
 {
     /// <summary>
     /// Represents the dimension which will be or already loaded into the world.

@@ -1,7 +1,7 @@
 ﻿using System;
-using TestMod.DimensionService.InternalHelperClasses;
+using DimensionKeeper.DimensionService.InternalHelperClasses;
 
-namespace TestMod.DimensionService
+namespace DimensionKeeper.DimensionService
 {
     /// <summary>
     /// The class that allow you to handle inject process.
