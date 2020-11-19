@@ -8,6 +8,23 @@ namespace DimensionKeeper.DimensionService
 {
     public class SingleEntryDimension
     {
+        public static SingleEntryDimension CreateNewEntry(
+            string type,
+            Point size,
+            Point location,
+            string entryName = null)
+        {
+            var singleEntryDimension = new SingleEntryDimension
+            {
+                CurrentEntity = DimensionRegister.Instance.GetStorage(type).CreateEmptyEntity(location, size),
+                LocationToLoad = location
+            };
+
+            if (entryName != null)
+                DimensionsKeeper.Instance.SingleEntryDimensions[entryName] = singleEntryDimension;
+            return singleEntryDimension;
+        }
+
         /// <summary>
         /// Contains data of current loaded dimension.
         /// </summary>
@@ -35,6 +52,14 @@ namespace DimensionKeeper.DimensionService
             CurrentEntity.Location = new Point(LocationToLoad.X, LocationToLoad.Y - CurrentEntity.Height);
 
             DimensionLoader.LoadDimension(CurrentEntity);
+        }
+
+        /// <summary>
+        /// Synchronizes the <see cref="CurrentEntity"/> dimension. Can be useful for very specific cases, usually <see cref = "LoadDimension" /> is sufficient.
+        /// </summary>
+        public void SynchronizeDimension()
+        {
+            DimensionLoader.SynchronizeDimension(CurrentEntity);
         }
 
         /// <summary>

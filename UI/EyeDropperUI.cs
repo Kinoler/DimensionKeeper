@@ -70,8 +70,6 @@ namespace DimensionKeeper.UI
             Main.LocalPlayer.mouseInterface = true;
         }
 
-
-
         internal void UpdateEyeDropperCompute()
         {
             Main.LocalPlayer.showItemIcon2 = ItemID.EmptyDropper;
@@ -105,7 +103,9 @@ namespace DimensionKeeper.UI
                     var location = new Point(minX, minY);
                     var size = new Point(width, height);
 
-                    CreateSelectedDimension(location, size);
+                    SingleEntryDimension
+                        .CreateNewEntry(DimensionKeeperMod.EyeDropperTypeName, size, location)
+                        .SynchronizeDimension();
 
                     Hide();
                 }
@@ -150,16 +150,6 @@ namespace DimensionKeeper.UI
             }
 
             DrawSelectedRectangle(upperLeftScreen, lowerRight - upperLeft, _leftMouseDown);
-        }
-
-        private static void CreateSelectedDimension(Point location, Point size)
-        {
-            var storage = DimensionLoader.RegisteredDimension.GetStorage(DimensionKeeperMod.EyeDropperTypeName);
-            var injector = DimensionLoader.RegisteredDimension.GetInjector(DimensionKeeperMod.EyeDropperTypeName);
-
-            var entity = storage.CreateEmptyEntity(location, size);
-            injector.Synchronize(entity);
-            storage.SaveInternal(entity);
         }
 
         private static Color BuffColor(Color newColor, float r, float g, float b, float a)

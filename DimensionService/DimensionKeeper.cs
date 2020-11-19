@@ -27,21 +27,14 @@ namespace DimensionKeeper.DimensionService
             return SingleEntryDimensions[entryName];
         }
 
-        internal TagCompound Save()
+        public void RemoveEntry(string entryName)
         {
-            return new TagCompound
+            if (SingleEntryDimensions.ContainsKey(entryName))
             {
-                {"scoreNames", SingleEntryDimensions.Keys.ToList()},
-                {"scoreValues", SingleEntryDimensions.Values.ToList()}
-            };
+                SingleEntryDimensions.Remove(entryName);
+            }
         }
 
-        internal void Load(TagCompound tag)
-        {
-            var keys = tag.Get<List<string>>($"{nameof(SingleEntryDimensions)}.{nameof(SingleEntryDimensions.Keys)}");
-            var values = tag.Get<List<SingleEntryDimension>>($"{nameof(SingleEntryDimensions)}.{nameof(SingleEntryDimensions.Values)}");
 
-            SingleEntryDimensions = keys.Zip(values, (key, value) => new { Key = key, Value = value }).ToDictionary(x => x.Key, x => x.Value);
-        }
     }
 }

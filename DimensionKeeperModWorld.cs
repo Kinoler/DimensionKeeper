@@ -34,7 +34,7 @@ namespace DimensionKeeper
             };
         }
 
-        internal TagCompound SaveTagCompoundStorage()
+        private TagCompound SaveTagCompoundStorage()
         {
             var dimensionsTag = new TagCompound();
             foreach (var storage in DimensionLoader.RegisteredDimension.Stores)
@@ -43,7 +43,7 @@ namespace DimensionKeeper
             return dimensionsTag;
         }
 
-        internal void LoadTagCompoundStorage(TagCompound tag)
+        private void LoadTagCompoundStorage(TagCompound tag)
         {
             foreach (var storage in DimensionLoader.RegisteredDimension.Stores)
             {
