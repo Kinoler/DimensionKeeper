@@ -1,4 +1,4 @@
-﻿namespace TestMod.DimensionLogic.InternalHelperClasses
+﻿namespace TestMod.DimensionService.InternalHelperClasses
 {
     public abstract class DimensionInjectorInternal
     {

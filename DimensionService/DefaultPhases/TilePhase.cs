@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ObjectData;
 
-namespace TestMod.DimensionLogic.DefaultPhases
+namespace TestMod.DimensionService.DefaultPhases
 {
     public class TilePhase : DimensionPhases<Dimension>
     {

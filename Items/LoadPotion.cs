@@ -7,7 +7,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TestMod.DimensionExample;
-using TestMod.DimensionLogic;
 
 namespace TestMod.Items
 {

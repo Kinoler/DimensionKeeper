@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.UI;
 using TestMod.Helpers;
 
-namespace TestMod.DimensionLogic.DefaultPhases
+namespace TestMod.DimensionService.DefaultPhases
 {
     public class ChestPhase: DimensionPhases<Dimension>
     {

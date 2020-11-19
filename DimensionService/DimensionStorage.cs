@@ -1,13 +1,7 @@
-﻿using System.Xml;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.Map;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using TestMod.DimensionLogic.InternalHelperClasses;
-using TestMod.Interfaces;
+﻿using Microsoft.Xna.Framework;
+using TestMod.DimensionService.InternalHelperClasses;
 
-namespace TestMod.DimensionLogic
+namespace TestMod.DimensionService
 {
     /// <summary>
     /// The class that allows you to handle storage of dimensions.

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using TestMod.DimensionLogic.InternalHelperClasses;
+using TestMod.DimensionService.InternalHelperClasses;
 
-namespace TestMod.DimensionLogic
+namespace TestMod.DimensionService
 {
     /// <summary>
     /// Represents the phase container for the specific dimension.

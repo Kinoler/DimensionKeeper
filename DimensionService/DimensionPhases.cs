@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestMod.DimensionLogic.InternalHelperClasses;
-using TestMod.Interfaces;
+using TestMod.DimensionService.InternalHelperClasses;
 
-namespace TestMod.DimensionLogic
+namespace TestMod.DimensionService
 {
     /// <summary>
     /// The class that allow you to handle inject process.

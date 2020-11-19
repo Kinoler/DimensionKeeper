@@ -1,18 +1,14 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader.IO;
-using TestMod.DimensionLogic.InternalHelperClasses;
-using TestMod.Interfaces;
+﻿using Microsoft.Xna.Framework;
+using TestMod.DimensionService.InternalHelperClasses;
 
-namespace TestMod.DimensionLogic
+namespace TestMod.DimensionService
 {
     /// <summary>
     /// The main class DimensionKeeper that allows you to manipulate dimensions.
     /// </summary>
     public static class DimensionLoader
     {
-        internal static DimensionsRegister RegisteredDimension => DimensionsRegister.Instance;
+        internal static DimensionRegister RegisteredDimension => DimensionRegister.Instance;
 
         internal static bool ValidateDimension(DimensionEntity entity)
         {

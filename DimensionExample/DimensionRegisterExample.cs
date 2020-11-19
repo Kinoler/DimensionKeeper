@@ -1,5 +1,5 @@
-﻿using TestMod.DimensionLogic;
-using TestMod.DimensionLogic.DefaultInjectors;
+﻿using TestMod.DimensionService;
+using TestMod.DimensionService.DefaultInjectors;
 using TestMod.Interfaces;
 
 namespace TestMod.DimensionExample
@@ -8,7 +8,7 @@ namespace TestMod.DimensionExample
     {
         public const string ExampleName = "Name";
 
-        public void Register(DimensionsRegister register)
+        public void Register(DimensionRegister register)
         {
             register.Register<DefaultInjector<Dimension>, DimensionStorageExample, Dimension>(ExampleName);
             register.Register<DefaultInjector<Dimension>, DimensionStorageExample, Dimension>(DimensionKeeperMod.EyeDropperTypeName);

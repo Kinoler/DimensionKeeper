@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 using TestMod.DimensionExample;
-using TestMod.DimensionLogic;
+using TestMod.DimensionService;
 using TestMod.UI;
 
 namespace TestMod
@@ -22,13 +22,13 @@ namespace TestMod
             EnableEyeDropper = true;
 
             //TODO Move it to another project
-            DimensionsRegister.SetupDimensionTypesRegister<DimensionRegisterExample>();
+            DimensionRegister.SetupDimensionTypesRegister<DimensionRegisterExample>();
         }
 
         public override void Unload()
         {
             DimensionKeeper.Instance = null;
-            DimensionsRegister.Instance = null;
+            DimensionRegister.Instance = null;
             EyeDropperUpdater.Instance = null;
 
             DimensionKeeperModWorld.DimensionsTag = null;

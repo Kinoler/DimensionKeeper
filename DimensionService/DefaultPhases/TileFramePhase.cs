@@ -2,7 +2,7 @@
 using Terraria;
 using TestMod.Helpers;
 
-namespace TestMod.DimensionLogic.DefaultPhases
+namespace TestMod.DimensionService.DefaultPhases
 {
     public class TileFramePhase: DimensionPhases<Dimension>
     {

@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Mono.CompilerServices.SymbolWriter;
-using TestMod.DimensionLogic.InternalHelperClasses;
+﻿using TestMod.DimensionService.InternalHelperClasses;
 
-namespace TestMod.DimensionLogic
+namespace TestMod.DimensionService
 {
     /// <summary>
     /// Represents the dimension which will be or already loaded into the world.

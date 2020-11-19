@@ -8,8 +8,8 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TestMod.DimensionExample;
-using TestMod.DimensionLogic;
-using TestMod.DimensionLogic.DefaultParsers;
+using TestMod.DimensionService;
+using TestMod.DimensionService.DefaultStorages;
 
 namespace TestMod
 {

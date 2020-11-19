@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestMod.DimensionLogic;
+using TestMod.DimensionService;
 
 namespace TestMod.Interfaces
 {
     public interface IDimensionRegister
     {
-        void Register(DimensionsRegister register);
+        void Register(DimensionRegister register);
     }
 }

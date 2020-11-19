@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader.IO;
-using TestMod.DimensionLogic.InternalHelperClasses;
-using TestMod.Interfaces;
+using TestMod.DimensionService.InternalHelperClasses;
 
-namespace TestMod.DimensionLogic
+namespace TestMod.DimensionService
 {
     public class SingleEntryDimension
     {
@@ -36,7 +31,7 @@ namespace TestMod.DimensionLogic
 
             ClearDimension(synchronizePrevious);
 
-            CurrentEntity = DimensionsRegister.Instance.GetStorage(type).LoadInternal(id ?? type);
+            CurrentEntity = DimensionRegister.Instance.GetStorage(type).LoadInternal(id ?? type);
             CurrentEntity.Location = new Point(LocationToLoad.X, LocationToLoad.Y - CurrentEntity.Height);
 
             DimensionLoader.LoadDimension(CurrentEntity);
@@ -76,7 +71,7 @@ namespace TestMod.DimensionLogic
             var location = tag.Get<Vector2>(nameof(CurrentEntity.Location)).ToPoint();
             var size = tag.Get<Vector2>(nameof(CurrentEntity.Size)).ToPoint();
 
-            CurrentEntity = DimensionsRegister.Instance.GetStorage(type).LoadInternal(id);
+            CurrentEntity = DimensionRegister.Instance.GetStorage(type).LoadInternal(id);
             CurrentEntity.Location = location;
             CurrentEntity.Size = size;
 

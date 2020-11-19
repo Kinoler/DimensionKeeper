@@ -11,7 +11,7 @@ using Terraria.GameContent.Liquid;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TestMod.DimensionExample;
-using TestMod.DimensionLogic;
+using TestMod.DimensionService;
 using TestMod.Helpers;
 
 namespace TestMod.UI

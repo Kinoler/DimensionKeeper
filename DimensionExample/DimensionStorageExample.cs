@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
-using TestMod.DimensionLogic;
+using TestMod.DimensionService;
 using TestMod.Helpers;
 
 namespace TestMod.DimensionExample

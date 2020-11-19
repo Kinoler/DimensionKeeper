@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using TestMod.DimensionExample;
-using TestMod.DimensionLogic;
+using TestMod.DimensionService;
 using static Terraria.ModLoader.ModContent;
 
 namespace TestMod.Tiles

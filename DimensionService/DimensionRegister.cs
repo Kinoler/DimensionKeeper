@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Terraria;
-using Terraria.ModLoader;
-using TestMod.DimensionLogic.InternalHelperClasses;
+using TestMod.DimensionService.InternalHelperClasses;
 using TestMod.Interfaces;
 
-namespace TestMod.DimensionLogic
+namespace TestMod.DimensionService
 {
-    public class DimensionsRegister
+    public class DimensionRegister
     {
-        private static DimensionsRegister _instance;
+        private static DimensionRegister _instance;
 
-        public static DimensionsRegister Instance
+        public static DimensionRegister Instance
         {
-            get => _instance ?? (_instance = new DimensionsRegister());
+            get => _instance ?? (_instance = new DimensionRegister());
             internal set => _instance = value;
         }
 
