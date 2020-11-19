@@ -48,34 +48,5 @@ namespace DimensionKeeper.DimensionService
 
             DimensionLoader.ClearDimension(CurrentEntity);
         }
-
-        internal TagCompound Save()
-        {
-            if (!DimensionLoader.ValidateDimension(CurrentEntity))
-                return null;
-
-            return new TagCompound
-            {
-                {nameof(CurrentEntity.Type), CurrentEntity.Type},
-                {nameof(CurrentEntity.Id), CurrentEntity.Id},
-                {nameof(CurrentEntity.Location), CurrentEntity.Location.ToVector2()},
-                {nameof(CurrentEntity.Size), CurrentEntity.Size.ToVector2()},
-                {nameof(LocationToLoad), LocationToLoad.ToVector2()}
-            };
-        }
-
-        internal void Load(TagCompound tag)
-        {
-            var type = tag.Get<string>(nameof(CurrentEntity.Type));
-            var id = tag.Get<string>(nameof(CurrentEntity.Id));
-            var location = tag.Get<Vector2>(nameof(CurrentEntity.Location)).ToPoint();
-            var size = tag.Get<Vector2>(nameof(CurrentEntity.Size)).ToPoint();
-
-            CurrentEntity = DimensionRegister.Instance.GetStorage(type).LoadInternal(id);
-            CurrentEntity.Location = location;
-            CurrentEntity.Size = size;
-
-            //DimensionLoader.SynchronizeDimension(CurrentEntity);
-        }
     }
 }

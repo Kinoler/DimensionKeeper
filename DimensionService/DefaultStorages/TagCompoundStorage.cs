@@ -5,34 +5,34 @@ namespace DimensionKeeper.DimensionService.DefaultStorages
 {
     internal interface ITagCompoundStorage
     {
-        Dictionary<string, TagCompound> SavedDimensionTags { get; set; }
+        TagCompound SavedDimensionsTag { get; set; }
     }
 
-    public abstract class TagCompoundStorage<TDimension>: DimensionStorage<TDimension>, ITagCompoundStorage where TDimension : Dimension, new()
+    public abstract class TagCompoundStorage<TDimension>: DimensionStorage<TDimension>, ITagCompoundStorage 
+        where TDimension : Dimension, new()
     {
-        public Dictionary<string, TagCompound> SavedDimensionTags { get; set; }
+        public TagCompound SavedDimensionsTag { get; set; }
 
         /// <summary>
-        /// Do not override this method to class work correctly. Override the <see cref="LoadTag(TagCompound)"/> instead.
+        /// Do not override this method to class work correctly.
         /// </summary>
         /// <returns></returns>
         public override TDimension Load()
         {
-            if (!DimensionKeeperModWorld.DimensionsTag.ContainsKey(Id))
+            if (!SavedDimensionsTag.ContainsKey(Id))
                 return InitializeTag();
 
-            var tag = DimensionKeeperModWorld.DimensionsTag.GetCompound(Id);
-            return LoadTag(tag);
+            return SavedDimensionsTag.Get<TDimension>(Id);
         }
 
         /// <summary>
-        /// Do not override this method to class work correctly. Override the <see cref="SaveTag(TDimension)"/> instead.
+        /// Do not override this method to class work correctly.
         /// </summary>
         /// <param name="dimension"></param>
         public override void Save(TDimension dimension)
         {
-            var tagToSave = SaveTag(dimension);
-            SavedDimensionTags.Add(Id, tagToSave);
+            SavedDimensionsTag = SavedDimensionsTag ?? new TagCompound();
+            SavedDimensionsTag.Set(Id, dimension, true);
         }
 
         /// <summary>
@@ -41,20 +41,5 @@ namespace DimensionKeeper.DimensionService.DefaultStorages
         /// </summary>
         /// <returns>A new dimension</returns>
         public abstract TDimension InitializeTag();
-
-        /// <summary>
-        /// Allow you to load a new dimension from the <see cref="TagCompound"/> class.
-        /// Which was saved in the past.
-        /// </summary>
-        /// <param name="tag">The <see cref="TagCompound"/> which was saved in the past.</param>
-        /// <returns>A new dimension.</returns>
-        public abstract TDimension LoadTag(TagCompound tag);
-
-        /// <summary>
-        /// Allow you to save the dimension to the <see cref="TagCompound"/>.
-        /// To the load it in the future session.
-        /// </summary>
-        /// <param name="dimension">The current dimension which should be saving.</param>
-        public abstract TagCompound SaveTag(TDimension dimension);
     }
 }

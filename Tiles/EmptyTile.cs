@@ -1,4 +1,5 @@
 ﻿using DimensionKeeper.DimensionExample;
+using DimensionKeeper.DimensionService;
 using DimensionKeeper.Items;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -31,7 +32,7 @@ namespace DimensionKeeper.Tiles
 
         public override bool NewRightClick(int x, int y)
         {
-            var entry = DimensionKeeper.DimensionService.DimensionKeeper.Instance.GetEntry("SomeEntry");
+            var entry = DimensionsKeeper.Instance.GetEntry("SomeEntry");
             entry.LocationToLoad = new Point((X > 0 ? X : x) + 10, Y > 0 ? Y : y);
             entry.LoadDimension(DimensionRegisterExample.ExampleName);
             return false;

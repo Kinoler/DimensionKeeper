@@ -23,11 +23,9 @@ namespace DimensionKeeper
 
         public override void Unload()
         {
-            DimensionKeeper.DimensionService.DimensionKeeper.Instance = null;
+            DimensionsKeeper.Instance = null;
             DimensionRegister.Instance = null;
             EyeDropperUpdater.Instance = null;
-
-            DimensionKeeperModWorld.DimensionsTag = null;
 
             //TODO Move it to another project
             DimensionStorageExample.Dimensions = null;

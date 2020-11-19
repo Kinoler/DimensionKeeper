@@ -15,10 +15,10 @@ namespace DimensionKeeper.DimensionService
             internal set => _instance = value;
         }
 
-        private Dictionary<string, IDimensionStorage> Stores { get; } =
+        internal Dictionary<string, IDimensionStorage> Stores { get; } =
             new Dictionary<string, IDimensionStorage>();
 
-        private Dictionary<string, IDimensionInjector> Injectors { get; } =
+        internal Dictionary<string, IDimensionInjector> Injectors { get; } =
             new Dictionary<string, IDimensionInjector>();
 
         /// <summary>

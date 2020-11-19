@@ -1,4 +1,6 @@
-﻿using DimensionKeeper.DimensionExample;
+﻿using System.Collections.Generic;
+using System.Linq;
+using DimensionKeeper.DimensionExample;
 using DimensionKeeper.DimensionService;
 using DimensionKeeper.DimensionService.DefaultStorages;
 using Terraria.ModLoader;
@@ -9,9 +11,7 @@ namespace DimensionKeeper
     public class DimensionKeeperModWorld: ModWorld
     {
         private const string DimensionListTagName = "DimensionList";
-        private const string SingleEntryTagName = "SingleEntries";
-
-        internal static TagCompound DimensionsTag { get; set; }
+        private const string SingleEntriesTagName = "SingleEntries";
 
         //TODO Move it to another project
         public override void Initialize()
@@ -21,16 +21,15 @@ namespace DimensionKeeper
 
         public override void Load(TagCompound tag)
         {
-            DimensionsTag = tag.GetCompound(DimensionListTagName);
-            var singleEntryTags = tag.GetCompound(SingleEntryTagName);
-            DimensionKeeper.DimensionService.DimensionKeeper.Instance.Load(singleEntryTags);
+            DimensionsKeeper.Instance = tag.Get<DimensionsKeeper>(SingleEntriesTagName);
+            LoadTagCompoundStorage(tag.GetCompound(DimensionListTagName));
         }
 
         public override TagCompound Save()
         {
             return new TagCompound
             {
-                {SingleEntryTagName, DimensionKeeper.DimensionService.DimensionKeeper.Instance.Save()},
+                {SingleEntriesTagName, DimensionsKeeper.Instance},
                 {DimensionListTagName, SaveTagCompoundStorage()}
             };
         }
@@ -38,16 +37,21 @@ namespace DimensionKeeper
         internal TagCompound SaveTagCompoundStorage()
         {
             var dimensionsTag = new TagCompound();
-            foreach (var name in DimensionLoader.RegisteredDimension.GetTypes())
-            {
-                var parser = DimensionLoader.RegisteredDimension.GetStorage(name);
-                if (parser is ITagCompoundStorage tagCompoundParser)
-                {
-                    dimensionsTag.Add(name, tagCompoundParser.SavedDimensionTags);
-                }
-            }
+            foreach (var storage in DimensionLoader.RegisteredDimension.Stores)
+                dimensionsTag.Add(storage.Key, (storage.Value as ITagCompoundStorage)?.SavedDimensionsTag);
 
             return dimensionsTag;
+        }
+
+        internal void LoadTagCompoundStorage(TagCompound tag)
+        {
+            foreach (var storage in DimensionLoader.RegisteredDimension.Stores)
+            {
+                if (storage.Value is ITagCompoundStorage tagCompoundParser)
+                {
+                    tagCompoundParser.SavedDimensionsTag = tag.GetCompound(storage.Key);
+                }
+            }
         }
     }
 }

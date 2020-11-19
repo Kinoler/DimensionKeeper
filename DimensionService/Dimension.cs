@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Runtime.Serialization;
+using Terraria;
 
 namespace DimensionKeeper.DimensionService
 {
