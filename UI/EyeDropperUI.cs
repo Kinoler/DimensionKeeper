@@ -77,6 +77,56 @@ namespace TestMod.UI
             Main.LocalPlayer.mouseInterface = true;
         }
 
+
+
+        internal void UpdateEyeDropperCompute()
+        {
+            Main.LocalPlayer.showItemIcon2 = ItemID.EmptyDropper;
+            if (_leftMouseDown)
+            {
+                var point = Main.MouseWorld.ToTileCoordinates();
+                if (_startTileX == -1)
+                {
+                    _startTileX = point.X;
+                    _startTileY = point.Y;
+                    _lastMouseTileX = -1;
+                    _lastMouseTileY = -1;
+                }
+
+                _lastMouseTileX = point.X;
+                _lastMouseTileY = point.Y;
+            }
+
+            if (_justLeftMouseDown)
+            {
+                if (_startTileX != -1 && _startTileY != -1 && _lastMouseTileX != -1 && _lastMouseTileY != -1)
+                {
+                    var minX = Math.Min(_startTileX, _lastMouseTileX);
+                    var maxX = Math.Max(_startTileX, _lastMouseTileX);
+                    var minY = Math.Min(_startTileY, _lastMouseTileY);
+                    var maxY = Math.Max(_startTileY, _lastMouseTileY);
+
+                    var width = (int)(maxX - minX + 1);
+                    var height = (int)(maxY - minY + 1);
+
+                    var location = new Point(minX, minY);
+                    var size = new Point(width, height);
+
+                    CreateSelectedDimension(location, size);
+
+                    Hide();
+                }
+
+                _startTileX = -1;
+                _startTileY = -1;
+                _lastMouseTileX = -1;
+                _lastMouseTileY = -1;
+                _justLeftMouseDown = false;
+            }
+
+            Main.LocalPlayer.showItemIcon = true;
+        }
+
         internal void DrawEyeDropperBrush()
 		{
             if (Main.LocalPlayer.mouseInterface)
@@ -109,6 +159,16 @@ namespace TestMod.UI
             DrawSelectedRectangle(upperLeftScreen, lowerRight - upperLeft, _leftMouseDown);
         }
 
+        private static void CreateSelectedDimension(Point location, Point size)
+        {
+            var storage = DimensionLoader.RegisteredDimension.GetStorage(DimensionKeeperMod.EyeDropperTypeName);
+            var injector = DimensionLoader.RegisteredDimension.GetInjector(DimensionKeeperMod.EyeDropperTypeName);
+
+            var entity = storage.CreateEmptyEntity(location, size);
+            injector.Synchronize(entity);
+            storage.SaveInternal(entity);
+        }
+
         private static Color BuffColor(Color newColor, float r, float g, float b, float a)
         {
             newColor.R = (byte)((float)newColor.R * r);
@@ -138,61 +198,5 @@ namespace TestMod.UI
 			var pos = Main.MouseScreen.Offset(48, 24);
 			Utils.DrawBorderStringFourWay(Main.spriteBatch, Main.fontMouseText, $"{brushSize.X} x {brushSize.Y}", pos.X, pos.Y, Color.White, Color.Black, Vector2.Zero, 1f);
 		}
-
-        internal void UpdateEyeDropperCompute()
-        {
-            Main.LocalPlayer.showItemIcon2 = ItemID.EmptyDropper;
-            if (_leftMouseDown)
-            {
-                var point = Main.MouseWorld.ToTileCoordinates();
-                if (_startTileX == -1)
-                {
-                    _startTileX = point.X;
-                    _startTileY = point.Y;
-                    _lastMouseTileX = -1;
-                    _lastMouseTileY = -1;
-                }
-
-                _lastMouseTileX = point.X;
-                _lastMouseTileY = point.Y;
-            }
-
-            if (_justLeftMouseDown)
-            {
-                if (_startTileX != -1 && _startTileY != -1 && _lastMouseTileX != -1 && _lastMouseTileY != -1)
-                {
-                    var minX = Math.Min(_startTileX, _lastMouseTileX);
-                    var maxX = Math.Max(_startTileX, _lastMouseTileX);
-                    var minY = Math.Min(_startTileY, _lastMouseTileY);
-                    var maxY = Math.Max(_startTileY, _lastMouseTileY);
-
-                    var width = (int)(maxX - minX + 1);
-                    var height = (int)(maxY - minY + 1);
-
-                    var entity = new DimensionEntity<Dimension>
-                    {
-                        Location = new Point(minX, minY),
-                        Type = DimensionRegisterExample.ExampleName,
-                        Size = new Point(width, height),
-                        Dimension = new DimensionExample.DimensionExample()
-                    };
-
-                    var injector = DimensionLoader.RegisteredDimension.GetInjector(entity.Type);
-                    injector.Synchronize(entity);
-
-                    DimensionStorageExample.AddDimension(entity.Dimension);
-
-                    Hide();
-                }
-
-                _startTileX = -1;
-                _startTileY = -1;
-                _lastMouseTileX = -1;
-                _lastMouseTileY = -1;
-                _justLeftMouseDown = false;
-            }
-
-            Main.LocalPlayer.showItemIcon = true;
-        }
     }
 }

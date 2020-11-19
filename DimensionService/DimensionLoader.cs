@@ -37,10 +37,18 @@ namespace TestMod.DimensionLogic
             RegisteredDimension.GetInjector(entity.Type).Synchronize(entity);
 
             if (needSave)
-                RegisteredDimension.GetParser(entity.Type).SaveInternal(entity);
+                RegisteredDimension.GetStorage(entity.Type).SaveInternal(entity);
         }
 
         internal static void ClearDimension(DimensionEntity entity)
+        {
+            if (!ValidateDimension(entity))
+                return;
+
+            RegisteredDimension.GetInjector(entity.Type).Clear(entity);
+        }
+
+        internal static void CreateDimension(DimensionEntity entity)
         {
             if (!ValidateDimension(entity))
                 return;

@@ -27,7 +27,7 @@ namespace TestMod.DimensionLogic
         /// Load (inject) dimension into the world. Set the <see cref="LocationToLoad"/> to specify loading position.
         /// </summary>
         /// <param name="type">The type which dimension was registered.</param>
-        /// <param name="id">The identifier for the dimension. By default equals to the type</param>
+        /// <param name="id">The identifier for the dimension. By default equals to the type.</param>
         /// <param name="synchronizePrevious">Should the previous dimension be synchronized with changing in the world.</param>
         public void LoadDimension(string type, string id = default, bool synchronizePrevious = true)
         {
@@ -36,7 +36,7 @@ namespace TestMod.DimensionLogic
 
             ClearDimension(synchronizePrevious);
 
-            CurrentEntity = DimensionsRegister.Instance.GetParser(type).LoadInternal(id ?? type);
+            CurrentEntity = DimensionsRegister.Instance.GetStorage(type).LoadInternal(id ?? type);
             CurrentEntity.Location = new Point(LocationToLoad.X, LocationToLoad.Y - CurrentEntity.Height);
 
             DimensionLoader.LoadDimension(CurrentEntity);
@@ -59,7 +59,7 @@ namespace TestMod.DimensionLogic
             if (!DimensionLoader.ValidateDimension(CurrentEntity))
                 return null;
 
-            var tag = new TagCompound
+            return new TagCompound
             {
                 {nameof(CurrentEntity.Type), CurrentEntity.Type},
                 {nameof(CurrentEntity.Id), CurrentEntity.Id},
@@ -67,8 +67,6 @@ namespace TestMod.DimensionLogic
                 {nameof(CurrentEntity.Size), CurrentEntity.Size.ToVector2()},
                 {nameof(LocationToLoad), LocationToLoad.ToVector2()}
             };
-
-            return tag;
         }
 
         internal void Load(TagCompound tag)
@@ -78,7 +76,7 @@ namespace TestMod.DimensionLogic
             var location = tag.Get<Vector2>(nameof(CurrentEntity.Location)).ToPoint();
             var size = tag.Get<Vector2>(nameof(CurrentEntity.Size)).ToPoint();
 
-            CurrentEntity = DimensionsRegister.Instance.GetParser(type).LoadInternal(id);
+            CurrentEntity = DimensionsRegister.Instance.GetStorage(type).LoadInternal(id);
             CurrentEntity.Location = location;
             CurrentEntity.Size = size;
 

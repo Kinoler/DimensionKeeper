@@ -18,12 +18,11 @@ namespace TestMod.DimensionLogic.DefaultParsers
         /// <returns></returns>
         public override TDimension Load()
         {
-            if (!TestWorldMod.DimensionsTag.ContainsKey(Id))
+            if (!DimensionKeeperModWorld.DimensionsTag.ContainsKey(Id))
                 return InitializeTag();
 
-            var tag = TestWorldMod.DimensionsTag.GetCompound(Id);
+            var tag = DimensionKeeperModWorld.DimensionsTag.GetCompound(Id);
             return LoadTag(tag);
-
         }
 
         /// <summary>

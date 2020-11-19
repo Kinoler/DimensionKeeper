@@ -41,6 +41,11 @@ namespace TestMod.DimensionExample
             return current;
         }
 
+        public static void UpdateDimension(int num, Dimension dimension)
+        {
+            Dimensions[num] = dimension;
+        }
+
         public override Dimension Load()
         {
             if (Counter.Max == 0)
@@ -63,11 +68,6 @@ namespace TestMod.DimensionExample
                 return;
 
             UpdateDimension(CurrentLoadedDimension, dimension);
-        }
-
-        public static void UpdateDimension(int num, Dimension dimension)
-        {
-            Dimensions[num] = dimension;
         }
     }
 }

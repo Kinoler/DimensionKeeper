@@ -11,6 +11,7 @@ namespace TestMod.DimensionExample
         public void Register(DimensionsRegister register)
         {
             register.Register<DefaultInjector<Dimension>, DimensionStorageExample, Dimension>(ExampleName);
+            register.Register<DefaultInjector<Dimension>, DimensionStorageExample, Dimension>(DimensionKeeperMod.EyeDropperTypeName);
         }
     }
 }

@@ -33,6 +33,17 @@ namespace TestMod.DimensionLogic
         /// <param name="dimension">The dimension which should be saving</param>
         public abstract void Save(TDimension dimension);
 
+        internal override DimensionEntity CreateEmptyEntity(Point location, Point size)
+        {
+            return new DimensionEntity<TDimension>
+            {
+                Type = Type,
+                Location = location,
+                Size = size,
+                Dimension = new TDimension(),
+            };
+        }
+
         internal override DimensionEntity LoadInternal(string id)
         {
             Id = id;

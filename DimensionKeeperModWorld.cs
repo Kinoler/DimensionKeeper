@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using TestMod.DimensionExample;
 using TestMod.DimensionLogic;
 using TestMod.DimensionLogic.DefaultParsers;
 
@@ -18,6 +19,12 @@ namespace TestMod
         private const string SingleEntryTagName = "SingleEntries";
 
         internal static TagCompound DimensionsTag { get; set; }
+
+        //TODO Move it to another project
+        public override void Initialize()
+        {
+            DimensionStorageExample.Initialize();
+        }
 
         public override void Load(TagCompound tag)
         {
@@ -38,9 +45,9 @@ namespace TestMod
         internal TagCompound SaveTagCompoundStorage()
         {
             var dimensionsTag = new TagCompound();
-            foreach (var name in DimensionLoader.RegisteredDimension.GetNames())
+            foreach (var name in DimensionLoader.RegisteredDimension.GetTypes())
             {
-                var parser = DimensionLoader.RegisteredDimension.GetParser(name);
+                var parser = DimensionLoader.RegisteredDimension.GetStorage(name);
                 if (parser is ITagCompoundStorage tagCompoundParser)
                 {
                     dimensionsTag.Add(name, tagCompoundParser.SavedDimensionTags);
