@@ -8,7 +8,7 @@ namespace DimensionKeeper.DimensionService
     /// Represents the phase container for the specific dimension.
     /// </summary>
     /// <typeparam name="TDimension">The specific <see cref="Dimension"/>.</typeparam>
-    public abstract class DimensionInjector<TDimension>: DimensionInjectorInternal where TDimension : Dimension
+    public abstract class DimensionInjector<TDimension>: IDimensionInjector where TDimension : Dimension
     {
         public List<DimensionPhasesInternal> Phases { get; } = new List<DimensionPhasesInternal>();
 
@@ -70,7 +70,7 @@ namespace DimensionKeeper.DimensionService
 
         #region Phases execution
 
-        internal override void Load(DimensionEntity dimension)
+        void IDimensionInjector.Load(DimensionEntity dimension)
         {
             for (var i = 0; i < Phases.Count; i++)
             {
@@ -78,7 +78,7 @@ namespace DimensionKeeper.DimensionService
             }
         }
 
-        internal override void Synchronize(DimensionEntity dimension)
+        void IDimensionInjector.Synchronize(DimensionEntity dimension)
         {
             for (var i = 0; i < Phases.Count; i++)
             {
@@ -86,7 +86,7 @@ namespace DimensionKeeper.DimensionService
             }
         }
 
-        internal override void Clear(DimensionEntity dimension)
+        void IDimensionInjector.Clear(DimensionEntity dimension)
         {
             for (var i = 0; i < Phases.Count; i++)
             {

@@ -18,8 +18,8 @@ namespace DimensionKeeper.DimensionService
         private Dictionary<string, DimensionStorageInternal> Stores { get; } =
             new Dictionary<string, DimensionStorageInternal>();
 
-        private Dictionary<string, DimensionInjectorInternal> Injectors { get; } =
-            new Dictionary<string, DimensionInjectorInternal>();
+        private Dictionary<string, IDimensionInjector> Injectors { get; } =
+            new Dictionary<string, IDimensionInjector>();
 
         /// <summary>
         /// Registers the open generic type which register the dimension types.
@@ -100,7 +100,7 @@ namespace DimensionKeeper.DimensionService
             return Stores[name];
         }
 
-        internal DimensionInjectorInternal GetInjector(string name)
+        internal IDimensionInjector GetInjector(string name)
         {
             return Injectors[name];
         }

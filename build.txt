@@ -1,4 +1,4 @@
-displayName = aMyCustomMod
-author = Roman
+displayName = DimensionKeeper
+author = Kinoler
 version = 0.1
 includePDB = true
