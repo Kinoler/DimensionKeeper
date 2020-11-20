@@ -1,8 +1,9 @@
-﻿using DimensionKeeper.Helpers;
+﻿using DimensionKeeper.DimensionService;
+using DimensionKeeper.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
 
-namespace DimensionKeeper.DimensionService.DefaultPhases
+namespace DimensionKeeper.HelperImplementations.Phases
 {
     public class TileFramePhase: DimensionPhase<Dimension>
     {

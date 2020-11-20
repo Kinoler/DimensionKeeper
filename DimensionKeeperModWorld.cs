@@ -2,7 +2,7 @@
 using System.Linq;
 using DimensionKeeper.DimensionExample;
 using DimensionKeeper.DimensionService;
-using DimensionKeeper.DimensionService.DefaultStorages;
+using DimensionKeeper.HelperImplementations.Storages;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 

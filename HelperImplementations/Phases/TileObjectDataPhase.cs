@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using DimensionKeeper.DimensionService;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ObjectData;
 
-namespace DimensionKeeper.DimensionService.DefaultPhases
+namespace DimensionKeeper.HelperImplementations.Phases
 {
     public class TileObjectDataPhase: DimensionPhase<Dimension>
     {

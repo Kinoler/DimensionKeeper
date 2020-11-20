@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using DimensionKeeper.DimensionService;
 using DimensionKeeper.Helpers;
 using Terraria;
 
-namespace DimensionKeeper.DimensionService.DefaultPhases
+namespace DimensionKeeper.HelperImplementations.Phases
 {
     public class ChestPhase: DimensionPhase<Dimension>
     {

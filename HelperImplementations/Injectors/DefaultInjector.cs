@@ -1,8 +1,10 @@
-﻿using DimensionKeeper.DimensionService.DefaultPhases;
+﻿using DimensionKeeper.DimensionService;
+using DimensionKeeper.HelperImplementations.Phases;
 
-namespace DimensionKeeper.DimensionService.DefaultInjectors
+namespace DimensionKeeper.HelperImplementations.Injectors
 {
-    public class DefaultInjector<TDimension> : DimensionInjector<TDimension> where TDimension: Dimension
+    public class StandardInjector<TDimension> : DimensionInjector<TDimension> 
+        where TDimension: Dimension
     {
         public override void RegisterPhases()
         {

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+using DimensionKeeper.DimensionService;
 using Terraria.ModLoader.IO;
 
-namespace DimensionKeeper.DimensionService.DefaultStorages
+namespace DimensionKeeper.HelperImplementations.Storages
 {
     public class TagCompoundFromFileStorage<TDimension> : TagCompoundStorage<TDimension> 
         where TDimension : Dimension, new()

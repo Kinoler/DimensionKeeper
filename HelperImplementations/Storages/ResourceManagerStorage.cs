@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
-using DimensionKeeper.TagSerializers;
+﻿using System.IO;
+using DimensionKeeper.DimensionService;
 using Terraria.ModLoader.IO;
-using Terraria.Utilities;
 
-namespace DimensionKeeper.DimensionService.DefaultStorages
+namespace DimensionKeeper.HelperImplementations.Storages
 {
     public class ResourceManagerStorage<TDimension>: DimensionStorage<TDimension> where TDimension : Dimension, new()
     {
