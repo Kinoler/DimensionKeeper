@@ -27,9 +27,9 @@ namespace DimensionKeeper.TagSerializers
         public override DimensionEntity Deserialize(TagCompound tag)
         {
             var type = tag.Get<string>("Type");
-            var id = tag.Get<string>("Id");
 
-            var entity = DimensionRegister.Instance.GetStorage(type).LoadInternal(id);
+            var entity = DimensionRegister.Instance.GetStorage(type).CreateEmptyEntity(Point.Zero, Point.Zero);
+            entity.Id = tag.Get<string>(nameof(entity.Id));
             entity.Location = tag.Get<Point>(nameof(entity.Location));
             entity.Size = tag.Get<Point>(nameof(entity.Size));
 

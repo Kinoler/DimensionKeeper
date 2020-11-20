@@ -16,7 +16,11 @@ namespace DimensionKeeper.HelperImplementations.Storages
         public override TDimension InitializeTag()
         {
             var tagCompound = TagIO.FromFile(FileResourcePath);
-            return TagIO.Deserialize<TDimension>(tagCompound);
+            var tag = TagIO.Deserialize<TDimension>(tagCompound);
+            tag.Chests = null;
+            tag = TagIO.Deserialize<TDimension>(tagCompound);
+
+            return tag;
         }
     }
 }

@@ -18,11 +18,15 @@ namespace DimensionKeeper.TagSerializers
             if (!DimensionHelpers.ValidateDimension(entry.CurrentEntity))
                 return null;
 
-            return new TagCompound
+            var tag = new TagCompound
             {
-                {nameof(entry.CurrentEntity), entry.CurrentEntity},
                 {nameof(entry.LocationToLoad), entry.LocationToLoad}
             };
+
+            if (TryGetSerializer(typeof(DimensionEntity), out var serializer))
+                tag.Add(nameof(entry.CurrentEntity), serializer.Serialize(entry.CurrentEntity));
+            
+            return tag;
         }
 
         public override SingleEntryDimension Deserialize(TagCompound tag)

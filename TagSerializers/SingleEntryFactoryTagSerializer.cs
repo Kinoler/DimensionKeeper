@@ -8,7 +8,7 @@ using Terraria.ModLoader.IO;
 
 namespace DimensionKeeper.TagSerializers
 {
-    public class DimensionsKeeperTagSerializer : TagSerializer<SingleEntryFactory, TagCompound>
+    public class SingleEntryFactoryTagSerializer : TagSerializer<SingleEntryFactory, TagCompound>
     {
         public override TagCompound Serialize(SingleEntryFactory keeper)
         {

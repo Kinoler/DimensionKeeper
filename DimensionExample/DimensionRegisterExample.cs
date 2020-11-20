@@ -12,7 +12,7 @@ namespace DimensionKeeper.DimensionExample
 
         public void Register(DimensionRegister register)
         {
-            register.Register<StandardInjector<Dimension>, DimensionStorageExample, Dimension>(ExampleName);
+            register.Register<StandardInjector<Dimension>, TagCompoundFromFileStorage<Dimension>, Dimension>(ExampleName);
             register.Register<StandardInjector<Dimension>, ResourceManagerStorage<Dimension>, Dimension>(DimensionKeeperMod.EyeDropperTypeName);
         }
     }

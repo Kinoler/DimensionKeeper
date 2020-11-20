@@ -22,7 +22,7 @@ namespace DimensionKeeper
             TagSerializer.AddSerializer(new ChestTagSerializer());
             TagSerializer.AddSerializer(new TileTagSerializer());
             TagSerializer.AddSerializer(new DimensionEntityTagSerializer());
-            TagSerializer.AddSerializer(new DimensionsKeeperTagSerializer());
+            TagSerializer.AddSerializer(new SingleEntryFactoryTagSerializer());
             TagSerializer.AddSerializer(new DimensionTagSerializer());
             TagSerializer.AddSerializer(new PointTagSerializer());
             TagSerializer.AddSerializer(new SingleEntryDimensionTagSerializer());

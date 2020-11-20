@@ -29,8 +29,6 @@ namespace DimensionKeeper.Items
 
         public override bool UseItem(Player player)
         {
-            var entry = SingleEntryFactory.GetEntry("SomeEntry");
-            entry.ClearDimension();
             DimensionStorageExample.NextDimension();
             return true;
         }

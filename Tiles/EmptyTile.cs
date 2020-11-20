@@ -34,7 +34,7 @@ namespace DimensionKeeper.Tiles
         {
             var location = new Point((X > 0 ? X : x) + 10, Y > 0 ? Y : y);
             var entry = SingleEntryFactory.GetEntry("SomeEntry", location);
-            entry.LoadDimension(DimensionRegisterExample.ExampleName);
+            entry.LoadDimension(DimensionRegisterExample.ExampleName, "TestArea");
             return false;
         }
 

@@ -16,9 +16,9 @@ namespace DimensionKeeper.TagSerializers
             var firstRankLength = tiles.GetLength(0);
             var secondRangLength = tiles.GetLength(1);
 
-            for (var i = 0; i < firstRankLength; i++)
-            for (var j = 0; j < secondRangLength; j++)
-                tileList.Add(tiles[i, j]);
+            for (var x = 0; x < firstRankLength; x++)
+            for (var y = 0; y < secondRangLength; y++)
+                tileList.Add(tiles[x, y]);
 
             return new TagCompound()
             {
@@ -35,9 +35,9 @@ namespace DimensionKeeper.TagSerializers
             var secondRangLength = tileList.Count / firstRankLength;
 
             var tiles = new Tile[firstRankLength, secondRangLength];
-            for (var i = 0; i < firstRankLength; i++)
-            for (var j = 0; j < secondRangLength; j++)
-                tiles[i, j] = tileList[firstRankLength * i + j];
+            for (var x = 0; x < firstRankLength; x++)
+            for (var y = 0; y < secondRangLength; y++)
+                tiles[x, y] = tileList[secondRangLength * x + y];
 
             return tiles;
         }

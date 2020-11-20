@@ -17,6 +17,7 @@ namespace DimensionKeeper
         //TODO Move it to another project
         public override void Initialize()
         {
+            SingleEntryFactory.Instance = null;
             DimensionStorageExample.Initialize();
         }
 
@@ -30,8 +31,8 @@ namespace DimensionKeeper
         {
             return new TagCompound
             {
+                {DimensionListTagName, SaveTagCompoundStorage()},
                 {SingleEntriesTagName, SingleEntryFactory.Instance},
-                {DimensionListTagName, SaveTagCompoundStorage()}
             };
         }
 
