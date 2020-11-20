@@ -1,14 +1,14 @@
-﻿using DimensionKeeper.DimensionService.InternalClasses;
+﻿using DimensionKeeper.DimensionService;
 using Microsoft.Xna.Framework;
 
 namespace DimensionKeeper.Interfaces.Internal
 {
     internal interface IDimensionStorage
     {
-        DimensionEntityInternal CreateEmptyEntity(Point location, Point size);
+        DimensionEntity CreateEmptyEntity(Point location, Point size);
 
-        DimensionEntityInternal LoadInternal(string id);
+        DimensionEntity LoadInternal(string id);
 
-        void SaveInternal(DimensionEntityInternal dimension);
+        void SaveInternal(DimensionEntity dimension);
     }
 }

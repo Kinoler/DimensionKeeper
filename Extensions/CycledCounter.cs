@@ -1,4 +1,4 @@
-﻿namespace DimensionKeeper.Helpers
+﻿namespace DimensionKeeper.Extensions
 {
     public class CycledCounter
     {

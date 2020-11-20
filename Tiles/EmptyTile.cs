@@ -32,8 +32,8 @@ namespace DimensionKeeper.Tiles
 
         public override bool NewRightClick(int x, int y)
         {
-            var entry = DimensionsKeeper.Instance.GetEntry("SomeEntry");
-            entry.LocationToLoad = new Point((X > 0 ? X : x) + 10, Y > 0 ? Y : y);
+            var location = new Point((X > 0 ? X : x) + 10, Y > 0 ? Y : y);
+            var entry = SingleEntryFactory.GetEntry("SomeEntry", location);
             entry.LoadDimension(DimensionRegisterExample.ExampleName);
             return false;
         }

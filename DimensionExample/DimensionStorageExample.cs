@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DimensionKeeper.DimensionService;
-using DimensionKeeper.Helpers;
+using DimensionKeeper.DimensionService.Configuration;
+using DimensionKeeper.Extensions;
 using Microsoft.Xna.Framework;
 using Terraria;
 

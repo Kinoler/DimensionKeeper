@@ -2,6 +2,7 @@
 using System.Linq;
 using DimensionKeeper.DimensionExample;
 using DimensionKeeper.DimensionService;
+using DimensionKeeper.DimensionService.InternalClasses;
 using DimensionKeeper.HelperImplementations.Storages;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -21,7 +22,7 @@ namespace DimensionKeeper
 
         public override void Load(TagCompound tag)
         {
-            DimensionsKeeper.Instance = tag.Get<DimensionsKeeper>(SingleEntriesTagName);
+            SingleEntryFactory.Instance = tag.Get<SingleEntryFactory>(SingleEntriesTagName);
             LoadTagCompoundStorage(tag.GetCompound(DimensionListTagName));
         }
 
@@ -29,7 +30,7 @@ namespace DimensionKeeper
         {
             return new TagCompound
             {
-                {SingleEntriesTagName, DimensionsKeeper.Instance},
+                {SingleEntriesTagName, SingleEntryFactory.Instance},
                 {DimensionListTagName, SaveTagCompoundStorage()}
             };
         }
@@ -37,7 +38,7 @@ namespace DimensionKeeper
         private TagCompound SaveTagCompoundStorage()
         {
             var dimensionsTag = new TagCompound();
-            foreach (var storage in DimensionLoader.RegisteredDimension.Stores)
+            foreach (var storage in DimensionHelpers.RegisteredDimension.Stores)
                 dimensionsTag.Add(storage.Key, (storage.Value as ITagCompoundStorage)?.SavedDimensionsTag);
 
             return dimensionsTag;
@@ -45,7 +46,7 @@ namespace DimensionKeeper
 
         private void LoadTagCompoundStorage(TagCompound tag)
         {
-            foreach (var storage in DimensionLoader.RegisteredDimension.Stores)
+            foreach (var storage in DimensionHelpers.RegisteredDimension.Stores)
             {
                 if (storage.Value is ITagCompoundStorage tagCompoundParser)
                 {

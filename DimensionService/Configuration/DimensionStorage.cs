@@ -2,7 +2,7 @@
 using DimensionKeeper.Interfaces.Internal;
 using Microsoft.Xna.Framework;
 
-namespace DimensionKeeper.DimensionService
+namespace DimensionKeeper.DimensionService.Configuration
 {
     /// <summary>
     /// The class that allows you to handle storage of dimensions.
@@ -28,7 +28,7 @@ namespace DimensionKeeper.DimensionService
         /// <param name="dimension">The dimension which should be saving</param>
         public abstract void Save(TDimension dimension);
 
-        DimensionEntityInternal IDimensionStorage.CreateEmptyEntity(Point location, Point size)
+        DimensionEntity IDimensionStorage.CreateEmptyEntity(Point location, Point size)
         {
             return new DimensionEntity<TDimension>
             {
@@ -40,7 +40,7 @@ namespace DimensionKeeper.DimensionService
             };
         }
 
-        DimensionEntityInternal IDimensionStorage.LoadInternal(string id)
+        DimensionEntity IDimensionStorage.LoadInternal(string id)
         {
             Id = id ?? Type;
 
@@ -58,7 +58,7 @@ namespace DimensionKeeper.DimensionService
             return entity;
         }
 
-        void IDimensionStorage.SaveInternal(DimensionEntityInternal entity)
+        void IDimensionStorage.SaveInternal(DimensionEntity entity)
         {
             Id = entity.Id;
 

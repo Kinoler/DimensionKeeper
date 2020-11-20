@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using DimensionKeeper.DimensionExample;
 using DimensionKeeper.DimensionService;
+using DimensionKeeper.EyeDropperUI;
 using DimensionKeeper.TagSerializers;
 using DimensionKeeper.TagSerializers.Vanilla;
-using DimensionKeeper.UI;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
@@ -34,7 +34,7 @@ namespace DimensionKeeper
 
         public override void Unload()
         {
-            DimensionsKeeper.Instance = null;
+            SingleEntryFactory.Instance = null;
             DimensionRegister.Instance = null;
             EyeDropperUpdater.Instance = null;
 

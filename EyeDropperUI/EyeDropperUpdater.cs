@@ -1,7 +1,7 @@
 ﻿using System;
 using Terraria;
 
-namespace DimensionKeeper.UI
+namespace DimensionKeeper.EyeDropperUI
 {
     public class EyeDropperUpdater
     {
@@ -13,13 +13,13 @@ namespace DimensionKeeper.UI
             internal set => _instance = value;
         }
 
-        public EyeDropperUI PaintTooltipUI;
+        public DimensionKeeper.EyeDropperUI.EyeDropperUI PaintTooltipUI;
 
         public EyeDropperUpdater()
         {
             if (!Main.dedServ)
             {
-                PaintTooltipUI = new EyeDropperUI { Visible = false };
+                PaintTooltipUI = new DimensionKeeper.EyeDropperUI.EyeDropperUI { Visible = false };
             }
         }
 

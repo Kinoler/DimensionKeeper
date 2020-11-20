@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using DimensionKeeper.DimensionService.InternalClasses;
 using DimensionKeeper.Interfaces;
 using DimensionKeeper.Interfaces.Internal;
 
-namespace DimensionKeeper.DimensionService
+namespace DimensionKeeper.DimensionService.Configuration
 {
     /// <summary>
     /// Represents the phase container for the specific dimension.
@@ -72,7 +71,7 @@ namespace DimensionKeeper.DimensionService
 
         #region Phases execution
 
-        void IDimensionInjector.Load(DimensionEntityInternal dimension)
+        void IDimensionInjector.Load(DimensionEntity dimension)
         {
             for (var i = 0; i < Phases.Count; i++)
             {
@@ -80,7 +79,7 @@ namespace DimensionKeeper.DimensionService
             }
         }
 
-        void IDimensionInjector.Synchronize(DimensionEntityInternal dimension)
+        void IDimensionInjector.Synchronize(DimensionEntity dimension)
         {
             for (var i = 0; i < Phases.Count; i++)
             {
@@ -88,7 +87,7 @@ namespace DimensionKeeper.DimensionService
             }
         }
 
-        void IDimensionInjector.Clear(DimensionEntityInternal dimension)
+        void IDimensionInjector.Clear(DimensionEntity dimension)
         {
             for (var i = 0; i < Phases.Count; i++)
             {

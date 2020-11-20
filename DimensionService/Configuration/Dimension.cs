@@ -1,7 +1,6 @@
-﻿using System.Runtime.Serialization;
-using Terraria;
+﻿using Terraria;
 
-namespace DimensionKeeper.DimensionService
+namespace DimensionKeeper.DimensionService.Configuration
 {
     public class Dimension
     {

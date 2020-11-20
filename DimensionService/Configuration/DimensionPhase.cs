@@ -2,7 +2,7 @@
 using DimensionKeeper.DimensionService.InternalClasses;
 using DimensionKeeper.Interfaces;
 
-namespace DimensionKeeper.DimensionService
+namespace DimensionKeeper.DimensionService.Configuration
 {
     /// <summary>
     /// The class that allow you to handle inject process.
@@ -50,7 +50,7 @@ namespace DimensionKeeper.DimensionService
         {
         }
 
-        void IDimensionPhase.ExecuteLoadPhaseInternal(DimensionEntityInternal entity)
+        void IDimensionPhase.ExecuteLoadPhaseInternal(DimensionEntity entity)
         {
             var temp = new DimensionEntity<TDimension>();
             temp.CopyFrom(entity);
@@ -59,7 +59,7 @@ namespace DimensionKeeper.DimensionService
                 ExecuteLoadPhase(temp);
         }
 
-        void IDimensionPhase.ExecuteSynchronizePhaseInternal(DimensionEntityInternal entity)
+        void IDimensionPhase.ExecuteSynchronizePhaseInternal(DimensionEntity entity)
         {
             var temp = new DimensionEntity<TDimension>();
             temp.CopyFrom(entity);
@@ -68,7 +68,7 @@ namespace DimensionKeeper.DimensionService
                 ExecuteSynchronizePhase(temp);
         }
 
-        void IDimensionPhase.ExecuteClearPhaseInternal(DimensionEntityInternal entity)
+        void IDimensionPhase.ExecuteClearPhaseInternal(DimensionEntity entity)
         {
             var temp = new DimensionEntity<TDimension>();
             temp.CopyFrom(entity);

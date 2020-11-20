@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DimensionKeeper.DimensionService.Configuration;
 using DimensionKeeper.Interfaces;
 using DimensionKeeper.Interfaces.Internal;
 

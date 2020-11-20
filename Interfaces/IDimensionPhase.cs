@@ -1,13 +1,13 @@
-﻿using DimensionKeeper.DimensionService.InternalClasses;
+﻿using DimensionKeeper.DimensionService;
 
 namespace DimensionKeeper.Interfaces
 {
     public interface IDimensionPhase
     {
-        void ExecuteLoadPhaseInternal(DimensionEntityInternal dimension);
+        void ExecuteLoadPhaseInternal(DimensionEntity dimension);
 
-        void ExecuteSynchronizePhaseInternal(DimensionEntityInternal dimension);
+        void ExecuteSynchronizePhaseInternal(DimensionEntity dimension);
 
-        void ExecuteClearPhaseInternal(DimensionEntityInternal dimension);
+        void ExecuteClearPhaseInternal(DimensionEntity dimension);
     }
 }

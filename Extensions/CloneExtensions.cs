@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 
-namespace DimensionKeeper.Helpers
+namespace DimensionKeeper.Extensions
 {
     public static class CloneExtensions
     {
@@ -12,13 +12,9 @@ namespace DimensionKeeper.Helpers
             for (var i = 0; i < chestToClone.item.Length; i++)
             {
                 if (chestToClone.item[i].type > ItemID.None)
-                {
                     chest.item[i] = chestToClone.item[i].Clone();
-                }
                 else
-                {
                     chest.item[i] = new Item();
-                }
             }
 
             return chest;

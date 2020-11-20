@@ -11,9 +11,9 @@ using Terraria.ModLoader.IO;
 
 namespace DimensionKeeper.TagSerializers
 {
-    public class DimensionEntityTagSerializer: TagSerializer<DimensionEntityInternal, TagCompound>
+    public class DimensionEntityTagSerializer: TagSerializer<DimensionEntity, TagCompound>
     {
-        public override TagCompound Serialize(DimensionEntityInternal entity)
+        public override TagCompound Serialize(DimensionEntity entity)
         {
             return new TagCompound
             {
@@ -24,7 +24,7 @@ namespace DimensionKeeper.TagSerializers
             };
         }
 
-        public override DimensionEntityInternal Deserialize(TagCompound tag)
+        public override DimensionEntity Deserialize(TagCompound tag)
         {
             var type = tag.Get<string>("Type");
             var id = tag.Get<string>("Id");

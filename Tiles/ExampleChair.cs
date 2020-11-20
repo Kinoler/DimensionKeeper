@@ -1,4 +1,4 @@
-using DimensionKeeper.UI;
+using DimensionKeeper.EyeDropperUI;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ObjectData;

@@ -1,23 +1,19 @@
-﻿using DimensionKeeper.DimensionService.InternalClasses;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
-namespace DimensionKeeper.DimensionService
+namespace DimensionKeeper.DimensionService.InternalClasses
 {
-    /// <summary>
-    /// The main class DimensionKeeper that allows you to manipulate dimensions.
-    /// </summary>
-    public static class DimensionLoader
+    internal class DimensionHelpers
     {
         internal static DimensionRegister RegisteredDimension => DimensionRegister.Instance;
 
-        internal static bool ValidateDimension(DimensionEntityInternal entity)
+        internal static bool ValidateDimension(DimensionEntity entity)
         {
             return !(entity == null ||
                    entity.Size == Point.Zero ||
                    entity.Location == Point.Zero);
         }
 
-        internal static void LoadDimension(DimensionEntityInternal entity)
+        internal static void LoadDimension(DimensionEntity entity)
         {
             if (!ValidateDimension(entity))
                 return;
@@ -25,7 +21,7 @@ namespace DimensionKeeper.DimensionService
             RegisteredDimension.GetInjector(entity.Type).Load(entity);
         }
 
-        internal static void SynchronizeDimension(DimensionEntityInternal entity, bool needSave = true)
+        internal static void SynchronizeDimension(DimensionEntity entity, bool needSave = true)
         {
             if (!ValidateDimension(entity))
                 return;
@@ -36,15 +32,7 @@ namespace DimensionKeeper.DimensionService
                 RegisteredDimension.GetStorage(entity.Type).SaveInternal(entity);
         }
 
-        internal static void ClearDimension(DimensionEntityInternal entity)
-        {
-            if (!ValidateDimension(entity))
-                return;
-
-            RegisteredDimension.GetInjector(entity.Type).Clear(entity);
-        }
-
-        internal static void CreateDimension(DimensionEntityInternal entity)
+        internal static void ClearDimension(DimensionEntity entity)
         {
             if (!ValidateDimension(entity))
                 return;

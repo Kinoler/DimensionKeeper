@@ -1,5 +1,5 @@
 ﻿using DimensionKeeper.DimensionService;
-using DimensionKeeper.Helpers;
+using DimensionKeeper.DimensionService.Configuration;
 using Microsoft.Xna.Framework;
 using Terraria;
 
@@ -24,10 +24,15 @@ namespace DimensionKeeper.HelperImplementations.Phases
         public override void ExecuteClearPhase(DimensionEntity<Dimension> entity)
         {
             var locationToLoad = entity.Location;
+            var offsetX = -1;
+            var offsetY = -1;
 
-            foreach (var point in entity.RectangularPoints(new Point(-1, -1)))
+            for (var x = locationToLoad.X + offsetX; x < locationToLoad.X + entity.Width - offsetX; x++)
             {
-                WorldGen.TileFrame(point.X, point.Y);
+                for (var y = locationToLoad.Y + offsetY; y < locationToLoad.Y + entity.Height - offsetY; y++)
+                {
+                    WorldGen.TileFrame(x, y);
+                }
             }
         }
     }

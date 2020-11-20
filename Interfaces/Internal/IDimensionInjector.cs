@@ -1,13 +1,13 @@
-﻿using DimensionKeeper.DimensionService.InternalClasses;
+﻿using DimensionKeeper.DimensionService;
 
 namespace DimensionKeeper.Interfaces.Internal
 {
     internal interface IDimensionInjector
     {
-        void Load(DimensionEntityInternal dimension);
+        void Load(DimensionEntity dimension);
 
-        void Synchronize(DimensionEntityInternal dimension);
+        void Synchronize(DimensionEntity dimension);
 
-        void Clear(DimensionEntityInternal dimension);
+        void Clear(DimensionEntity dimension);
     }
 }

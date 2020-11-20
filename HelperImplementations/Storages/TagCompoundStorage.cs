@@ -1,4 +1,5 @@
 ﻿using DimensionKeeper.DimensionService;
+using DimensionKeeper.DimensionService.Configuration;
 using Terraria.ModLoader.IO;
 
 namespace DimensionKeeper.HelperImplementations.Storages

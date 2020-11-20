@@ -8,9 +8,9 @@ using Terraria.ModLoader.IO;
 
 namespace DimensionKeeper.TagSerializers
 {
-    public class DimensionsKeeperTagSerializer : TagSerializer<DimensionsKeeper, TagCompound>
+    public class DimensionsKeeperTagSerializer : TagSerializer<SingleEntryFactory, TagCompound>
     {
-        public override TagCompound Serialize(DimensionsKeeper keeper)
+        public override TagCompound Serialize(SingleEntryFactory keeper)
         {
             return new TagCompound
             {
@@ -25,9 +25,9 @@ namespace DimensionKeeper.TagSerializers
             };
         }
 
-        public override DimensionsKeeper Deserialize(TagCompound tag)
+        public override SingleEntryFactory Deserialize(TagCompound tag)
         {
-            var keeper = new DimensionsKeeper();
+            var keeper = new SingleEntryFactory();
             var keys = tag.GetList<string>($"{nameof(keeper.SingleEntryDimensions)}.{nameof(keeper.SingleEntryDimensions.Keys)}");
             var values = tag.GetList<SingleEntryDimension>($"{nameof(keeper.SingleEntryDimensions)}.{nameof(keeper.SingleEntryDimensions.Values)}");
 

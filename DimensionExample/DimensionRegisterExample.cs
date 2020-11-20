@@ -1,4 +1,5 @@
 ﻿using DimensionKeeper.DimensionService;
+using DimensionKeeper.DimensionService.Configuration;
 using DimensionKeeper.HelperImplementations.Injectors;
 using DimensionKeeper.HelperImplementations.Storages;
 using DimensionKeeper.Interfaces;

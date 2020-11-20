@@ -15,7 +15,7 @@ namespace DimensionKeeper.TagSerializers
     {
         public override TagCompound Serialize(SingleEntryDimension entry)
         {
-            if (!DimensionLoader.ValidateDimension(entry.CurrentEntity))
+            if (!DimensionHelpers.ValidateDimension(entry.CurrentEntity))
                 return null;
 
             return new TagCompound
@@ -28,7 +28,7 @@ namespace DimensionKeeper.TagSerializers
         public override SingleEntryDimension Deserialize(TagCompound tag)
         {
             var entry = new SingleEntryDimension();
-            entry.CurrentEntity = tag.Get<DimensionEntityInternal>(nameof(entry.CurrentEntity));
+            entry.CurrentEntity = tag.Get<DimensionEntity>(nameof(entry.CurrentEntity));
             entry.LocationToLoad = tag.Get<Point>(nameof(entry.LocationToLoad));
 
             return entry;

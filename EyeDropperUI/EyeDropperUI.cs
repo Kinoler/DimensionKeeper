@@ -1,13 +1,12 @@
 ﻿using System;
 using DimensionKeeper.DimensionService;
-using DimensionKeeper.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Terraria;
 using Terraria.ID;
 
-namespace DimensionKeeper.UI
+namespace DimensionKeeper.EyeDropperUI
 {
     public class EyeDropperUI
     {
@@ -103,7 +102,7 @@ namespace DimensionKeeper.UI
                     var location = new Point(minX, minY);
                     var size = new Point(width, height);
 
-                    SingleEntryDimension
+                    SingleEntryFactory
                         .CreateNewEntry(DimensionKeeperMod.EyeDropperTypeName, size, location)
                         .SynchronizeDimension();
 
@@ -135,7 +134,7 @@ namespace DimensionKeeper.UI
             else
             {
                 upperLeft = Main.MouseWorld.ToTileCoordinates().ToVector2();
-                lowerRight = upperLeft.Offset(1, 1);
+                lowerRight = Offset(upperLeft, 1, 1);
             }
             var upperLeftScreen = upperLeft * 16f;
             var lowerRightScreen = lowerRight * 16f;
@@ -178,8 +177,15 @@ namespace DimensionKeeper.UI
 			Main.spriteBatch.Draw(Main.magicPixel, upperLeftScreen + Vector2.UnitY * -2f, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(16f * brushSize.X, 2f), SpriteEffects.None, 0f);
 			Main.spriteBatch.Draw(Main.magicPixel, upperLeftScreen + Vector2.UnitY * 16f * brushSize.Y, new Microsoft.Xna.Framework.Rectangle?(value), color * scale, 0f, Vector2.Zero, new Vector2(16f * brushSize.X, 2f), SpriteEffects.None, 0f);
 
-			var pos = Main.MouseScreen.Offset(48, 24);
+            var pos = Offset(Main.MouseScreen, 48, 24);
 			Utils.DrawBorderStringFourWay(Main.spriteBatch, Main.fontMouseText, $"{brushSize.X} x {brushSize.Y}", pos.X, pos.Y, Color.White, Color.Black, Vector2.Zero, 1f);
 		}
+
+        private Vector2 Offset(Vector2 position, float x, float y)
+        {
+            position.X += x;
+            position.Y += y;
+            return position;
+        }
     }
 }
