@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using DimensionKeeper.DimensionExample;
 using DimensionKeeper.DimensionService;
+using DimensionKeeper.TagSerializers;
+using DimensionKeeper.TagSerializers.Vanilla;
 using DimensionKeeper.UI;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.UI;
 
 namespace DimensionKeeper
@@ -11,11 +14,19 @@ namespace DimensionKeeper
     {
         public const string EyeDropperTypeName = "EyeDropper";
 
-        public bool EnableEyeDropper { get; set; }
+        //TODO Change to false
+        public bool EnableEyeDropper { get; set; } = true;
 
         public override void Load()
         {
-            EnableEyeDropper = true;
+            TagSerializer.AddSerializer(new ChestTagSerializer());
+            TagSerializer.AddSerializer(new TileTagSerializer());
+            TagSerializer.AddSerializer(new DimensionEntityTagSerializer());
+            TagSerializer.AddSerializer(new DimensionsKeeperTagSerializer());
+            TagSerializer.AddSerializer(new DimensionTagSerializer());
+            TagSerializer.AddSerializer(new PointTagSerializer());
+            TagSerializer.AddSerializer(new SingleEntryDimensionTagSerializer());
+            TagSerializer.AddSerializer(new TileArrayTagSerializer());
 
             //TODO Move it to another project
             DimensionRegister.SetupDimensionTypesRegister<DimensionRegisterExample>();

@@ -1,5 +1,6 @@
 ﻿using DimensionKeeper.DimensionService;
 using DimensionKeeper.DimensionService.DefaultInjectors;
+using DimensionKeeper.DimensionService.DefaultStorages;
 using DimensionKeeper.Interfaces;
 
 namespace DimensionKeeper.DimensionExample
@@ -11,7 +12,7 @@ namespace DimensionKeeper.DimensionExample
         public void Register(DimensionRegister register)
         {
             register.Register<DefaultInjector<Dimension>, DimensionStorageExample, Dimension>(ExampleName);
-            register.Register<DefaultInjector<Dimension>, DimensionStorageExample, Dimension>(DimensionKeeperMod.EyeDropperTypeName);
+            register.Register<DefaultInjector<Dimension>, ResourceManagerStorage<Dimension>, Dimension>(DimensionKeeperMod.EyeDropperTypeName);
         }
     }
 }

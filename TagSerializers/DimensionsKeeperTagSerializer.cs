@@ -33,7 +33,7 @@ namespace DimensionKeeper.TagSerializers
 
             keeper.SingleEntryDimensions = keys.Zip(values, (key, value) => new { Key = key, Value = value }).ToDictionary(x => x.Key, x => x.Value);
 
-            return keeper;
+            return keeper.SingleEntryDimensions.Any() ? keeper : null;
         }
     }
 }

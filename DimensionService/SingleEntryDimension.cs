@@ -1,4 +1,5 @@
 ﻿using System;
+using DimensionKeeper.DimensionExample;
 using DimensionKeeper.DimensionService.InternalClasses;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -48,7 +49,7 @@ namespace DimensionKeeper.DimensionService
 
             ClearDimension(synchronizePrevious);
 
-            CurrentEntity = DimensionRegister.Instance.GetStorage(type).LoadInternal(id ?? type);
+            CurrentEntity = DimensionRegister.Instance.GetStorage(type).LoadInternal(id);
             CurrentEntity.Location = new Point(LocationToLoad.X, LocationToLoad.Y - CurrentEntity.Height);
 
             DimensionLoader.LoadDimension(CurrentEntity);
@@ -72,6 +73,8 @@ namespace DimensionKeeper.DimensionService
                 DimensionLoader.SynchronizeDimension(CurrentEntity);
 
             DimensionLoader.ClearDimension(CurrentEntity);
+
+            CurrentEntity = null;
         }
     }
 }

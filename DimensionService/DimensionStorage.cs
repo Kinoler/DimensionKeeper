@@ -33,6 +33,7 @@ namespace DimensionKeeper.DimensionService
             return new DimensionEntity<TDimension>
             {
                 Type = Type,
+                Id = Id ?? Type,
                 Location = location,
                 Size = size,
                 Dimension = new TDimension(),
@@ -41,7 +42,7 @@ namespace DimensionKeeper.DimensionService
 
         DimensionEntityInternal IDimensionStorage.LoadInternal(string id)
         {
-            Id = id;
+            Id = id ?? Type;
 
             var entity = new DimensionEntity<TDimension>
             {

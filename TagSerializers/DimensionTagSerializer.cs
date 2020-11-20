@@ -13,17 +13,20 @@ namespace DimensionKeeper.TagSerializers
     {
         public override TagCompound Serialize(Dimension dimension)
         {
-            return new TagCompound()
+            var tag = new TagCompound()
             {
-                {nameof(dimension.Chests), dimension.Chests},
+                {nameof(dimension.Chests), dimension.Chests.ToList()},
                 {nameof(dimension.Tiles), dimension.Tiles},
             };
+
+
+            return tag;
         }
 
         public override Dimension Deserialize(TagCompound tag)
         {
             var dimension = new Dimension();
-            dimension.Chests = tag.Get<Chest[]>(nameof(dimension.Chests));
+            dimension.Chests = tag.GetList<Chest>(nameof(dimension.Chests)).ToArray();
             dimension.Tiles = tag.Get<Tile[,]>(nameof(dimension.Tiles));
 
             return dimension;

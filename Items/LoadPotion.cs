@@ -1,4 +1,5 @@
 ﻿using DimensionKeeper.DimensionExample;
+using DimensionKeeper.DimensionService;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -28,6 +29,8 @@ namespace DimensionKeeper.Items
 
         public override bool UseItem(Player player)
         {
+            var entry = DimensionsKeeper.Instance.GetEntry("SomeEntry");
+            entry.ClearDimension();
             DimensionStorageExample.NextDimension();
             return true;
         }
