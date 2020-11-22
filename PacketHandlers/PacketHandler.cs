@@ -26,10 +26,7 @@ namespace DimensionKeeper.PacketHandlers
             var p = ModContent.GetInstance<DimensionKeeperMod>().GetPacket();
             p.Write(HandlerType);
             p.Write(packetType);
-            /*
-            if (Main.netMode == NetmodeID.Server)
-                p.Write((byte)fromWho);
-            */
+
             return p;
         }
     }

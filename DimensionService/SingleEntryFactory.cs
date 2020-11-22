@@ -12,6 +12,8 @@ namespace DimensionKeeper.DimensionService
 {
     public sealed class SingleEntryFactory
     {
+        #region Instance
+
         private static SingleEntryFactory _instance;
 
         internal static SingleEntryFactory Instance
@@ -19,6 +21,10 @@ namespace DimensionKeeper.DimensionService
             get => _instance ?? (_instance = new SingleEntryFactory());
             set => _instance = value;
         }
+
+        #endregion
+
+        #region Static overloads
 
         public static SingleEntryDimension GetEntry(string entryName, Point locationToLoad = default)
         {
@@ -39,11 +45,13 @@ namespace DimensionKeeper.DimensionService
             return Instance.CreateNewEntryInternal(type, size, location, entryName);
         }
 
-        private SingleEntryFactory()
-        {
-        }
+        #endregion
 
-        internal Dictionary<string, SingleEntryDimension> SingleEntryDimensions { get; set; } = 
+        private SingleEntryFactory() { }
+
+        #region Internal implementation
+
+        internal Dictionary<string, SingleEntryDimension> SingleEntryDimensions { get; set; } =
             new Dictionary<string, SingleEntryDimension>();
 
         private SingleEntryDimension GetEntryInternal(string entryName, Point locationToLoad = default)
@@ -67,7 +75,7 @@ namespace DimensionKeeper.DimensionService
             if (entryName == null)
                 throw new ArgumentNullException(nameof(entryName));
 
-            if (SingleEntryDimensions.ContainsKey(entryName)) 
+            if (SingleEntryDimensions.ContainsKey(entryName))
                 SingleEntryDimensions.Remove(entryName);
         }
 
@@ -89,5 +97,7 @@ namespace DimensionKeeper.DimensionService
             SingleEntryFactory.Instance.SingleEntryDimensions[entryName] = singleEntryDimension;
             return singleEntryDimension;
         }
+
+        #endregion
     }
 }

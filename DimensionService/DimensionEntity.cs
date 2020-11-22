@@ -24,6 +24,11 @@ namespace DimensionKeeper.DimensionService
         }
 
         internal abstract Dimension DimensionInternal { get; set; }
+
+        public override string ToString()
+        {
+            return $"{nameof(Type)}: {Type}; {nameof(Id)}: {Id}; {nameof(Location)}: {Location}; {nameof(Size)}: {Size}; {nameof(DimensionInternal)}: {DimensionInternal};";
+        }
     }
 
     /// <summary>

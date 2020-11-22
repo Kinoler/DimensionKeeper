@@ -11,10 +11,7 @@ namespace DimensionKeeper.EyeDropperUI
     public class EyeDropperUI
     {
         private bool _mouseLeftButton = false;
-
         private bool _mousePrevLeftButton = false;
-
-        public bool Visible { get; set; }
 
         private bool _justLeftMouseDown;
         private bool _leftMouseDown;
@@ -24,10 +21,13 @@ namespace DimensionKeeper.EyeDropperUI
         private int _lastMouseTileX = -1;
         private int _lastMouseTileY = -1;
 
-		public EyeDropperUI()
+        public bool Visible { get; set; }
+
+        public EyeDropperUI()
         {
             Visible = false;
         }
+
         public void Show()
         {
             Visible = true;
@@ -106,6 +106,7 @@ namespace DimensionKeeper.EyeDropperUI
                         .CreateNewEntry(DimensionKeeperMod.EyeDropperTypeName, size, location, "")
                         .SynchronizeDimension();
                     SingleEntryFactory.RemoveEntry("");
+
                     Hide();
                 }
 

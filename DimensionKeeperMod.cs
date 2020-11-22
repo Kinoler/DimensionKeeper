@@ -7,6 +7,7 @@ using DimensionKeeper.EyeDropperUI;
 using DimensionKeeper.PacketHandlers;
 using DimensionKeeper.TagSerializers;
 using DimensionKeeper.TagSerializers.Vanilla;
+using log4net;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -21,8 +22,12 @@ namespace DimensionKeeper
     {
         public const string EyeDropperTypeName = "EyeDropper";
 
-        //TODO Change to false
-        public bool EnableEyeDropper { get; set; } = true;
+        public static void LogMessage(string msg)
+        {
+            ModContent.GetInstance<DimensionKeeperMod>().Logger.InfoFormat(msg);
+        }
+
+        public bool EnableEyeDropper { get; set; } = false;
 
         public override void Load()
         {

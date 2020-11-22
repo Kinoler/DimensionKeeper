@@ -25,7 +25,7 @@ namespace DimensionKeeper.DimensionService.InternalClasses
             }
             catch (Exception e)
             {
-                // ignored
+                DimensionKeeperMod.LogMessage($"{nameof(LoadDimension)} with {entity} throw an error {e}");
             }
         }
 
@@ -43,7 +43,7 @@ namespace DimensionKeeper.DimensionService.InternalClasses
             }
             catch (Exception e)
             {
-                // ignored
+                DimensionKeeperMod.LogMessage($"{nameof(SynchronizeDimension)} with {entity} throw an error {e}");
             }
         }
 
@@ -58,7 +58,7 @@ namespace DimensionKeeper.DimensionService.InternalClasses
             }
             catch (Exception e)
             {
-                // ignored
+                DimensionKeeperMod.LogMessage($"{nameof(ClearDimension)} with {entity} throw an error {e}");
             }
         }
     }

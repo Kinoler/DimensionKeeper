@@ -66,7 +66,14 @@ namespace DimensionKeeper.DimensionService.Configuration
 
         internal void RegisterPhasesInternal()
         {
-            RegisterPhases();
+            try
+            {
+                RegisterPhases();
+            }
+            catch (Exception e)
+            {
+                DimensionKeeperMod.LogMessage($"{nameof(RegisterPhasesInternal)} throw an error {e}");
+            }
         }
 
         #region Phases execution
@@ -75,7 +82,14 @@ namespace DimensionKeeper.DimensionService.Configuration
         {
             for (var i = 0; i < Phases.Count; i++)
             {
-                Phases[i].ExecuteLoadPhaseInternal(dimension);
+                try
+                {
+                    Phases[i].ExecuteLoadPhaseInternal(dimension);
+                }
+                catch (Exception e)
+                {
+                    DimensionKeeperMod.LogMessage($"{nameof(IDimensionInjector.Load)} with {dimension} throw an error {e}");
+                }
             }
         }
 
@@ -83,7 +97,14 @@ namespace DimensionKeeper.DimensionService.Configuration
         {
             for (var i = 0; i < Phases.Count; i++)
             {
-                Phases[i].ExecuteSynchronizePhaseInternal(dimension);
+                try
+                {
+                    Phases[i].ExecuteSynchronizePhaseInternal(dimension);
+                }
+                catch (Exception e)
+                {
+                    DimensionKeeperMod.LogMessage($"{nameof(IDimensionInjector.Synchronize)} with {dimension} throw an error {e}");
+                }
             }
         }
 
@@ -91,7 +112,14 @@ namespace DimensionKeeper.DimensionService.Configuration
         {
             for (var i = 0; i < Phases.Count; i++)
             {
-                Phases[i].ExecuteClearPhaseInternal(dimension);
+                try
+                {
+                    Phases[i].ExecuteClearPhaseInternal(dimension);
+                }
+                catch (Exception e)
+                {
+                    DimensionKeeperMod.LogMessage($"{nameof(IDimensionInjector.Clear)} with {dimension} throw an error {e}");
+                }
             }
         }
 
