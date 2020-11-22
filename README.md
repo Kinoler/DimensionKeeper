@@ -1,6 +1,7 @@
 # DimensionKeeper
 
 To load your location you need to override the classes located in the DimensionService/Configuration folder.
+All public code has documentation. Below is some general helpful info.
 
 #### Dimension 
 - Allows you to store specify data of your dimension. 
