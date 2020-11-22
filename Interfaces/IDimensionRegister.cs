@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestMod.DimensionLogic;
+﻿using DimensionKeeper.DimensionService;
 
-namespace TestMod.Interfaces
+namespace DimensionKeeper.Interfaces
 {
     public interface IDimensionRegister
     {
-        void Register(DimensionsRegister register);
+        void Register(DimensionRegister register);
     }
 }

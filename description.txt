@@ -1,1 +1,2 @@
-aMyCustomMod is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+Mod contains an API for handling the locations in the world. Can only be used from another mods. 
+Search on GitHub for more information.
