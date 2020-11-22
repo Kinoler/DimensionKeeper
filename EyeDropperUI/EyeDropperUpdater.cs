@@ -7,41 +7,53 @@ namespace DimensionKeeper.EyeDropperUI
     {
         private static EyeDropperUpdater _instance;
 
-        public static EyeDropperUpdater Instance
+        internal static EyeDropperUpdater Instance
         {
             get => _instance ?? (_instance = new EyeDropperUpdater());
-            internal set => _instance = value;
+            set => _instance = value;
         }
 
-        public DimensionKeeper.EyeDropperUI.EyeDropperUI PaintTooltipUI;
+        public static bool Visible => Instance.UIEyeDropper.Visible;
 
-        public EyeDropperUpdater()
+        public static void Show()
+        {
+            Instance.UIEyeDropper.Show();
+        }
+
+        public static void Hide()
+        {
+            Instance.UIEyeDropper.Show();
+        }
+
+        internal DimensionKeeper.EyeDropperUI.EyeDropperUI UIEyeDropper;
+
+        internal EyeDropperUpdater()
         {
             if (!Main.dedServ)
             {
-                PaintTooltipUI = new DimensionKeeper.EyeDropperUI.EyeDropperUI { Visible = false };
+                UIEyeDropper = new DimensionKeeper.EyeDropperUI.EyeDropperUI { Visible = false };
             }
         }
 
-        public void UpdateMouseState()
+        internal void UpdateMouseState()
         {
-            PaintTooltipUI.UpdateMouseInput();
+            UIEyeDropper.UpdateMouseInput();
 
-            if (PaintTooltipUI.Visible)
+            if (UIEyeDropper.Visible)
             {
-                PaintTooltipUI.SetupMouseInterface();
+                UIEyeDropper.SetupMouseInterface();
             }
         }
 
-		public void DrawUpdateEyeDropper()
+		internal void DrawUpdateEyeDropper()
         {
-            if (!PaintTooltipUI.Visible) 
+            if (!UIEyeDropper.Visible) 
                 return;
 
             try
             {
-                PaintTooltipUI.UpdateEyeDropperCompute();
-                PaintTooltipUI.DrawEyeDropperBrush();
+                UIEyeDropper.UpdateEyeDropperCompute();
+                UIEyeDropper.DrawEyeDropperBrush();
             }
             catch (Exception ex)
             {

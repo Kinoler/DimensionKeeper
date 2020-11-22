@@ -7,6 +7,10 @@ namespace DimensionKeeper.DimensionService
     {
         public string Type { get; internal set; }
         public string Id { get; internal set; }
+
+        /// <summary>
+        /// Points to the left up corner.
+        /// </summary>
         public Point Location { get; internal set; }
         public Point Size { get; internal set; }
 

@@ -24,6 +24,8 @@ namespace DimensionKeeper
 
         public override void Load()
         {
+            EnableEyeDropper = false;
+
             TagSerializer.AddSerializer(new ChestTagSerializer());
             TagSerializer.AddSerializer(new TileTagSerializer());
             TagSerializer.AddSerializer(new DimensionEntityTagSerializer());
