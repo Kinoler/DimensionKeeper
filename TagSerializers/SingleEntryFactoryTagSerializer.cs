@@ -10,30 +10,30 @@ namespace DimensionKeeper.TagSerializers
 {
     public class SingleEntryFactoryTagSerializer : TagSerializer<SingleEntryFactory, TagCompound>
     {
-        public override TagCompound Serialize(SingleEntryFactory keeper)
+        public override TagCompound Serialize(SingleEntryFactory factory)
         {
             return new TagCompound
             {
                 {
-                    $"{nameof(keeper.SingleEntryDimensions)}.{nameof(keeper.SingleEntryDimensions.Keys)}",
-                    keeper.SingleEntryDimensions.Keys.ToList()
+                    $"{nameof(factory.SingleEntryDimensions)}.{nameof(factory.SingleEntryDimensions.Keys)}",
+                    factory.SingleEntryDimensions.Keys.ToList()
                 },
                 {
-                    $"{nameof(keeper.SingleEntryDimensions)}.{nameof(keeper.SingleEntryDimensions.Values)}",
-                    keeper.SingleEntryDimensions.Values.ToList()
+                    $"{nameof(factory.SingleEntryDimensions)}.{nameof(factory.SingleEntryDimensions.Values)}",
+                    factory.SingleEntryDimensions.Values.ToList()
                 },
             };
         }
 
         public override SingleEntryFactory Deserialize(TagCompound tag)
         {
-            var keeper = new SingleEntryFactory();
-            var keys = tag.GetList<string>($"{nameof(keeper.SingleEntryDimensions)}.{nameof(keeper.SingleEntryDimensions.Keys)}");
-            var values = tag.GetList<SingleEntryDimension>($"{nameof(keeper.SingleEntryDimensions)}.{nameof(keeper.SingleEntryDimensions.Values)}");
+            var factory = SingleEntryFactory.Instance;
+            var keys = tag.GetList<string>($"{nameof(factory.SingleEntryDimensions)}.{nameof(factory.SingleEntryDimensions.Keys)}");
+            var values = tag.GetList<SingleEntryDimension>($"{nameof(factory.SingleEntryDimensions)}.{nameof(factory.SingleEntryDimensions.Values)}");
 
-            keeper.SingleEntryDimensions = keys.Zip(values, (key, value) => new { Key = key, Value = value }).ToDictionary(x => x.Key, x => x.Value);
+            factory.SingleEntryDimensions = keys.Zip(values, (key, value) => new { Key = key, Value = value }).ToDictionary(x => x.Key, x => x.Value);
 
-            return keeper.SingleEntryDimensions.Any() ? keeper : null;
+            return factory.SingleEntryDimensions.Any() ? factory : null;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DimensionKeeper.DimensionService;
+﻿using System.IO;
+using DimensionKeeper.DimensionService;
 using DimensionKeeper.DimensionService.Configuration;
 using Terraria.ModLoader.IO;
 
@@ -20,6 +21,7 @@ namespace DimensionKeeper.HelperImplementations.Storages
         /// <returns></returns>
         public override TDimension Load()
         {
+            SavedDimensionsTag = SavedDimensionsTag ?? new TagCompound();
             if (!SavedDimensionsTag.ContainsKey(Id))
                 return InitializeTag();
 
@@ -34,6 +36,16 @@ namespace DimensionKeeper.HelperImplementations.Storages
         {
             SavedDimensionsTag = SavedDimensionsTag ?? new TagCompound();
             SavedDimensionsTag.Set(Id, dimension, true);
+        }
+
+        public override void Send(BinaryWriter writer)
+        {
+            TagIO.Write(SavedDimensionsTag, writer);
+        }
+
+        public override void Receive(BinaryReader reader)
+        {
+            SavedDimensionsTag = TagIO.Read(reader);
         }
 
         /// <summary>

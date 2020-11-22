@@ -1,6 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace DimensionKeeper.DimensionService
@@ -29,49 +34,59 @@ namespace DimensionKeeper.DimensionService
             string type,
             Point size,
             Point location,
-            string entryName = null)
+            string entryName)
         {
             return Instance.CreateNewEntryInternal(type, size, location, entryName);
         }
 
-        internal SingleEntryFactory()
+        private SingleEntryFactory()
         {
         }
 
         internal Dictionary<string, SingleEntryDimension> SingleEntryDimensions { get; set; } = 
             new Dictionary<string, SingleEntryDimension>();
 
-        public SingleEntryDimension GetEntryInternal(string entryName, Point locationToLoad = default)
+        private SingleEntryDimension GetEntryInternal(string entryName, Point locationToLoad = default)
         {
+            if (entryName == null)
+                throw new ArgumentNullException(nameof(entryName));
+
             if (!SingleEntryDimensions.ContainsKey(entryName))
                 SingleEntryDimensions.Add(entryName, new SingleEntryDimension());
 
+            var entry = SingleEntryDimensions[entryName];
             if (locationToLoad != default)
-                SingleEntryDimensions[entryName].LocationToLoad = locationToLoad;
+                entry.LocationToLoad = locationToLoad;
+            entry.EntryName = entryName;
 
-            return SingleEntryDimensions[entryName];
+            return entry;
         }
 
-        public void RemoveEntryInternal(string entryName)
+        private void RemoveEntryInternal(string entryName)
         {
+            if (entryName == null)
+                throw new ArgumentNullException(nameof(entryName));
+
             if (SingleEntryDimensions.ContainsKey(entryName)) 
                 SingleEntryDimensions.Remove(entryName);
         }
 
-        public SingleEntryDimension CreateNewEntryInternal(
+        private SingleEntryDimension CreateNewEntryInternal(
             string type,
             Point size,
             Point location,
-            string entryName = null)
+            string entryName)
         {
+            if (entryName == null)
+                throw new ArgumentNullException(nameof(entryName));
+
             var singleEntryDimension = new SingleEntryDimension
             {
-                CurrentEntity = DimensionRegister.Instance.GetStorage(type).CreateEmptyEntity(location, size),
+                CurrentEntity = DimensionRegister.Instance.GetStorage(type).CreateEmptyEntity(new Point(location.X, location.Y - size.Y), size),
                 LocationToLoad = location
             };
 
-            if (entryName != null)
-                SingleEntryFactory.Instance.SingleEntryDimensions[entryName] = singleEntryDimension;
+            SingleEntryFactory.Instance.SingleEntryDimensions[entryName] = singleEntryDimension;
             return singleEntryDimension;
         }
     }

@@ -20,6 +20,7 @@ namespace DimensionKeeper.TagSerializers
 
             var tag = new TagCompound
             {
+                {nameof(entry.EntryName), entry.EntryName},
                 {nameof(entry.LocationToLoad), entry.LocationToLoad}
             };
 
@@ -32,6 +33,7 @@ namespace DimensionKeeper.TagSerializers
         public override SingleEntryDimension Deserialize(TagCompound tag)
         {
             var entry = new SingleEntryDimension();
+            entry.EntryName = tag.GetString(nameof(entry.EntryName));
             entry.CurrentEntity = tag.Get<DimensionEntity>(nameof(entry.CurrentEntity));
             entry.LocationToLoad = tag.Get<Point>(nameof(entry.LocationToLoad));
 

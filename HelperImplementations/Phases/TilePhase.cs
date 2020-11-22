@@ -21,13 +21,10 @@ namespace DimensionKeeper.HelperImplementations.Phases
 
                     if (!WorldGen.InWorld(worldX, worldY))
                         continue;
+
                     var targetTile = Framing.GetTileSafely(worldX, worldY);
                     targetTile.ClearEverything();
-
-                    var dimensionTile = dimension.Tiles[x, y];
-                    var dimensionTileData = TileObjectData.GetTileData(dimensionTile);
-                    if (dimensionTileData == null) 
-                        targetTile.CopyFrom(dimensionTile);
+                    targetTile.CopyFrom(dimension.Tiles[x, y]);
                 }
             }
         }

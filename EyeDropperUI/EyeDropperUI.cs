@@ -99,13 +99,13 @@ namespace DimensionKeeper.EyeDropperUI
                     var width = (int)(maxX - minX + 1);
                     var height = (int)(maxY - minY + 1);
 
-                    var location = new Point(minX, minY);
+                    var location = new Point(minX, minY + height);
                     var size = new Point(width, height);
 
                     SingleEntryFactory
-                        .CreateNewEntry(DimensionKeeperMod.EyeDropperTypeName, size, location)
+                        .CreateNewEntry(DimensionKeeperMod.EyeDropperTypeName, size, location, "")
                         .SynchronizeDimension();
-
+                    SingleEntryFactory.RemoveEntry("");
                     Hide();
                 }
 

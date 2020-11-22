@@ -1,4 +1,5 @@
-﻿using DimensionKeeper.DimensionService.InternalClasses;
+﻿using System.IO;
+using DimensionKeeper.DimensionService.InternalClasses;
 using DimensionKeeper.Interfaces.Internal;
 using Microsoft.Xna.Framework;
 
@@ -27,6 +28,14 @@ namespace DimensionKeeper.DimensionService.Configuration
         /// </summary>
         /// <param name="dimension">The dimension which should be saving</param>
         public abstract void Save(TDimension dimension);
+
+        public virtual void Send(BinaryWriter writer)
+        {
+        }
+
+        public virtual void Receive(BinaryReader reader)
+        {
+        }
 
         DimensionEntity IDimensionStorage.CreateEmptyEntity(Point location, Point size)
         {
@@ -63,6 +72,16 @@ namespace DimensionKeeper.DimensionService.Configuration
             Id = entity.Id;
 
             Save((TDimension)entity.DimensionInternal);
+        }
+
+        void IDimensionStorage.SendInternal(BinaryWriter writer)
+        {
+            Send(writer);
+        }
+
+        void IDimensionStorage.ReceiveInternal(BinaryReader reader)
+        {
+            Receive(reader);
         }
     }
 }

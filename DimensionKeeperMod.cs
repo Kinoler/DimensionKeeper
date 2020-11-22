@@ -1,16 +1,23 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using DimensionKeeper.DimensionExample;
 using DimensionKeeper.DimensionService;
 using DimensionKeeper.EyeDropperUI;
+using DimensionKeeper.PacketHandlers;
 using DimensionKeeper.TagSerializers;
 using DimensionKeeper.TagSerializers.Vanilla;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
 
 namespace DimensionKeeper
 {
-	public class DimensionKeeperMod : Mod
+    public class DimensionKeeperMod : Mod
     {
         public const string EyeDropperTypeName = "EyeDropper";
 
@@ -38,9 +45,27 @@ namespace DimensionKeeper
             DimensionRegister.Instance = null;
             EyeDropperUpdater.Instance = null;
 
-            //TODO Move it to another project
-            DimensionStorageExample.Dimensions = null;
+            PlayerJoinPacketHandler.Instance = null;
+            SingleEntryPacketHandler.Instance = null;
         }
+
+		public override void HandlePacket(BinaryReader reader, int whoAmI)
+		{
+            var msgType = (ModMessageType)reader.ReadByte();
+
+			switch (msgType)
+			{
+                case ModMessageType.SingleEntryDimensionOperation:
+                    SingleEntryPacketHandler.Instance.HandlePacket(reader, whoAmI);
+					break;
+                case ModMessageType.OnPlayerJoin:
+                    PlayerJoinPacketHandler.Instance.HandlePacket(reader, whoAmI);
+                    break;
+                default:
+					Logger.WarnFormat("ExampleMod: Unknown Message type: {0}", msgType);
+					break;
+			}
+		}
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
@@ -72,4 +97,11 @@ namespace DimensionKeeper
             );
         }
 	}
+
+    internal enum ModMessageType : byte
+    {
+        SingleEntryDimensionOperation,
+        OnPlayerJoin,
+    }
+
 }

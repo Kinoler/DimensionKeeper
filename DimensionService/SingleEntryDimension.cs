@@ -1,14 +1,20 @@
 ﻿using System;
+using System.IO;
 using DimensionKeeper.DimensionExample;
 using DimensionKeeper.DimensionService.InternalClasses;
+using DimensionKeeper.PacketHandlers;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace DimensionKeeper.DimensionService
 {
     public class SingleEntryDimension
     {
+        internal string EntryName { get; set; }
+
         /// <summary>
         /// Contains data of current loaded dimension.
         /// </summary>
@@ -18,6 +24,33 @@ namespace DimensionKeeper.DimensionService
         /// Specify the dimension loading tile. Points to the down left corner.
         /// </summary>
         public Point LocationToLoad { get; set; }
+
+        public void LoadDimensionNet(string type, string id = default, bool synchronizePrevious = true)
+        {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
+            if (Main.netMode != NetmodeID.SinglePlayer)
+                SingleEntryPacketHandler.Instance.SendLoadDimension(-1, -1, EntryName, LocationToLoad.X, LocationToLoad.Y, type, id ?? type, synchronizePrevious);
+            
+            LoadDimension(type, id, synchronizePrevious);
+        }
+
+        public void SynchronizeDimensionNet()
+        {
+            if (Main.netMode != NetmodeID.SinglePlayer)
+                SingleEntryPacketHandler.Instance.SendSynchronizeDimension(-1, -1, EntryName);
+
+            SynchronizeDimension();
+        }
+
+        public void ClearDimensionNet(bool synchronizePrevious = true)
+        {
+            if (Main.netMode != NetmodeID.SinglePlayer)
+                SingleEntryPacketHandler.Instance.SendClearDimension(-1, -1, EntryName, synchronizePrevious);
+
+            ClearDimension(synchronizePrevious);
+        }
 
         /// <summary>
         /// Load (inject) dimension into the world. Set the <see cref="LocationToLoad"/> to specify loading position.
@@ -53,7 +86,7 @@ namespace DimensionKeeper.DimensionService
         public void ClearDimension(bool synchronizePrevious = true)
         {
             if (synchronizePrevious)
-                DimensionHelpers.SynchronizeDimension(CurrentEntity);
+                SynchronizeDimension();
 
             DimensionHelpers.ClearDimension(CurrentEntity);
 

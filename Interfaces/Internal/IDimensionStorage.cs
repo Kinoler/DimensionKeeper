@@ -1,5 +1,7 @@
-﻿using DimensionKeeper.DimensionService;
+﻿using System.IO;
+using DimensionKeeper.DimensionService;
 using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
 
 namespace DimensionKeeper.Interfaces.Internal
 {
@@ -10,5 +12,9 @@ namespace DimensionKeeper.Interfaces.Internal
         DimensionEntity LoadInternal(string id);
 
         void SaveInternal(DimensionEntity dimension);
+
+        void SendInternal(BinaryWriter writer);
+
+        void ReceiveInternal(BinaryReader reader);
     }
 }

@@ -10,7 +10,6 @@ namespace DimensionKeeper.HelperImplementations.Injectors
         public override void RegisterPhases()
         {
             AddPhase<TilePhase, Dimension>();
-            AddPhase<TileObjectDataPhase, Dimension>();
             AddPhase<ChestPhase, Dimension>();
 
             AddPhase<TileFramePhase, Dimension>();

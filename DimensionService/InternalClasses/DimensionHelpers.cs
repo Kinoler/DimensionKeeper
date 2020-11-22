@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace DimensionKeeper.DimensionService.InternalClasses
 {
@@ -18,7 +19,14 @@ namespace DimensionKeeper.DimensionService.InternalClasses
             if (!ValidateDimension(entity))
                 return;
 
-            RegisteredDimension.GetInjector(entity.Type).Load(entity);
+            try
+            {
+                RegisteredDimension.GetInjector(entity.Type).Load(entity);
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
         }
 
         internal static void SynchronizeDimension(DimensionEntity entity, bool needSave = true)
@@ -26,10 +34,17 @@ namespace DimensionKeeper.DimensionService.InternalClasses
             if (!ValidateDimension(entity))
                 return;
 
-            RegisteredDimension.GetInjector(entity.Type).Synchronize(entity);
+            try
+            {
+                RegisteredDimension.GetInjector(entity.Type).Synchronize(entity);
 
-            if (needSave)
-                RegisteredDimension.GetStorage(entity.Type).SaveInternal(entity);
+                if (needSave)
+                    RegisteredDimension.GetStorage(entity.Type).SaveInternal(entity);
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
         }
 
         internal static void ClearDimension(DimensionEntity entity)
@@ -37,7 +52,14 @@ namespace DimensionKeeper.DimensionService.InternalClasses
             if (!ValidateDimension(entity))
                 return;
 
-            RegisteredDimension.GetInjector(entity.Type).Clear(entity);
+            try
+            {
+                RegisteredDimension.GetInjector(entity.Type).Clear(entity);
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
         }
     }
 }

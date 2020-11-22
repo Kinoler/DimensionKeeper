@@ -7,30 +7,15 @@ using Terraria;
 
 namespace DimensionKeeper.DimensionExample
 {
-    public class DimensionStorageExample : DimensionStorage<Dimension>
+    public class DimensionStorageExample
     {
-        internal static List<Dimension> Dimensions { get; set; }
         internal static CycledCounter Counter { get; set; }
-        internal static int CurrentLoadedDimension { get; set; }
 
         internal static void Initialize()
         {
-            Dimensions = new List<Dimension>();
             Counter = new CycledCounter();
-            CurrentLoadedDimension = -1;
-        }
-
-        internal static void Clear()
-        {
-            Dimensions = null;
-            Counter = null;
-        }
-
-        public static void AddDimension(Dimension dimension)
-        {
-            Dimensions.Add(dimension);
             Counter.AddNew();
-            NextDimension();
+            Counter.AddNew();
         }
 
         public static int NextDimension()
@@ -40,33 +25,14 @@ namespace DimensionKeeper.DimensionExample
             return current;
         }
 
-        public static void UpdateDimension(int num, Dimension dimension)
-        {
-            Dimensions[num] = dimension;
-        }
-
-        public override Dimension Load()
+        public static void Load(Point location)
         {
             if (Counter.Max == 0)
-                return null;
-
-            CurrentLoadedDimension = Counter.Current;
-            return Dimensions[Counter.Current];
-        }
-        
-        public override void Save(Dimension dimension)
-        {
-            if (Counter.Max == 0)
-            {
-                AddDimension(dimension);
                 return;
-            }
+            Counter.AddNew();
 
-
-            if (CurrentLoadedDimension == -1)
-                return;
-
-            UpdateDimension(CurrentLoadedDimension, dimension);
+            SingleEntryFactory.GetEntry("SomeEntry", location)
+                .LoadDimensionNet(DimensionRegisterExample.ExampleName, Counter.Current.ToString());
         }
     }
 }
