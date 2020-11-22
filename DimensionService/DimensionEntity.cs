@@ -1,5 +1,4 @@
 ﻿using DimensionKeeper.DimensionService.Configuration;
-using DimensionKeeper.DimensionService.InternalClasses;
 using Microsoft.Xna.Framework;
 
 namespace DimensionKeeper.DimensionService

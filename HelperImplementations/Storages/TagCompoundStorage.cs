@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using DimensionKeeper.DimensionService;
 using DimensionKeeper.DimensionService.Configuration;
 using Terraria.ModLoader.IO;
 

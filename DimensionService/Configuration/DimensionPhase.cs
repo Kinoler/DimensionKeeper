@@ -1,5 +1,4 @@
 ﻿using System;
-using DimensionKeeper.DimensionService.InternalClasses;
 using DimensionKeeper.Interfaces;
 
 namespace DimensionKeeper.DimensionService.Configuration

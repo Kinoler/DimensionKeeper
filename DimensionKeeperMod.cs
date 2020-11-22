@@ -1,17 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using DimensionKeeper.DimensionExample;
 using DimensionKeeper.DimensionService;
 using DimensionKeeper.EyeDropperUI;
 using DimensionKeeper.PacketHandlers;
 using DimensionKeeper.TagSerializers;
 using DimensionKeeper.TagSerializers.Vanilla;
-using log4net;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
@@ -39,9 +32,6 @@ namespace DimensionKeeper
             TagSerializer.AddSerializer(new PointTagSerializer());
             TagSerializer.AddSerializer(new SingleEntryDimensionTagSerializer());
             TagSerializer.AddSerializer(new TileArrayTagSerializer());
-
-            //TODO Move it to another project
-            DimensionRegister.SetupDimensionTypesRegister<DimensionRegisterExample>();
         }
 
         public override void Unload()

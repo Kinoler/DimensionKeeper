@@ -1,6 +1,5 @@
 ﻿using DimensionKeeper.DimensionService;
 using DimensionKeeper.DimensionService.Configuration;
-using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace DimensionKeeper.HelperImplementations.Phases

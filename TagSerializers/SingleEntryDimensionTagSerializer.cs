@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DimensionKeeper.DimensionService;
+﻿using DimensionKeeper.DimensionService;
 using DimensionKeeper.DimensionService.InternalClasses;
 using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.ModLoader.IO;
 
 namespace DimensionKeeper.TagSerializers

@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using DimensionKeeper.DimensionService;
 using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
 
 namespace DimensionKeeper.Interfaces.Internal
 {

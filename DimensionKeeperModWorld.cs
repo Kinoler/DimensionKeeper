@@ -1,5 +1,4 @@
-﻿using DimensionKeeper.DimensionExample;
-using DimensionKeeper.DimensionService;
+﻿using DimensionKeeper.DimensionService;
 using DimensionKeeper.DimensionService.InternalClasses;
 using DimensionKeeper.HelperImplementations.Storages;
 using Terraria.ModLoader;
@@ -12,11 +11,9 @@ namespace DimensionKeeper
         private const string DimensionListTagName = "DimensionList";
         private const string SingleEntriesTagName = "SingleEntries";
 
-        //TODO Move it to another project
         public override void Initialize()
         {
             SingleEntryFactory.Instance = null;
-            DimensionStorageExample.Initialize();
         }
 
         public override void Load(TagCompound tag)

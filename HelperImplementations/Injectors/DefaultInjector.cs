@@ -1,5 +1,4 @@
-﻿using DimensionKeeper.DimensionService;
-using DimensionKeeper.DimensionService.Configuration;
+﻿using DimensionKeeper.DimensionService.Configuration;
 using DimensionKeeper.HelperImplementations.Phases;
 
 namespace DimensionKeeper.HelperImplementations.Injectors

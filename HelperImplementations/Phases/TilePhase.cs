@@ -1,7 +1,6 @@
 ﻿using DimensionKeeper.DimensionService;
 using DimensionKeeper.DimensionService.Configuration;
 using Terraria;
-using Terraria.ObjectData;
 
 namespace DimensionKeeper.HelperImplementations.Phases
 {

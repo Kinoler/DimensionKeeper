@@ -1,13 +1,9 @@
 ﻿using System;
-using System.IO;
-using DimensionKeeper.DimensionExample;
 using DimensionKeeper.DimensionService.InternalClasses;
 using DimensionKeeper.PacketHandlers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace DimensionKeeper.DimensionService
 {
