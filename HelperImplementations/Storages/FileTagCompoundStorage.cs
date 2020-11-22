@@ -4,7 +4,7 @@ using Terraria.ModLoader.IO;
 
 namespace DimensionKeeper.HelperImplementations.Storages
 {
-    public class ResourceManagerStorage<TDimension>: DimensionStorage<TDimension> where TDimension : Dimension, new()
+    public class FileTagCompoundStorage<TDimension>: DimensionStorage<TDimension> where TDimension : Dimension, new()
     {
         private string FileResourcePath => Path.Combine(ResourceFolderName, ResourceFileName);
 
