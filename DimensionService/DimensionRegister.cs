@@ -6,10 +6,16 @@ using DimensionKeeper.Interfaces.Internal;
 
 namespace DimensionKeeper.DimensionService
 {
+    /// <summary>
+    /// The dimension types registrar.
+    /// </summary>
     public class DimensionRegister
     {
         private static DimensionRegister _instance;
 
+        /// <summary>
+        /// The instance of class.
+        /// </summary>
         public static DimensionRegister Instance
         {
             get => _instance ?? (_instance = new DimensionRegister());
@@ -24,7 +30,7 @@ namespace DimensionKeeper.DimensionService
 
         /// <summary>
         /// Registers the open generic type which register the dimension types.
-        /// You can call the <see cref="Register{TDimensionInjector,TDataParser,TDimension}(string)"/> method directly through the Instance but it looks better in the IDimensionRegister.
+        /// You can call the <see cref="Register{TDimensionInjector,TDimensionStorage,TDimension}(string)"/> method directly through the Instance but it looks better in the IDimensionRegister.
         /// </summary>
         /// <typeparam name="TDimensionRegister">The class which inherit from <see cref="IDimensionRegister"/>.</typeparam>
         public static void SetupDimensionTypesRegister<TDimensionRegister>()
@@ -35,7 +41,7 @@ namespace DimensionKeeper.DimensionService
 
         /// <summary>
         /// Register the class which register the dimension types.
-        /// You can call the <see cref="Register{TDimensionInjector,TDataParser,TDimension}(string)"/> method directly through the Instance but it looks better in the IDimensionRegister.
+        /// You can call the <see cref="Register{TDimensionInjector,TDimensionStorage,TDimension}(string)"/> method directly through the Instance but it looks better in the IDimensionRegister.
         /// </summary>
         /// <param name="register">The instance of class which inherit from <see cref="IDimensionRegister"/>.</param>
         public static void SetupDimensionTypesRegister(IDimensionRegister register)
@@ -43,40 +49,72 @@ namespace DimensionKeeper.DimensionService
             register.Register(Instance);
         }
 
-        public void Register<TDimensionInjector, TDataParser, TDimension>(string type)
+        /// <summary>
+        /// Register a new dimension type.
+        /// </summary>
+        /// <typeparam name="TDimensionInjector">The class of dimension injector.</typeparam>
+        /// <typeparam name="TDimensionStorage">The class of dimension storage.</typeparam>
+        /// <typeparam name="TDimension">The dimension class.</typeparam>
+        /// <param name="type">The name of dimension type.</param>
+        public void Register<TDimensionInjector, TDimensionStorage, TDimension>(string type)
             where TDimension: Dimension, new()
-            where TDataParser: DimensionStorage<TDimension>, new()
+            where TDimensionStorage: DimensionStorage<TDimension>, new()
             where TDimensionInjector: DimensionInjector<TDimension>, new()
         {
-            var storage = new TDataParser();
+            var storage = new TDimensionStorage();
             var injector = new TDimensionInjector();
 
-            Register<TDimensionInjector, TDataParser, TDimension>(type, injector, storage);
+            Register<TDimensionInjector, TDimensionStorage, TDimension>(type, injector, storage);
         }
 
-        public void Register<TDimensionInjector, TDataParser, TDimension>(string type, TDataParser storage)
+        /// <summary>
+        /// Register a new dimension type.
+        /// </summary>
+        /// <typeparam name="TDimensionInjector">The class of dimension injector.</typeparam>
+        /// <typeparam name="TDimensionStorage">The class of dimension storage.</typeparam>
+        /// <typeparam name="TDimension">The dimension class.</typeparam>
+        /// <param name="type">The name of dimension type.</param>
+        /// <param name="storage">The instance of storage.</param>
+        public void Register<TDimensionInjector, TDimensionStorage, TDimension>(string type, TDimensionStorage storage)
             where TDimension : Dimension, new()
-            where TDataParser : DimensionStorage<TDimension>
+            where TDimensionStorage : DimensionStorage<TDimension>
             where TDimensionInjector : DimensionInjector<TDimension>, new()
         {
             var injector = new TDimensionInjector();
 
-            Register<TDimensionInjector, TDataParser, TDimension>(type, injector, storage);
+            Register<TDimensionInjector, TDimensionStorage, TDimension>(type, injector, storage);
         }
 
-        public void Register<TDimensionInjector, TDataParser, TDimension>(string type, TDimensionInjector injector)
+        /// <summary>
+        /// Register a new dimension type.
+        /// </summary>
+        /// <typeparam name="TDimensionInjector">The class of dimension injector.</typeparam>
+        /// <typeparam name="TDimensionStorage">The class of dimension storage.</typeparam>
+        /// <typeparam name="TDimension">The dimension class.</typeparam>
+        /// <param name="type">The name of dimension type.</param>
+        /// <param name="injector">The instance of injector.</param>
+        public void Register<TDimensionInjector, TDimensionStorage, TDimension>(string type, TDimensionInjector injector)
             where TDimension : Dimension, new()
-            where TDataParser : DimensionStorage<TDimension>, new()
+            where TDimensionStorage : DimensionStorage<TDimension>, new()
             where TDimensionInjector : DimensionInjector<TDimension>
         {
-            var storage = new TDataParser();
+            var storage = new TDimensionStorage();
 
-            Register<TDimensionInjector, TDataParser, TDimension>(type, injector, storage);
+            Register<TDimensionInjector, TDimensionStorage, TDimension>(type, injector, storage);
         }
 
-        public void Register<TDimensionInjector, TDataParser, TDimension>(string type, TDimensionInjector injector, TDataParser storage)
+        /// <summary>
+        /// Register a new dimension type.
+        /// </summary>
+        /// <typeparam name="TDimensionInjector">The class of dimension injector.</typeparam>
+        /// <typeparam name="TDimensionStorage">The class of dimension storage.</typeparam>
+        /// <typeparam name="TDimension">The dimension class.</typeparam>
+        /// <param name="type">The name of dimension type.</param>
+        /// <param name="injector">The instance of injector.</param>
+        /// <param name="storage">The instance of storage.</param>
+        public void Register<TDimensionInjector, TDimensionStorage, TDimension>(string type, TDimensionInjector injector, TDimensionStorage storage)
             where TDimension : Dimension, new()
-            where TDataParser : DimensionStorage<TDimension>
+            where TDimensionStorage : DimensionStorage<TDimension>
             where TDimensionInjector : DimensionInjector<TDimension>
         {
             if (injector == null)
@@ -96,14 +134,14 @@ namespace DimensionKeeper.DimensionService
             return Stores.Keys;
         }
 
-        internal IDimensionStorage GetStorage(string name)
+        internal IDimensionStorage GetStorage(string type)
         {
-            return Stores[name];
+            return Stores[type];
         }
 
-        internal IDimensionInjector GetInjector(string name)
+        internal IDimensionInjector GetInjector(string type)
         {
-            return Injectors[name];
+            return Injectors[type];
         }
     }
 }

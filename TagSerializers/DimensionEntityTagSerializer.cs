@@ -21,6 +21,9 @@ namespace DimensionKeeper.TagSerializers
         {
             var type = tag.Get<string>("Type");
 
+            if (!DimensionRegister.Instance.Stores.ContainsKey(type))
+                return null;
+
             var entity = DimensionRegister.Instance.GetStorage(type).CreateEmptyEntity(Point.Zero, Point.Zero);
             entity.Id = tag.Get<string>(nameof(entity.Id));
             entity.Location = tag.Get<Point>(nameof(entity.Location));

@@ -3,6 +3,9 @@ using Terraria;
 
 namespace DimensionKeeper.EyeDropperUI
 {
+    /// <summary>
+    /// Allows you to handle the EyeDropper.
+    /// </summary>
     public class EyeDropperUpdater
     {
         private static EyeDropperUpdater _instance;

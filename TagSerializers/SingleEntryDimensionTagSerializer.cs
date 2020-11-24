@@ -30,6 +30,8 @@ namespace DimensionKeeper.TagSerializers
             entry.EntryName = tag.GetString(nameof(entry.EntryName));
             entry.CurrentEntity = tag.Get<DimensionEntity>(nameof(entry.CurrentEntity));
             entry.LocationToLoad = tag.Get<Point>(nameof(entry.LocationToLoad));
+            if (entry.CurrentEntity == null)
+                return null;
 
             return entry;
         }

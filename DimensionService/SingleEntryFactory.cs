@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace DimensionKeeper.DimensionService
 {
+    /// <summary>
+    /// The SingleEntryDimension's factory
+    /// </summary>
     public sealed class SingleEntryFactory
     {
         #region Instance
@@ -20,16 +23,34 @@ namespace DimensionKeeper.DimensionService
 
         #region Static overloads
 
+        /// <summary>
+        /// Gets the entry. If the entry does not exists it will be created.
+        /// </summary>
+        /// <param name="entryName">The entry name.</param>
+        /// <param name="locationToLoad">Allow you to specify tile location. You can also to set it later from an instance.</param>
+        /// <returns>The entry</returns>
         public static SingleEntryDimension GetEntry(string entryName, Point locationToLoad = default)
         {
             return Instance.GetEntryInternal(entryName, locationToLoad);
         }
 
+        /// <summary>
+        /// Remove the entry by name.
+        /// </summary>
+        /// <param name="entryName">The entry name</param>
         public static void RemoveEntry(string entryName)
         {
             Instance.RemoveEntryInternal(entryName);
         }
 
+        /// <summary>
+        /// Creates a new entry. It is might useful for very specific cases.
+        /// </summary>
+        /// <param name="type">The type. Be sure that the type was registered.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="location">The tile location.</param>
+        /// <param name="entryName">The entry name.</param>
+        /// <returns></returns>
         public static SingleEntryDimension CreateNewEntry(
             string type,
             Point size,
@@ -47,6 +68,28 @@ namespace DimensionKeeper.DimensionService
 
         internal Dictionary<string, SingleEntryDimension> SingleEntryDimensions { get; set; } =
             new Dictionary<string, SingleEntryDimension>();
+
+        internal void Load()
+        {
+            foreach (var entryDimension in SingleEntryDimensions)
+            {
+                try
+                {
+                    var entity = entryDimension.Value?.CurrentEntity;
+                    if (entity == null)
+                        continue;
+
+                    entity.DimensionInternal = DimensionRegister.Instance
+                        .GetStorage(entity.Type)
+                        .LoadInternal(entity.Id)
+                        .DimensionInternal;
+                }
+                catch (Exception e)
+                {
+                    DimensionKeeperMod.LogMessage($"{nameof(Load)} throw an error {e}");
+                }
+            }
+        }
 
         private SingleEntryDimension GetEntryInternal(string entryName, Point locationToLoad = default)
         {

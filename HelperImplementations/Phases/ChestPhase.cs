@@ -6,6 +6,9 @@ using Terraria;
 
 namespace DimensionKeeper.HelperImplementations.Phases
 {
+    /// <summary>
+    /// Handles the chests.
+    /// </summary>
     public class ChestPhase: DimensionPhase<Dimension>
     {
         public override void ExecuteLoadPhase(DimensionEntity<Dimension> entity)

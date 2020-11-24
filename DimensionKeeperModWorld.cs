@@ -1,4 +1,6 @@
-﻿using DimensionKeeper.DimensionService;
+﻿using System;
+using System.Xml;
+using DimensionKeeper.DimensionService;
 using DimensionKeeper.DimensionService.InternalClasses;
 using DimensionKeeper.HelperImplementations.Storages;
 using Terraria.ModLoader;
@@ -20,6 +22,8 @@ namespace DimensionKeeper
         {
             SingleEntryFactory.Instance = tag.Get<SingleEntryFactory>(SingleEntriesTagName);
             LoadTagCompoundStorage(tag.GetCompound(DimensionListTagName));
+
+            SingleEntryFactory.Instance.Load();
         }
 
         public override TagCompound Save()

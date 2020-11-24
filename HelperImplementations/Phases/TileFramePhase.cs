@@ -4,6 +4,9 @@ using Terraria;
 
 namespace DimensionKeeper.HelperImplementations.Phases
 {
+    /// <summary>
+    /// Just frame the all dimension tiles and walls.
+    /// </summary>
     public class TileFramePhase: DimensionPhase<Dimension>
     {
         public override void ExecuteLoadPhase(DimensionEntity<Dimension> entity)

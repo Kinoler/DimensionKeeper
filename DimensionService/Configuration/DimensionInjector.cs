@@ -11,12 +11,15 @@ namespace DimensionKeeper.DimensionService.Configuration
     /// <typeparam name="TDimension">The specific <see cref="Dimension"/>.</typeparam>
     public abstract class DimensionInjector<TDimension>: IDimensionInjector where TDimension : Dimension
     {
+        /// <summary>
+        /// Current registered phases. Be careful it does not reload after <see cref="RegisterPhases"/>.
+        /// </summary>
         public List<IDimensionPhase> Phases { get; } = new List<IDimensionPhase>();
 
         #region Add phase overloads
 
         /// <summary>
-        /// Adds the a phase. Create a new instance for <see cref="TPhase"/>.
+        /// Adds the a phase. Creates a new instance for <see cref="TPhase"/>.
         /// </summary>
         /// <typeparam name="TPhase">The phase.</typeparam>
         public void AddPhase<TPhase>(Func<TDimension, bool> condition = null)
@@ -26,7 +29,7 @@ namespace DimensionKeeper.DimensionService.Configuration
         }
 
         /// <summary>
-        /// Adds the a phase. Create a new instance for <see cref="TPhase"/>.
+        /// Adds the a phase. Create a new instance for <see cref="TPhase"/>. Allow you to specify phase dimension.
         /// </summary>
         /// <typeparam name="TPhase">The phase.</typeparam>
         /// <typeparam name="TSpecifyDimension">The open generic type for the <see cref="TPhase"/> type.</typeparam>

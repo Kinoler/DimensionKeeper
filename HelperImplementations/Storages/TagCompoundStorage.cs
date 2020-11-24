@@ -1,17 +1,20 @@
 ﻿using System.IO;
 using DimensionKeeper.DimensionService.Configuration;
+using DimensionKeeper.Interfaces;
 using Terraria.ModLoader.IO;
 
 namespace DimensionKeeper.HelperImplementations.Storages
 {
-    internal interface ITagCompoundStorage
-    {
-        TagCompound SavedDimensionsTag { get; set; }
-    }
-
+    /// <summary>
+    /// Allow you to store the dimensions in the world tag compound.
+    /// </summary>
+    /// <typeparam name="TDimension">The dimension class. Be sure that it have a tag serializer.</typeparam>
     public abstract class TagCompoundStorage<TDimension>: DimensionStorage<TDimension>, ITagCompoundStorage 
         where TDimension : Dimension, new()
     {
+        /// <summary>
+        /// The tag compound.
+        /// </summary>
         public TagCompound SavedDimensionsTag { get; set; }
 
         /// <summary>
@@ -48,7 +51,7 @@ namespace DimensionKeeper.HelperImplementations.Storages
         }
 
         /// <summary>
-        /// Called whenever dimension is loading provided that the world Tag Compound does not contain the dimension associated with the name.
+        /// Called whenever dimension is loading provided that the world tag compound does not contain the dimension associated with the name.
         /// This used to initialize dimension in the first time.
         /// </summary>
         /// <returns>A new dimension</returns>

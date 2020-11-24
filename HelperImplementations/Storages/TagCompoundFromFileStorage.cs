@@ -4,6 +4,10 @@ using Terraria.ModLoader.IO;
 
 namespace DimensionKeeper.HelperImplementations.Storages
 {
+    /// <summary>
+    /// Allows you to gets the dimension from the file.
+    /// </summary>
+    /// <typeparam name="TDimension">The dimension class. Be sure that it have a tag serializer.</typeparam>
     public class TagCompoundFromFileStorage<TDimension> : TagCompoundStorage<TDimension> 
         where TDimension : Dimension, new()
     {
@@ -15,11 +19,13 @@ namespace DimensionKeeper.HelperImplementations.Storages
         public override TDimension InitializeTag()
         {
             var tagCompound = TagIO.FromFile(FileResourcePath);
-            var tag = TagIO.Deserialize<TDimension>(tagCompound);
-            tag.Chests = null;
-            tag = TagIO.Deserialize<TDimension>(tagCompound);
 
-            return tag;
+            SavedDimensionsTag = SavedDimensionsTag ?? new TagCompound();
+            SavedDimensionsTag.Add(Id, tagCompound);
+
+            var dimension = TagIO.Deserialize<TDimension>(tagCompound);
+
+            return dimension;
         }
     }
 }

@@ -3,21 +3,46 @@ using Microsoft.Xna.Framework;
 
 namespace DimensionKeeper.DimensionService
 {
+
+    /// <summary>
+    /// Represents the dimension which will be or already loaded into the world.
+    /// </summary>
     public abstract class DimensionEntity
     {
+        /// <summary>
+        /// The dimension type.
+        /// </summary>
         public string Type { get; internal set; }
+
+        /// <summary>
+        /// The dimension id.
+        /// </summary>
         public string Id { get; internal set; }
 
         /// <summary>
-        /// Points to the left up corner.
+        /// The tile location. Points to the left up corner of dimension.
         /// </summary>
         public Point Location { get; internal set; }
+
+        /// <summary>
+        /// The size of dimension.
+        /// </summary>
         public Point Size { get; internal set; }
 
         public int Width => Size.X;
         public int Height => Size.Y;
 
-        internal void CopyFrom(DimensionEntity otherEntity)
+        /// <summary>
+        /// Gets the dimension.
+        /// </summary>
+        /// <typeparam name="TDimension">The class of dimension.</typeparam>
+        /// <returns>The dimension.</returns>
+        public TDimension GetDimension<TDimension>() where TDimension : Dimension
+        {
+            return DimensionInternal as TDimension;
+        }
+
+        public void CopyFrom(DimensionEntity otherEntity)
         {
             DimensionInternal = otherEntity.DimensionInternal;
             Location = otherEntity.Location;
@@ -39,6 +64,9 @@ namespace DimensionKeeper.DimensionService
     /// </summary>
     public sealed class DimensionEntity<TDimension>: DimensionEntity where TDimension: Dimension
     {
+        /// <summary>
+        /// The dimension.
+        /// </summary>
         public TDimension Dimension { get; internal set; }
 
         internal override Dimension DimensionInternal
