@@ -57,7 +57,7 @@ namespace DimensionKeeper.DimensionService
         /// <typeparam name="TDimension">The dimension class.</typeparam>
         /// <param name="type">The name of dimension type.</param>
         public void Register<TDimensionInjector, TDimensionStorage, TDimension>(string type)
-            where TDimension: Dimension, new()
+            where TDimension: class, IDimension, new()
             where TDimensionStorage: DimensionStorage<TDimension>, new()
             where TDimensionInjector: DimensionInjector<TDimension>, new()
         {
@@ -76,7 +76,7 @@ namespace DimensionKeeper.DimensionService
         /// <param name="type">The name of dimension type.</param>
         /// <param name="storage">The instance of storage.</param>
         public void Register<TDimensionInjector, TDimensionStorage, TDimension>(string type, TDimensionStorage storage)
-            where TDimension : Dimension, new()
+            where TDimension : class, IDimension, new()
             where TDimensionStorage : DimensionStorage<TDimension>
             where TDimensionInjector : DimensionInjector<TDimension>, new()
         {
@@ -94,7 +94,7 @@ namespace DimensionKeeper.DimensionService
         /// <param name="type">The name of dimension type.</param>
         /// <param name="injector">The instance of injector.</param>
         public void Register<TDimensionInjector, TDimensionStorage, TDimension>(string type, TDimensionInjector injector)
-            where TDimension : Dimension, new()
+            where TDimension : class, IDimension, new()
             where TDimensionStorage : DimensionStorage<TDimension>, new()
             where TDimensionInjector : DimensionInjector<TDimension>
         {
@@ -113,7 +113,7 @@ namespace DimensionKeeper.DimensionService
         /// <param name="injector">The instance of injector.</param>
         /// <param name="storage">The instance of storage.</param>
         public void Register<TDimensionInjector, TDimensionStorage, TDimension>(string type, TDimensionInjector injector, TDimensionStorage storage)
-            where TDimension : Dimension, new()
+            where TDimension : class, IDimension, new()
             where TDimensionStorage : DimensionStorage<TDimension>
             where TDimensionInjector : DimensionInjector<TDimension>
         {

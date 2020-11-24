@@ -1,8 +1,9 @@
-﻿using Terraria;
+﻿using DimensionKeeper.Interfaces;
+using Terraria;
 
 namespace DimensionKeeper.DimensionService.Configuration
 {
-    public class Dimension
+    public class Dimension: IDimension
     {
         public Tile[,] Tiles { get; set; } = new Tile[0, 0];
         public Chest[] Chests { get; set; } = new Chest[0];

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using DimensionKeeper.DimensionService.Configuration;
+using DimensionKeeper.Interfaces;
 using Terraria.ModLoader.IO;
 
 namespace DimensionKeeper.HelperImplementations.Storages
@@ -8,7 +9,8 @@ namespace DimensionKeeper.HelperImplementations.Storages
     /// Allow you to store the tag compound in the file. (Load and save it)
     /// </summary>
     /// <typeparam name="TDimension">The dimension class. Be sure that it have a tag serializer.</typeparam>
-    public class FileTagCompoundStorage<TDimension>: DimensionStorage<TDimension> where TDimension : Dimension, new()
+    public class FileTagCompoundStorage<TDimension>: DimensionStorage<TDimension> 
+        where TDimension : class, IDimension, new()
     {
         private string FileResourcePath => Path.Combine(ResourceFolderName, ResourceFileName);
 

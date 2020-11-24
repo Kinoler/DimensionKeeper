@@ -1,4 +1,5 @@
 ﻿using DimensionKeeper.DimensionService.Configuration;
+using DimensionKeeper.Interfaces;
 using Microsoft.Xna.Framework;
 
 namespace DimensionKeeper.DimensionService
@@ -37,7 +38,7 @@ namespace DimensionKeeper.DimensionService
         /// </summary>
         /// <typeparam name="TDimension">The class of dimension.</typeparam>
         /// <returns>The dimension.</returns>
-        public TDimension GetDimension<TDimension>() where TDimension : Dimension
+        public TDimension GetDimension<TDimension>() where TDimension : class, IDimension
         {
             return DimensionInternal as TDimension;
         }
@@ -51,7 +52,7 @@ namespace DimensionKeeper.DimensionService
             Size = otherEntity.Size;
         }
 
-        internal abstract Dimension DimensionInternal { get; set; }
+        internal abstract IDimension DimensionInternal { get; set; }
 
         public override string ToString()
         {
@@ -62,14 +63,15 @@ namespace DimensionKeeper.DimensionService
     /// <summary>
     /// Represents the dimension which will be or already loaded into the world.
     /// </summary>
-    public sealed class DimensionEntity<TDimension>: DimensionEntity where TDimension: Dimension
+    public sealed class DimensionEntity<TDimension>: DimensionEntity 
+        where TDimension: IDimension
     {
         /// <summary>
         /// The dimension.
         /// </summary>
         public TDimension Dimension { get; internal set; }
 
-        internal override Dimension DimensionInternal
+        internal override IDimension DimensionInternal
         {
             get => Dimension;
             set => Dimension = (TDimension)value;

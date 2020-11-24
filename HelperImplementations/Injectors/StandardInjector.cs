@@ -1,5 +1,6 @@
 ﻿using DimensionKeeper.DimensionService.Configuration;
 using DimensionKeeper.HelperImplementations.Phases;
+using DimensionKeeper.Interfaces;
 
 namespace DimensionKeeper.HelperImplementations.Injectors
 {

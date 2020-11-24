@@ -10,7 +10,7 @@ namespace DimensionKeeper.HelperImplementations.Storages
     /// </summary>
     /// <typeparam name="TDimension">The dimension class. Be sure that it have a tag serializer.</typeparam>
     public abstract class TagCompoundStorage<TDimension>: DimensionStorage<TDimension>, ITagCompoundStorage 
-        where TDimension : Dimension, new()
+        where TDimension : class, IDimension, new()
     {
         /// <summary>
         /// The tag compound.

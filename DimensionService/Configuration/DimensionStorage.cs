@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using DimensionKeeper.Interfaces;
 using DimensionKeeper.Interfaces.Internal;
 using Microsoft.Xna.Framework;
 
@@ -8,7 +9,8 @@ namespace DimensionKeeper.DimensionService.Configuration
     /// The class that allows you to handle storage of dimensions.
     /// </summary>
     /// <typeparam name="TDimension">The dimension type that should be storing.</typeparam>
-    public abstract class DimensionStorage<TDimension>: IDimensionStorage where TDimension: Dimension, new()
+    public abstract class DimensionStorage<TDimension>: IDimensionStorage 
+        where TDimension: class, IDimension, new()
     {        
         /// <summary>
         /// The type with which storage was registered.
@@ -72,12 +74,12 @@ namespace DimensionKeeper.DimensionService.Configuration
             {
                 Type = Type,
                 Id = Id,
-                Dimension = Load() ?? new TDimension(),
+                Dimension = Load() ?? new TDimension()
             };
 
             entity.Size = new Point(
-                entity.Dimension.Tiles?.GetLength(0) ?? 0, 
-                entity.Dimension.Tiles?.GetLength(1) ?? 0);
+                entity.Dimension.Width, 
+                entity.Dimension.Height);
 
             return entity;
         }

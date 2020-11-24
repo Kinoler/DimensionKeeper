@@ -8,8 +8,9 @@ namespace DimensionKeeper.DimensionService.Configuration
     /// <summary>
     /// Represents the phase container for the specific dimension.
     /// </summary>
-    /// <typeparam name="TDimension">The specific <see cref="Dimension"/>.</typeparam>
-    public abstract class DimensionInjector<TDimension>: IDimensionInjector where TDimension : Dimension
+    /// <typeparam name="TDimension">The specific <see cref="IDimension"/>.</typeparam>
+    public abstract class DimensionInjector<TDimension>: IDimensionInjector 
+        where TDimension : IDimension
     {
         /// <summary>
         /// Current registered phases. Be careful it does not reload after <see cref="RegisterPhases"/>.
@@ -34,7 +35,7 @@ namespace DimensionKeeper.DimensionService.Configuration
         /// <typeparam name="TPhase">The phase.</typeparam>
         /// <typeparam name="TSpecifyDimension">The open generic type for the <see cref="TPhase"/> type.</typeparam>
         public void AddPhase<TPhase, TSpecifyDimension>(Func<TSpecifyDimension, bool> condition = null)
-            where TSpecifyDimension : Dimension
+            where TSpecifyDimension : IDimension
             where TPhase : DimensionPhase<TSpecifyDimension>, new()
         {
             AddPhase<TPhase, TSpecifyDimension>(new TPhase(), condition);
@@ -48,7 +49,7 @@ namespace DimensionKeeper.DimensionService.Configuration
         /// <param name="instance">The instance of phase</param>
         /// <param name="condition">Allow you execute the phase by condition.</param>
         public void AddPhase<TPhase, TSpecifyDimension>(TPhase instance, Func<TSpecifyDimension, bool> condition = null)
-            where TSpecifyDimension : Dimension
+            where TSpecifyDimension : IDimension
             where TPhase : DimensionPhase<TSpecifyDimension>
         {
             if (instance == null)

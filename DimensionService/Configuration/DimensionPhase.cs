@@ -6,8 +6,9 @@ namespace DimensionKeeper.DimensionService.Configuration
     /// <summary>
     /// The class that allow you to handle inject process.
     /// </summary>
-    /// <typeparam name="TDimension">The specific <see cref="Dimension"/>.</typeparam>
-    public class DimensionPhase<TDimension>: IDimensionPhase where TDimension: Dimension
+    /// <typeparam name="TDimension">The specific <see cref="IDimension"/>.</typeparam>
+    public class DimensionPhase<TDimension>: IDimensionPhase 
+        where TDimension: IDimension
     {
         internal Func<TDimension, bool> Condition { get; set; }
 

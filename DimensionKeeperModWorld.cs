@@ -3,6 +3,7 @@ using System.Xml;
 using DimensionKeeper.DimensionService;
 using DimensionKeeper.DimensionService.InternalClasses;
 using DimensionKeeper.HelperImplementations.Storages;
+using DimensionKeeper.Interfaces;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
