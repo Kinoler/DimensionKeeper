@@ -12,21 +12,14 @@ namespace DimensionKeeper.HelperImplementations.Storages
     public class TagCompoundFromFileStorage<TDimension> : TagCompoundStorage<TDimension> 
         where TDimension : class, IDimension, new()
     {
-        private string FileResourcePath => Path.Combine(ResourceFolderName, ResourceFileName);
+        public string FileResourcePath => Path.Combine(ResourceFolderName, ResourceFileName);
 
         public virtual string ResourceFolderName => "Resources";
         public virtual string ResourceFileName => $"{Type}-{Id}";
 
-        public override TDimension InitializeTag()
+        public override TagCompound GetTagCompound()
         {
-            var tagCompound = TagIO.FromFile(FileResourcePath);
-
-            SavedDimensionsTag = SavedDimensionsTag ?? new TagCompound();
-            SavedDimensionsTag.Add(Id, tagCompound);
-
-            var dimension = TagIO.Deserialize<TDimension>(tagCompound);
-
-            return dimension;
+            return TagIO.FromFile(FileResourcePath);
         }
     }
 }

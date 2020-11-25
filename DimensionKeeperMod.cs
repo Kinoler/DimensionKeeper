@@ -20,6 +20,9 @@ namespace DimensionKeeper
             ModContent.GetInstance<DimensionKeeperMod>().Logger.InfoFormat(msg);
         }
 
+        /// <summary>
+        /// Enable eye dropper which allows you create a dimensions from world. Be careful and use it only in developing mod.
+        /// </summary>
         public bool EnableEyeDropper { get; set; } = false;
 
         public override void Load()
@@ -59,7 +62,7 @@ namespace DimensionKeeper
                     PlayerJoinPacketHandler.Instance.HandlePacket(reader, whoAmI);
                     break;
                 default:
-					Logger.WarnFormat("ExampleMod: Unknown Message type: {0}", msgType);
+					Logger.WarnFormat("DimensionKeeper: Unknown Message type: {0}", msgType);
 					break;
 			}
 		}
