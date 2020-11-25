@@ -79,10 +79,7 @@ namespace DimensionKeeper.DimensionService
                     if (entity == null)
                         continue;
 
-                    entity.DimensionInternal = DimensionRegister.Instance
-                        .GetStorage(entity.Type)
-                        .LoadInternal(entity.Id)
-                        .DimensionInternal;
+                    entryDimension.Value.LoadDimensionNet(entity.Type, entity.Id, false);
                 }
                 catch (Exception e)
                 {

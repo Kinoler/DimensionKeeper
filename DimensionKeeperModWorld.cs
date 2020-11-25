@@ -25,24 +25,12 @@ namespace DimensionKeeper
             LoadTagCompoundStorage(tag.GetCompound(DimensionListTagName));
 
             SingleEntryFactory.Instance.Load();
-
-            foreach (var entry in SingleEntryFactory.Instance.SingleEntryDimensions)
-            {
-                var entity = entry.Value.CurrentEntity;
-                entry.Value.CurrentEntity = null;
-
-                entry.Value.LoadDimension(entity.Type, entity.Id);
-            }
         }
 
         public override TagCompound Save()
         {
             foreach (var entry in SingleEntryFactory.Instance.SingleEntryDimensions)
-            {
-                var entity = entry.Value.CurrentEntity;
-                entry.Value.ClearDimension();
-                entry.Value.CurrentEntity = entity;
-            }
+                entry.Value.SynchronizeDimensionNet();
 
             return new TagCompound
             {
