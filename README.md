@@ -1,6 +1,7 @@
 # DimensionKeeper
 
 To load your location you need to override the classes located in the DimensionService/Configuration folder.
+
 All public code has documentation. Below is some general helpful info.
 
 #### Dimension 
@@ -19,8 +20,11 @@ All public code has documentation. Below is some general helpful info.
 ```C#
   DimensionRegister.Instance.Register<StandardInjector<Dimension>, TagCompoundFromFileStorage<Dimension>, Dimension>("TypeName");
 ```
-- Has an helpful the IDimensionRegister interface which allow you to structure the addition of types. Use the DimensionRegister.SetupDimensionTypesRegister<IDimensionRegisterImplementation>() method in the Load method of your mod.
-
+- There is helpful the IDimensionRegister interface which allow you to structure the addition of types. Use the DimensionRegister.SetupDimensionTypesRegister<IDimensionRegisterImplementation>() method in the Load method of your mod.
+```C#
+  DimensionRegister.SetupDimensionTypesRegister<IDimensionRegisterImplementation>();
+```
+  
 #### SingleEntryFactory 
 - Allows you to get the named SingleEntryDimension. Use GetEntry method:
 ```C#
