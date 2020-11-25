@@ -25,10 +25,25 @@ namespace DimensionKeeper
             LoadTagCompoundStorage(tag.GetCompound(DimensionListTagName));
 
             SingleEntryFactory.Instance.Load();
+
+            foreach (var entry in SingleEntryFactory.Instance.SingleEntryDimensions)
+            {
+                var entity = entry.Value.CurrentEntity;
+                entry.Value.CurrentEntity = null;
+
+                entry.Value.LoadDimension(entity.Type, entity.Id);
+            }
         }
 
         public override TagCompound Save()
         {
+            foreach (var entry in SingleEntryFactory.Instance.SingleEntryDimensions)
+            {
+                var entity = entry.Value.CurrentEntity;
+                entry.Value.ClearDimension();
+                entry.Value.CurrentEntity = entity;
+            }
+
             return new TagCompound
             {
                 {DimensionListTagName, SaveTagCompoundStorage()},
@@ -40,7 +55,9 @@ namespace DimensionKeeper
         {
             var dimensionsTag = new TagCompound();
             foreach (var storage in DimensionHelpers.RegisteredDimension.Stores)
+            {
                 dimensionsTag.Add(storage.Key, (storage.Value as ITagCompoundStorage)?.SavedDimensionsTag);
+            }
 
             return dimensionsTag;
         }

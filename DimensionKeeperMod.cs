@@ -17,7 +17,7 @@ namespace DimensionKeeper
 
         public static void LogMessage(string msg)
         {
-            ModContent.GetInstance<DimensionKeeperMod>().Logger.InfoFormat(msg);
+            ModContent.GetInstance<DimensionKeeperMod>().Logger.Info(msg);
         }
 
         /// <summary>
@@ -31,6 +31,7 @@ namespace DimensionKeeper
 
             TagSerializer.AddSerializer(new ChestTagSerializer());
             TagSerializer.AddSerializer(new TileTagSerializer());
+            TagSerializer.AddSerializer(new NPCTagSerializer());
             TagSerializer.AddSerializer(new DimensionEntityTagSerializer());
             TagSerializer.AddSerializer(new SingleEntryFactoryTagSerializer());
             TagSerializer.AddSerializer(new DimensionTagSerializer());

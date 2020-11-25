@@ -15,6 +15,7 @@ namespace DimensionKeeper.HelperImplementations.Injectors
         {
             AddPhase<TilePhase, Dimension>();
             AddPhase<ChestPhase, Dimension>();
+            AddPhase<NPCPhase, Dimension>();
 
             AddPhase<TileFramePhase, Dimension>();
         }

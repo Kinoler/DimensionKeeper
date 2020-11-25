@@ -10,10 +10,10 @@ using Terraria.ModLoader.IO;
 
 namespace DimensionKeeper.HelperImplementations.Storages
 {
-    public class TagCompoundFromModStorage<TDimension> : TagCompoundFromFileStorage<TDimension>
+    public abstract class TagCompoundFromModStorage<TDimension> : TagCompoundFromFileStorage<TDimension>
         where TDimension : class, IDimension, new()
     {
-        public virtual Mod Mod => ModContent.GetInstance<DimensionKeeperMod>();
+        public abstract Mod Mod { get; } //ModContent.GetInstance<DimensionKeeperMod>();
 
         public override TagCompound GetTagCompound()
         {

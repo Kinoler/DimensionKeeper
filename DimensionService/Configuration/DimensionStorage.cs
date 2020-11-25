@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using DimensionKeeper.Interfaces;
 using DimensionKeeper.Interfaces.Internal;
 using Microsoft.Xna.Framework;
@@ -74,8 +75,16 @@ namespace DimensionKeeper.DimensionService.Configuration
             {
                 Type = Type,
                 Id = Id,
-                Dimension = Load() ?? new TDimension()
             };
+
+            try
+            {
+                entity.Dimension = Load() ?? new TDimension();
+            }
+            catch (Exception e)
+            {
+                entity.Dimension = new TDimension();
+            }
 
             entity.Size = new Point(
                 entity.Dimension.Width, 
